@@ -1,0 +1,18 @@
+---
+layout: default
+lang: ja
+title: 日本語記事
+---
+<h1 class="page-title">日本語記事</h1>
+
+<ul class="post-list">
+  {% assign posts = site.posts | sort: 'date' | reverse %}
+  {% for post in posts %}
+    {% if post.lang == 'ja' %}
+    <li>
+      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+      <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+    </li>
+    {% endif %}
+  {% endfor %}
+</ul>

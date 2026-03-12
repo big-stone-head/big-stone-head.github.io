@@ -1,0 +1,14 @@
+---
+layout: default
+---
+<h1 class="page-title">最新文章 / 最新記事</h1>
+
+<ul class="post-list">
+  {% assign posts = site.posts | sort: 'date' | reverse %}
+  {% for post in posts limit:20 %}
+  <li>
+    <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+    <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+  </li>
+  {% endfor %}
+</ul>

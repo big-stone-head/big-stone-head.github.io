@@ -1,0 +1,22 @@
+title: big-stone-head
+description: 思考与记录
+url: "https://big-stone-head.github.io"
+baseurl: ""
+
+author: big-stone-head
+
+# 构建配置
+markdown: kramdown
+highlighter: rouge
+permalink: /:year/:month/:day/:title/
+
+# 排除文件
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+
+# 插件
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
