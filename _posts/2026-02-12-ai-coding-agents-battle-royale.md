@@ -7,8 +7,6 @@ lang_pair: "/2026/02/12/ai-coding-agents-battle-royale-ja/"
 ---
 ## 正文
 
-> **[Image Generation Prompt]**
-> Three distinct AI robot characters standing in a martial arts arena facing each other, one is young and fast (blue), one is scholarly with books (green), one is wise and experienced (purple), dramatic lighting, Chinese wuxia style mixed with futuristic tech aesthetics, geometric minimalist digital art, dark background with glowing accents, epic composition, cinematic wide angle
 
 ### 引言：一次计划外的"武林大会"
 
@@ -30,8 +28,6 @@ lang_pair: "/2026/02/12/ai-coding-agents-battle-royale-ja/"
 
 ---
 
-> **[Image Generation Prompt]**
-> A glowing Next.js logo surrounded by tangled memory leak visualization, with red warning signals and browser tabs crashing, dark tech background, code fragments floating in space, dramatic blue-red color contrast, digital glitch art style, clean geometric composition
 
 ### 第一回合：一个内存泄漏引发的"三国演义"
 
@@ -101,43 +97,44 @@ Kimi是那种开会时第一个举手发言、但老板一说"我觉得不太对
 
 Codex是那种不爱说话、但一旦开口就拿出一叠数据支撑、谁来都不好使的资深分析师。
 
-> **[HTML Image]**
-> <div style="max-width: 900px; margin: 0 auto; padding: 0; font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;">
->   <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.4);">
->     <div style="padding: 32px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">
->       <div style="font-size: 28px; font-weight: 800; color: #fff; letter-spacing: 2px;">交叉验证名场面</div>
->       <div style="font-size: 16px; color: rgba(255,255,255,0.6); margin-top: 8px;">"这是另一位大师的结论，你觉得怎么样？"</div>
->     </div>
->     <div style="display: flex; gap: 0;">
->       <div style="flex: 1; padding: 32px; border-right: 1px solid rgba(255,255,255,0.1);">
->         <div style="text-align: center; margin-bottom: 20px;">
->           <div style="display: inline-block; width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #00d2ff, #3a7bd5); line-height: 64px; font-size: 28px;">K</div>
->         </div>
->         <div style="font-size: 22px; font-weight: 700; color: #00d2ff; text-align: center; margin-bottom: 16px;">Kimi 选手</div>
->         <div style="background: rgba(0,210,255,0.1); border-radius: 12px; padding: 20px; margin-bottom: 16px;">
->           <div style="font-size: 15px; color: rgba(255,255,255,0.9); line-height: 1.8;">收到 Codex 的结论后：</div>
->           <div style="font-size: 20px; font-weight: 700; color: #00d2ff; margin-top: 12px; line-height: 1.4;">"他说的对！我重新分析了一下，确实是数据层的问题。"</div>
->         </div>
->         <div style="text-align: center; padding: 12px; background: rgba(255,107,107,0.15); border-radius: 8px;">
->           <span style="font-size: 14px; color: #ff6b6b; font-weight: 600;">秒速倒戈</span>
->         </div>
->       </div>
->       <div style="flex: 1; padding: 32px;">
->         <div style="text-align: center; margin-bottom: 20px;">
->           <div style="display: inline-block; width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #11998e, #38ef7d); line-height: 64px; font-size: 28px;">C</div>
->         </div>
->         <div style="font-size: 22px; font-weight: 700; color: #38ef7d; text-align: center; margin-bottom: 16px;">Codex 选手</div>
->         <div style="background: rgba(56,239,125,0.1); border-radius: 12px; padding: 20px; margin-bottom: 16px;">
->           <div style="font-size: 15px; color: rgba(255,255,255,0.9); line-height: 1.8;">收到 Kimi 的结论后：</div>
->           <div style="font-size: 20px; font-weight: 700; color: #38ef7d; margin-top: 12px; line-height: 1.4;">"他说的不对。基于全面阅读，我坚持我的结论。"</div>
->         </div>
->         <div style="text-align: center; padding: 12px; background: rgba(56,239,125,0.15); border-radius: 8px;">
->           <span style="font-size: 14px; color: #38ef7d; font-weight: 600;">寸步不让</span>
->         </div>
->       </div>
->     </div>
->   </div>
-> </div>
+<div class="html-image">
+<div style="max-width: 900px; margin: 0 auto; padding: 0; font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;">
+  <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.4);">
+    <div style="padding: 32px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">
+      <div style="font-size: 28px; font-weight: 800; color: #fff; letter-spacing: 2px;">交叉验证名场面</div>
+      <div style="font-size: 16px; color: rgba(255,255,255,0.6); margin-top: 8px;">"这是另一位大师的结论，你觉得怎么样？"</div>
+    </div>
+    <div style="display: flex; gap: 0;">
+      <div style="flex: 1; padding: 32px; border-right: 1px solid rgba(255,255,255,0.1);">
+        <div style="text-align: center; margin-bottom: 20px;">
+          <div style="display: inline-block; width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #00d2ff, #3a7bd5); line-height: 64px; font-size: 28px;">K</div>
+        </div>
+        <div style="font-size: 22px; font-weight: 700; color: #00d2ff; text-align: center; margin-bottom: 16px;">Kimi 选手</div>
+        <div style="background: rgba(0,210,255,0.1); border-radius: 12px; padding: 20px; margin-bottom: 16px;">
+          <div style="font-size: 15px; color: rgba(255,255,255,0.9); line-height: 1.8;">收到 Codex 的结论后：</div>
+          <div style="font-size: 20px; font-weight: 700; color: #00d2ff; margin-top: 12px; line-height: 1.4;">"他说的对！我重新分析了一下，确实是数据层的问题。"</div>
+        </div>
+        <div style="text-align: center; padding: 12px; background: rgba(255,107,107,0.15); border-radius: 8px;">
+          <span style="font-size: 14px; color: #ff6b6b; font-weight: 600;">秒速倒戈</span>
+        </div>
+      </div>
+      <div style="flex: 1; padding: 32px;">
+        <div style="text-align: center; margin-bottom: 20px;">
+          <div style="display: inline-block; width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #11998e, #38ef7d); line-height: 64px; font-size: 28px;">C</div>
+        </div>
+        <div style="font-size: 22px; font-weight: 700; color: #38ef7d; text-align: center; margin-bottom: 16px;">Codex 选手</div>
+        <div style="background: rgba(56,239,125,0.1); border-radius: 12px; padding: 20px; margin-bottom: 16px;">
+          <div style="font-size: 15px; color: rgba(255,255,255,0.9); line-height: 1.8;">收到 Kimi 的结论后：</div>
+          <div style="font-size: 20px; font-weight: 700; color: #38ef7d; margin-top: 12px; line-height: 1.4;">"他说的不对。基于全面阅读，我坚持我的结论。"</div>
+        </div>
+        <div style="text-align: center; padding: 12px; background: rgba(56,239,125,0.15); border-radius: 8px;">
+          <span style="font-size: 14px; color: #38ef7d; font-weight: 600;">寸步不让</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 
 **Claude师傅登场：老江湖的探案之道**
 
@@ -191,63 +188,64 @@ Claude结合这个新信息和之前积累的大量日志证据，很快精准�
 
 **Claude**——虽然也没有一步到位解决问题（谁能呢？），但全程的"工作方法"让我最为欣赏。它不急着下结论，而是不断寻找新的证据、提出新的假设、设计验证方案。从换Turbopack到加debug log，每一步都有明确的目的。这种"探案式思维"，是真正解决复杂问题的正确姿势。
 
-> **[HTML Image]**
-> <div style="max-width: 900px; margin: 0 auto; font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;">
->   <div style="background: linear-gradient(135deg, #0c0c1d 0%, #1a1a3e 100%); border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.4);">
->     <div style="padding: 28px 32px; text-align: center; background: linear-gradient(90deg, rgba(102,126,234,0.3), rgba(118,75,162,0.3));">
->       <div style="font-size: 26px; font-weight: 800; color: #fff;">第一回合复盘：三种性格 × 三种结局</div>
->     </div>
->     <div style="padding: 0 32px 32px;">
->       <div style="display: flex; gap: 16px; margin-top: 24px;">
->         <div style="flex: 1; background: rgba(0,210,255,0.08); border: 1px solid rgba(0,210,255,0.2); border-radius: 16px; padding: 24px;">
->           <div style="font-size: 36px; text-align: center; margin-bottom: 8px;">&#x26A1;</div>
->           <div style="font-size: 20px; font-weight: 700; color: #00d2ff; text-align: center; margin-bottom: 4px;">Kimi</div>
->           <div style="font-size: 13px; color: rgba(255,255,255,0.5); text-align: center; margin-bottom: 16px;">天才少年</div>
->           <div style="font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.8;">
->             <div style="margin-bottom: 8px;"><span style="color: #38ef7d;">&#x2714;</span> 诊断速度极快</div>
->             <div style="margin-bottom: 8px;"><span style="color: #38ef7d;">&#x2714;</span> 能快速锁定嫌疑文件</div>
->             <div style="margin-bottom: 8px;"><span style="color: #ff6b6b;">&#x2718;</span> 推理完就下结论</div>
->             <div><span style="color: #ff6b6b;">&#x2718;</span> 立场不坚定，易倒戈</div>
->           </div>
->           <div style="margin-top: 16px; padding: 12px; background: rgba(0,210,255,0.1); border-radius: 8px; text-align: center;">
->             <div style="font-size: 13px; color: rgba(255,255,255,0.6);">适合场景</div>
->             <div style="font-size: 15px; color: #00d2ff; font-weight: 600; margin-top: 4px;">方案明确的快速执行</div>
->           </div>
->         </div>
->         <div style="flex: 1; background: rgba(56,239,125,0.08); border: 1px solid rgba(56,239,125,0.2); border-radius: 16px; padding: 24px;">
->           <div style="font-size: 36px; text-align: center; margin-bottom: 8px;">&#x1F4DA;</div>
->           <div style="font-size: 20px; font-weight: 700; color: #38ef7d; text-align: center; margin-bottom: 4px;">Codex</div>
->           <div style="font-size: 13px; color: rgba(255,255,255,0.5); text-align: center; margin-bottom: 16px;">学院派教授</div>
->           <div style="font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.8;">
->             <div style="margin-bottom: 8px;"><span style="color: #38ef7d;">&#x2714;</span> 全量阅读代码</div>
->             <div style="margin-bottom: 8px;"><span style="color: #38ef7d;">&#x2714;</span> 立场坚定不动摇</div>
->             <div style="margin-bottom: 8px;"><span style="color: #ff6b6b;">&#x2718;</span> 耗时过长（20min+）</div>
->             <div><span style="color: #ff6b6b;">&#x2718;</span> 方向错则全盘皆输</div>
->           </div>
->           <div style="margin-top: 16px; padding: 12px; background: rgba(56,239,125,0.1); border-radius: 8px; text-align: center;">
->             <div style="font-size: 13px; color: rgba(255,255,255,0.6);">适合场景</div>
->             <div style="font-size: 15px; color: #38ef7d; font-weight: 600; margin-top: 4px;">代码审计与批判审查</div>
->           </div>
->         </div>
->         <div style="flex: 1; background: rgba(168,130,255,0.08); border: 1px solid rgba(168,130,255,0.2); border-radius: 16px; padding: 24px;">
->           <div style="font-size: 36px; text-align: center; margin-bottom: 8px;">&#x1F50D;</div>
->           <div style="font-size: 20px; font-weight: 700; color: #a882ff; text-align: center; margin-bottom: 4px;">Claude</div>
->           <div style="font-size: 13px; color: rgba(255,255,255,0.5); text-align: center; margin-bottom: 16px;">老刑警探案</div>
->           <div style="font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.8;">
->             <div style="margin-bottom: 8px;"><span style="color: #38ef7d;">&#x2714;</span> 逐步排查收集证据</div>
->             <div style="margin-bottom: 8px;"><span style="color: #38ef7d;">&#x2714;</span> 假设-验证-迭代</div>
->             <div style="margin-bottom: 8px;"><span style="color: #ff6b6b;">&#x2718;</span> 无法一步到位</div>
->             <div><span style="color: #ff6b6b;">&#x2718;</span> 依赖充分的信息输入</div>
->           </div>
->           <div style="margin-top: 16px; padding: 12px; background: rgba(168,130,255,0.1); border-radius: 8px; text-align: center;">
->             <div style="font-size: 13px; color: rgba(255,255,255,0.6);">适合场景</div>
->             <div style="font-size: 15px; color: #a882ff; font-weight: 600; margin-top: 4px;">复杂问题的系统诊断</div>
->           </div>
->         </div>
->       </div>
->     </div>
->   </div>
-> </div>
+<div class="html-image">
+<div style="max-width: 900px; margin: 0 auto; font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;">
+  <div style="background: linear-gradient(135deg, #0c0c1d 0%, #1a1a3e 100%); border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.4);">
+    <div style="padding: 28px 32px; text-align: center; background: linear-gradient(90deg, rgba(102,126,234,0.3), rgba(118,75,162,0.3));">
+      <div style="font-size: 26px; font-weight: 800; color: #fff;">第一回合复盘：三种性格 × 三种结局</div>
+    </div>
+    <div style="padding: 0 32px 32px;">
+      <div style="display: flex; gap: 16px; margin-top: 24px;">
+        <div style="flex: 1; background: rgba(0,210,255,0.08); border: 1px solid rgba(0,210,255,0.2); border-radius: 16px; padding: 24px;">
+          <div style="font-size: 36px; text-align: center; margin-bottom: 8px;">&#x26A1;</div>
+          <div style="font-size: 20px; font-weight: 700; color: #00d2ff; text-align: center; margin-bottom: 4px;">Kimi</div>
+          <div style="font-size: 13px; color: rgba(255,255,255,0.5); text-align: center; margin-bottom: 16px;">天才少年</div>
+          <div style="font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.8;">
+            <div style="margin-bottom: 8px;"><span style="color: #38ef7d;">&#x2714;</span> 诊断速度极快</div>
+            <div style="margin-bottom: 8px;"><span style="color: #38ef7d;">&#x2714;</span> 能快速锁定嫌疑文件</div>
+            <div style="margin-bottom: 8px;"><span style="color: #ff6b6b;">&#x2718;</span> 推理完就下结论</div>
+            <div><span style="color: #ff6b6b;">&#x2718;</span> 立场不坚定，易倒戈</div>
+          </div>
+          <div style="margin-top: 16px; padding: 12px; background: rgba(0,210,255,0.1); border-radius: 8px; text-align: center;">
+            <div style="font-size: 13px; color: rgba(255,255,255,0.6);">适合场景</div>
+            <div style="font-size: 15px; color: #00d2ff; font-weight: 600; margin-top: 4px;">方案明确的快速执行</div>
+          </div>
+        </div>
+        <div style="flex: 1; background: rgba(56,239,125,0.08); border: 1px solid rgba(56,239,125,0.2); border-radius: 16px; padding: 24px;">
+          <div style="font-size: 36px; text-align: center; margin-bottom: 8px;">&#x1F4DA;</div>
+          <div style="font-size: 20px; font-weight: 700; color: #38ef7d; text-align: center; margin-bottom: 4px;">Codex</div>
+          <div style="font-size: 13px; color: rgba(255,255,255,0.5); text-align: center; margin-bottom: 16px;">学院派教授</div>
+          <div style="font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.8;">
+            <div style="margin-bottom: 8px;"><span style="color: #38ef7d;">&#x2714;</span> 全量阅读代码</div>
+            <div style="margin-bottom: 8px;"><span style="color: #38ef7d;">&#x2714;</span> 立场坚定不动摇</div>
+            <div style="margin-bottom: 8px;"><span style="color: #ff6b6b;">&#x2718;</span> 耗时过长（20min+）</div>
+            <div><span style="color: #ff6b6b;">&#x2718;</span> 方向错则全盘皆输</div>
+          </div>
+          <div style="margin-top: 16px; padding: 12px; background: rgba(56,239,125,0.1); border-radius: 8px; text-align: center;">
+            <div style="font-size: 13px; color: rgba(255,255,255,0.6);">适合场景</div>
+            <div style="font-size: 15px; color: #38ef7d; font-weight: 600; margin-top: 4px;">代码审计与批判审查</div>
+          </div>
+        </div>
+        <div style="flex: 1; background: rgba(168,130,255,0.08); border: 1px solid rgba(168,130,255,0.2); border-radius: 16px; padding: 24px;">
+          <div style="font-size: 36px; text-align: center; margin-bottom: 8px;">&#x1F50D;</div>
+          <div style="font-size: 20px; font-weight: 700; color: #a882ff; text-align: center; margin-bottom: 4px;">Claude</div>
+          <div style="font-size: 13px; color: rgba(255,255,255,0.5); text-align: center; margin-bottom: 16px;">老刑警探案</div>
+          <div style="font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.8;">
+            <div style="margin-bottom: 8px;"><span style="color: #38ef7d;">&#x2714;</span> 逐步排查收集证据</div>
+            <div style="margin-bottom: 8px;"><span style="color: #38ef7d;">&#x2714;</span> 假设-验证-迭代</div>
+            <div style="margin-bottom: 8px;"><span style="color: #ff6b6b;">&#x2718;</span> 无法一步到位</div>
+            <div><span style="color: #ff6b6b;">&#x2718;</span> 依赖充分的信息输入</div>
+          </div>
+          <div style="margin-top: 16px; padding: 12px; background: rgba(168,130,255,0.1); border-radius: 8px; text-align: center;">
+            <div style="font-size: 13px; color: rgba(255,255,255,0.6);">适合场景</div>
+            <div style="font-size: 15px; color: #a882ff; font-weight: 600; margin-top: 4px;">复杂问题的系统诊断</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 
 ---
 
@@ -313,23 +311,6 @@ Kimi的反应——毫不意外——"说的太对了！这份调研非常全面
 
 最后，我把Kimi更新后的方案和Claude最终产出的技术方案放在一起比较——两者竟然高度一致。
 
-> **[Mermaid Diagram]**
-> graph LR
->     subgraph Round2["第二回合：方案设计"]
->         A["需求描述<br/>PPT生成系统"] --> B["Kimi"]
->         A --> C["Claude"]
->         B --> D["快速出<br/>技术方案 v1"]
->         C --> E["深度行业<br/>调研报告"]
->         E -->|"元芳你怎么看"| B
->         B --> F["技术方案 v2<br/>（丰满版）"]
->         E --> G["明确需求后<br/>技术方案"]
->         F --> H{{"最终对比<br/>高度一致"}}
->         G --> H
->     end
->     style A fill:#667eea,stroke:#764ba2,color:#fff
->     style B fill:#00d2ff,stroke:#0099cc,color:#fff
->     style C fill:#a882ff,stroke:#7c5cbf,color:#fff
->     style H fill:#f093fb,stroke:#e066cc,color:#fff
 
 **第二回合复盘：互补的力量**
 
@@ -361,57 +342,58 @@ Gemini最突出的能力在三个方面：一是带有创意色彩的文案工�
 
 以下是我目前的"人员安排"：
 
-> **[HTML Image]**
-> <div style="max-width: 900px; margin: 0 auto; font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;">
->   <div style="background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%); border-radius: 24px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,0.5);">
->     <div style="padding: 36px 40px 20px; text-align: center;">
->       <div style="font-size: 30px; font-weight: 900; color: #fff; letter-spacing: 4px;">AI 梦之队阵容</div>
->       <div style="font-size: 15px; color: rgba(255,255,255,0.5); margin-top: 8px;">把合适的 AI 放在合适的位置</div>
->     </div>
->     <div style="display: flex; flex-wrap: wrap; gap: 16px; padding: 20px 32px 36px;">
->       <div style="flex: 1; min-width: 180px; background: linear-gradient(180deg, rgba(255,183,77,0.15), rgba(255,183,77,0.05)); border: 1px solid rgba(255,183,77,0.3); border-radius: 16px; padding: 24px 20px;">
->         <div style="font-size: 32px; text-align: center; margin-bottom: 8px;">&#x1F3A8;</div>
->         <div style="font-size: 18px; font-weight: 700; color: #ffb74d; text-align: center;">Gemini</div>
->         <div style="font-size: 12px; color: rgba(255,255,255,0.5); text-align: center; margin-bottom: 12px;">创意总监 / 调研专家</div>
->         <div style="font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.7;">
->           &#x2022; 创意文案<br/>
->           &#x2022; 多模态设计<br/>
->           &#x2022; Google Deep Research
->         </div>
->       </div>
->       <div style="flex: 1; min-width: 180px; background: linear-gradient(180deg, rgba(56,239,125,0.15), rgba(56,239,125,0.05)); border: 1px solid rgba(56,239,125,0.3); border-radius: 16px; padding: 24px 20px;">
->         <div style="font-size: 32px; text-align: center; margin-bottom: 8px;">&#x1F50E;</div>
->         <div style="font-size: 18px; font-weight: 700; color: #38ef7d; text-align: center;">Codex</div>
->         <div style="font-size: 12px; color: rgba(255,255,255,0.5); text-align: center; margin-bottom: 12px;">代码审计官 / 质量控制</div>
->         <div style="font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.7;">
->           &#x2022; 全局代码理解<br/>
->           &#x2022; 测试与质量审查<br/>
->           &#x2022; 方案批判性审查
->         </div>
->       </div>
->       <div style="flex: 1; min-width: 180px; background: linear-gradient(180deg, rgba(0,210,255,0.15), rgba(0,210,255,0.05)); border: 1px solid rgba(0,210,255,0.3); border-radius: 16px; padding: 24px 20px;">
->         <div style="font-size: 32px; text-align: center; margin-bottom: 8px;">&#x1F3C3;</div>
->         <div style="font-size: 18px; font-weight: 700; color: #00d2ff; text-align: center;">Kimi</div>
->         <div style="font-size: 12px; color: rgba(255,255,255,0.5); text-align: center; margin-bottom: 12px;">快速执行者</div>
->         <div style="font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.7;">
->           &#x2022; 需求明确的快速开发<br/>
->           &#x2022; 低复杂度日常编码<br/>
->           &#x2022; 成本友好
->         </div>
->       </div>
->       <div style="flex: 1; min-width: 180px; background: linear-gradient(180deg, rgba(168,130,255,0.15), rgba(168,130,255,0.05)); border: 1px solid rgba(168,130,255,0.3); border-radius: 16px; padding: 24px 20px;">
->         <div style="font-size: 32px; text-align: center; margin-bottom: 8px;">&#x1F451;</div>
->         <div style="font-size: 18px; font-weight: 700; color: #a882ff; text-align: center;">Claude</div>
->         <div style="font-size: 12px; color: rgba(255,255,255,0.5); text-align: center; margin-bottom: 12px;">首席架构师 / 技术总监</div>
->         <div style="font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.7;">
->           &#x2022; 方案设计与架构<br/>
->           &#x2022; 复杂问题诊断<br/>
->           &#x2022; 重构期核心工作
->         </div>
->       </div>
->     </div>
->   </div>
-> </div>
+<div class="html-image">
+<div style="max-width: 900px; margin: 0 auto; font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;">
+  <div style="background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%); border-radius: 24px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,0.5);">
+    <div style="padding: 36px 40px 20px; text-align: center;">
+      <div style="font-size: 30px; font-weight: 900; color: #fff; letter-spacing: 4px;">AI 梦之队阵容</div>
+      <div style="font-size: 15px; color: rgba(255,255,255,0.5); margin-top: 8px;">把合适的 AI 放在合适的位置</div>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 16px; padding: 20px 32px 36px;">
+      <div style="flex: 1; min-width: 180px; background: linear-gradient(180deg, rgba(255,183,77,0.15), rgba(255,183,77,0.05)); border: 1px solid rgba(255,183,77,0.3); border-radius: 16px; padding: 24px 20px;">
+        <div style="font-size: 32px; text-align: center; margin-bottom: 8px;">&#x1F3A8;</div>
+        <div style="font-size: 18px; font-weight: 700; color: #ffb74d; text-align: center;">Gemini</div>
+        <div style="font-size: 12px; color: rgba(255,255,255,0.5); text-align: center; margin-bottom: 12px;">创意总监 / 调研专家</div>
+        <div style="font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.7;">
+          &#x2022; 创意文案<br/>
+          &#x2022; 多模态设计<br/>
+          &#x2022; Google Deep Research
+        </div>
+      </div>
+      <div style="flex: 1; min-width: 180px; background: linear-gradient(180deg, rgba(56,239,125,0.15), rgba(56,239,125,0.05)); border: 1px solid rgba(56,239,125,0.3); border-radius: 16px; padding: 24px 20px;">
+        <div style="font-size: 32px; text-align: center; margin-bottom: 8px;">&#x1F50E;</div>
+        <div style="font-size: 18px; font-weight: 700; color: #38ef7d; text-align: center;">Codex</div>
+        <div style="font-size: 12px; color: rgba(255,255,255,0.5); text-align: center; margin-bottom: 12px;">代码审计官 / 质量控制</div>
+        <div style="font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.7;">
+          &#x2022; 全局代码理解<br/>
+          &#x2022; 测试与质量审查<br/>
+          &#x2022; 方案批判性审查
+        </div>
+      </div>
+      <div style="flex: 1; min-width: 180px; background: linear-gradient(180deg, rgba(0,210,255,0.15), rgba(0,210,255,0.05)); border: 1px solid rgba(0,210,255,0.3); border-radius: 16px; padding: 24px 20px;">
+        <div style="font-size: 32px; text-align: center; margin-bottom: 8px;">&#x1F3C3;</div>
+        <div style="font-size: 18px; font-weight: 700; color: #00d2ff; text-align: center;">Kimi</div>
+        <div style="font-size: 12px; color: rgba(255,255,255,0.5); text-align: center; margin-bottom: 12px;">快速执行者</div>
+        <div style="font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.7;">
+          &#x2022; 需求明确的快速开发<br/>
+          &#x2022; 低复杂度日常编码<br/>
+          &#x2022; 成本友好
+        </div>
+      </div>
+      <div style="flex: 1; min-width: 180px; background: linear-gradient(180deg, rgba(168,130,255,0.15), rgba(168,130,255,0.05)); border: 1px solid rgba(168,130,255,0.3); border-radius: 16px; padding: 24px 20px;">
+        <div style="font-size: 32px; text-align: center; margin-bottom: 8px;">&#x1F451;</div>
+        <div style="font-size: 18px; font-weight: 700; color: #a882ff; text-align: center;">Claude</div>
+        <div style="font-size: 12px; color: rgba(255,255,255,0.5); text-align: center; margin-bottom: 12px;">首席架构师 / 技术总监</div>
+        <div style="font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.7;">
+          &#x2022; 方案设计与架构<br/>
+          &#x2022; 复杂问题诊断<br/>
+          &#x2022; 重构期核心工作
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 
 **Gemini——创意总监/调研专家**
 
@@ -505,18 +487,19 @@ Kimi的价格确实比Claude亲民得多，这是它的一大优势。但经过�
 
 **我们对AI的使用方式，正在从"选一个最好的"变成"组一个最合适的团队"。**
 
-> **[HTML Image]**
-> <div style="max-width: 900px; margin: 0 auto; font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;">
->   <div style="padding: 56px 48px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center;">
->     <div style="font-size: 48px; font-weight: 900; color: #ffffff; margin-bottom: 20px; text-shadow: 0 4px 12px rgba(0,0,0,0.3); letter-spacing: 6px; line-height: 1.3;">
->       没有最强的 AI<br/>只有最合适的团队
->     </div>
->     <div style="width: 60px; height: 3px; background: rgba(255,255,255,0.5); margin: 24px auto;"></div>
->     <div style="font-size: 20px; color: rgba(255,255,255,0.9); line-height: 1.8; font-weight: 300; max-width: 600px; margin: 0 auto;">
->       AI 不贵，贵的是你的时间<br/>和你做出正确决策的能力
->     </div>
->   </div>
-> </div>
+<div class="html-image">
+<div style="max-width: 900px; margin: 0 auto; font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;">
+  <div style="padding: 56px 48px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center;">
+    <div style="font-size: 48px; font-weight: 900; color: #ffffff; margin-bottom: 20px; text-shadow: 0 4px 12px rgba(0,0,0,0.3); letter-spacing: 6px; line-height: 1.3;">
+      没有最强的 AI<br/>只有最合适的团队
+    </div>
+    <div style="width: 60px; height: 3px; background: rgba(255,255,255,0.5); margin: 24px auto;"></div>
+    <div style="font-size: 20px; color: rgba(255,255,255,0.9); line-height: 1.8; font-weight: 300; max-width: 600px; margin: 0 auto;">
+      AI 不贵，贵的是你的时间<br/>和你做出正确决策的能力
+    </div>
+  </div>
+</div>
+</div>
 
 就像现实世界中没有完美的员工一样，AI世界里也没有完美的助手。每一个AI都有自己的长处和短板，关键在于你是否了解它们的特点，是否能把合适的任务交给合适的AI。
 
