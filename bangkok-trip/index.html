@@ -1,0 +1,1003 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>🌏 曼谷亲子行程 · 2026年4月</title>
+<script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
+<style>
+:root{--purple:#667eea;--ladprao:#6c5ce7;--khaoyai:#00b894;--peninsula:#e17055;--dark:#2d3436;--gray:#636e72;--light:#f5f6fa;--white:#fff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Hiragino Sans GB','Microsoft YaHei','Segoe UI',sans-serif;color:var(--dark);background:var(--light);line-height:1.7;font-size:14px}
+
+/* ── Header ── */
+.site-header{background:linear-gradient(135deg,#667eea 0%,#764ba2 50%,#e17055 100%);color:#fff;padding:14px 16px 12px;text-align:center;position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(0,0,0,.2)}
+.site-header h1{font-size:17px;font-weight:700;letter-spacing:.3px}
+.site-header p{font-size:12px;opacity:.88;margin-top:2px}
+
+/* ── Tab bar ── */
+.tab-bar{background:#fff;display:flex;overflow-x:auto;scrollbar-width:none;border-bottom:2px solid #eee;position:sticky;top:68px;z-index:199;box-shadow:0 1px 6px rgba(0,0,0,.06)}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab-btn{flex:none;padding:11px 16px;border:none;background:none;cursor:pointer;font-size:13px;color:var(--gray);white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s;font-weight:500;font-family:inherit}
+.tab-btn.active{color:var(--purple);border-bottom-color:var(--purple);font-weight:700}
+.tab-btn:hover:not(.active){color:var(--dark);background:#f8f8ff}
+
+/* ── Panels ── */
+.tab-panel{display:none;max-width:800px;margin:0 auto;padding:16px 14px 60px}
+.tab-panel.active{display:block}
+
+/* ── Overview hero cards ── */
+.hero-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 16px}
+@media(max-width:480px){.hero-cards{grid-template-columns:1fr}}
+.hero-card{background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.07);text-align:center}
+.hero-card .icon{font-size:24px;margin-bottom:4px}
+.hero-card .label{font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:.5px}
+.hero-card .val{font-size:14px;font-weight:700;color:var(--dark);margin-top:2px}
+
+/* ── Hotel cards ── */
+.hotel-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0 20px}
+@media(max-width:560px){.hotel-row{grid-template-columns:1fr}}
+.hcard{border-radius:12px;padding:14px;color:#fff;box-shadow:0 3px 10px rgba(0,0,0,.12)}
+.hcard.a{background:linear-gradient(135deg,#6c5ce7,#a29bfe)}
+.hcard.b{background:linear-gradient(135deg,#00b894,#55efc4)}
+.hcard.c{background:linear-gradient(135deg,#e17055,#fab1a0)}
+.hcard .dt{font-size:11px;opacity:.85}
+.hcard .nm{font-size:13px;font-weight:700;margin:4px 0 2px;line-height:1.3}
+.hcard .ar{font-size:11px;opacity:.9}
+
+/* ── Alert boxes ── */
+.alert{padding:11px 14px;border-radius:8px;margin:10px 0;font-size:13px;line-height:1.6}
+.alert-warn{background:#fff8e1;border-left:4px solid #f9ca24;color:#7d5e04}
+.alert-info{background:#e8f4fd;border-left:4px solid #3498db;color:#1a4f72}
+.alert-good{background:#e8f8f0;border-left:4px solid #27ae60;color:#1a5c38}
+
+/* ── Markdown rendering ── */
+.md h1{font-size:20px;font-weight:700;margin:22px 0 10px;padding-bottom:7px;border-bottom:2px solid var(--purple)}
+.md h2{font-size:16px;font-weight:700;color:var(--purple);margin:18px 0 8px;padding:8px 12px;background:linear-gradient(90deg,#f0efff,transparent);border-left:4px solid var(--purple);border-radius:0 4px 4px 0}
+.md h3{font-size:15px;font-weight:600;margin:14px 0 6px;color:var(--dark)}
+.md h4{font-size:14px;font-weight:600;margin:10px 0 4px;color:#444}
+.md p{margin:6px 0;font-size:14px;line-height:1.8}
+.md ul,.md ol{padding-left:18px;margin:6px 0}
+.md li{font-size:14px;margin:3px 0;line-height:1.7}
+.md strong{color:#222}
+.md a{color:var(--purple);text-decoration:none}
+.md a:hover{text-decoration:underline}
+.md blockquote{background:#fff8e1;border-left:4px solid #f9ca24;padding:9px 14px;margin:10px 0;border-radius:0 6px 6px 0;font-size:13px;color:#666}
+.md code{background:#f0f0f0;padding:1px 5px;border-radius:3px;font-family:monospace;font-size:12px}
+.md pre{background:#2d3436;color:#dfe6e9;padding:13px 16px;border-radius:8px;overflow-x:auto;margin:10px 0;font-size:12px;line-height:1.5}
+.md pre code{background:none;color:inherit;padding:0}
+.md hr{border:none;border-top:1px solid #eee;margin:18px 0}
+.md table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px;display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap}
+.md thead tr{background:var(--purple);color:#fff}
+.md th{padding:8px 12px;text-align:left;font-weight:600}
+.md td{padding:6px 12px;border-bottom:1px solid #eee;white-space:normal}
+.md tr:nth-child(even) td{background:#f8f8ff}
+.md input[type=checkbox]{margin-right:6px;cursor:pointer;width:14px;height:14px;vertical-align:middle}
+.md li.task-list-item{list-style:none;margin-left:-18px;padding-left:0}
+
+/* ── Section card ── */
+.sec-card{background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin:12px 0}
+.sec-card h3{font-size:15px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+
+/* ── Info table ── */
+.itbl{width:100%;border-collapse:collapse;font-size:13px;display:block;overflow-x:auto}
+.itbl th{background:var(--purple);color:#fff;padding:8px 12px;text-align:left;white-space:nowrap}
+.itbl td{padding:7px 12px;border-bottom:1px solid #eee;vertical-align:top}
+.itbl tr:nth-child(even) td{background:#f8f8ff}
+
+/* ── Tag chips ── */
+.tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;margin:1px}
+.tg{background:#e8f8f0;color:#27ae60;border:1px solid #a9dfbf}
+.tw{background:#fff3cd;color:#856404;border:1px solid #ffc107}
+.tr{background:#fdf2f2;color:#e74c3c;border:1px solid #f1948a}
+.tb{background:#e8f4fd;color:#2980b9;border:1px solid #85c1e9}
+
+/* ── Map ── */
+.map-wrap{border-radius:12px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.1);height:calc(100vh - 160px);min-height:400px;margin-top:8px}
+.map-wrap iframe{width:100%;height:100%;border:none}
+
+/* ── Section title ── */
+.stitle{font-size:17px;font-weight:700;padding-bottom:8px;border-bottom:2px solid var(--purple);margin:20px 0 12px;display:flex;align-items:center;gap:8px}
+
+/* ── Summary bar ── */
+.sum-bar{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
+.sum-item{background:#fff;border-radius:8px;padding:10px 12px;box-shadow:0 1px 4px rgba(0,0,0,.06);font-size:13px}
+.sum-item strong{display:block;font-size:11px;color:var(--gray);margin-bottom:2px}
+
+/* ── Michelin table ── */
+.mich-row-good{background:#e8f8f0!important}
+.mich-row-warn{background:#fff8e1!important}
+.mich-row-bad{background:#fdf2f2!important;opacity:.75}
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <h1>🌏 曼谷亲子行程</h1>
+  <p>2026年4月3–8日 · 大人2 + 5.5岁孩子 · 三大基地</p>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('itinerary',this)">📅 行程总览</button>
+  <button class="tab-btn" onclick="switchTab('handbook',this)">📚 备选手册</button>
+  <button class="tab-btn" onclick="switchTab('mapview',this)">🗺️ 互动地图</button>
+  <button class="tab-btn" onclick="switchTab('tips',this)">💡 出行必读</button>
+</div>
+
+<!-- ═══════════════════════════════════ TAB 1: ITINERARY ═══════════════════════════════════ -->
+<div id="itinerary" class="tab-panel active">
+  <div class="hero-cards" style="margin-top:4px">
+    <div class="hero-card"><div class="icon">👨‍👩‍👧</div><div class="label">旅行者</div><div class="val">大人2 + 5.5岁</div></div>
+    <div class="hero-card"><div class="icon">📅</div><div class="label">日期</div><div class="val">4月3–8日</div></div>
+    <div class="hero-card"><div class="icon">✈️</div><div class="label">航班</div><div class="val">CA979 国航</div></div>
+  </div>
+
+  <div class="hotel-row">
+    <div class="hcard a"><div class="dt">4/3–4/4</div><div class="nm">Centara Grand Ladprao</div><div class="ar">📍 北曼谷</div></div>
+    <div class="hcard b"><div class="dt">4/5–4/6</div><div class="nm">InterContinental Khao Yai</div><div class="ar">📍 考艾</div></div>
+    <div class="hcard c"><div class="dt">4/7–4/8</div><div class="nm">The Peninsula Bangkok</div><div class="ar">📍 河畔</div></div>
+  </div>
+
+  <div class="alert alert-warn">⚠️ <strong>重要提醒</strong>：TDAC 数字入境卡需在出发前3天内提交（最早 3月31日）。4月天气极热（35°C+），户外活动安排在早8–10点或傍晚5点后。</div>
+  <div class="alert alert-good">✅ <strong>米其林带娃可入</strong>：唯一确认可带5.5岁孩子的星级餐厅是 <strong>80/20（1星）</strong>，预约时务必告知孩子年龄。Peninsula 酒店内 <strong>Thiptara</strong>（米其林推荐）无年龄限制，最推荐。</div>
+  <div class="alert alert-info">ℹ️ <strong>Peninsula Spa</strong> 不接待16岁以下，SPA 需要去 ICONSIAM 周边的 Let's Relax Spa 替代，同时安排孩子去 MEGA HarborLand 室内乐园。</div>
+
+  <div id="itinerary-content" class="md"></div>
+</div>
+
+<!-- ═══════════════════════════════════ TAB 2: HANDBOOK ═══════════════════════════════════ -->
+<div id="handbook" class="tab-panel">
+  <div class="alert alert-info" style="margin-top:4px">📖 本手册为三区域（北曼谷/考艾/河畔）全部备选项目，含儿童友好标注、交通方式、价格和预约信息。</div>
+  <div id="handbook-content" class="md"></div>
+</div>
+
+<!-- ═══════════════════════════════════ TAB 3: MAP ═══════════════════════════════════ -->
+<div id="mapview" class="tab-panel" style="padding:8px 14px 20px">
+  <div class="alert alert-info" style="margin-top:4px;margin-bottom:8px">
+    🗺️ 点击地图标记查看详情。右上角图层控件可按类别筛选，右下角快速定位到各区域。
+  </div>
+  <div class="map-wrap">
+    <iframe src="map.html" title="曼谷行程地图" loading="lazy"></iframe>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ TAB 4: TIPS ═══════════════════════════════════ -->
+<div id="tips" class="tab-panel">
+
+  <div class="stitle">🚇 BTS / MRT 乘坐指南</div>
+
+  <div class="sec-card">
+    <h3>🎫 如何买票</h3>
+    <table class="itbl">
+      <thead><tr><th>交通</th><th>买票方式</th><th>票价</th></tr></thead>
+      <tbody>
+        <tr><td><strong>BTS 空铁</strong>（绿线）</td><td>站内触摸屏买代币，或 Rabbit Card 储值刷卡</td><td>17–65 铢/次</td></tr>
+        <tr><td><strong>MRT 蓝线</strong>（地铁）</td><td>站内机器买代币；或 MRT 储值卡</td><td>16–42 铢/次</td></tr>
+        <tr><td><strong>BTS 一日票</strong></td><td>服务窗口购买</td><td>约 140 铢</td></tr>
+        <tr><td><strong>MRT 一日票</strong></td><td>MRT 站内购买</td><td>120 铢</td></tr>
+      </tbody>
+    </table>
+    <div class="alert alert-warn" style="margin-top:8px">⚠️ <strong>Rabbit Card 和 MRT 卡不互通！</strong>Rabbit Card 用于 BTS 绿线；MRT 蓝线需要单独买票或办 MRT 卡。</div>
+  </div>
+
+  <div class="sec-card">
+    <h3>🗺️ 导航 App 推荐</h3>
+    <table class="itbl">
+      <thead><tr><th>App</th><th>推荐度</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Google Maps</strong></td><td><span class="tag tg">首选</span></td><td>泰国可正常用，BTS/MRT 路线规划准确，实时到站</td></tr>
+        <tr><td><strong>Grab</strong></td><td><span class="tag tg">必装</span></td><td>曼谷版滴滴，价格透明，打车首选</td></tr>
+        <tr><td><strong>高德地图</strong></td><td><span class="tag tw">有限</span></td><td>曼谷地铁数据弱，只适合步行/驾车导航</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:8px;font-size:13px;color:#666">💡 泰国<strong>不封 Google/YouTube/Instagram</strong>，无需 VPN，到泰国反而是"解锁"体验。</p>
+  </div>
+
+  <div class="stitle">💳 支付与换汇</div>
+
+  <div class="sec-card">
+    <h3>📱 移动支付覆盖（2025年10月已打通跨境扫码）</h3>
+    <table class="itbl">
+      <thead><tr><th>支付方式</th><th>覆盖场所</th><th>推荐度</th></tr></thead>
+      <tbody>
+        <tr><td><strong>支付宝</strong></td><td>7-Eleven（98%门店）、大商场、BigC、Boots</td><td><span class="tag tg">最广</span></td></tr>
+        <tr><td><strong>微信支付</strong></td><td>Central 商场、King Power 免税、部分餐厅</td><td><span class="tag tg">较广</span></td></tr>
+        <tr><td><strong>以上均不覆盖</strong></td><td colspan="2">街边摊、夜市小摊、寺庙门票、公共交通</td></tr>
+        <tr><td><strong>银联卡</strong></td><td>大型商场刷卡；ATM 取现（每次200铢手续费）</td><td><span class="tag tw">可用</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec-card">
+    <h3>💰 换汇建议（优先级顺序）</h3>
+    <ol style="padding-left:18px;font-size:13px;line-height:2">
+      <li><strong>支付宝直接付款</strong> — 最省事，汇率不差</li>
+      <li><strong>SuperRich 兑换所（绿标）</strong> — 汇率最优，BTS 沿线商场有分布，带人民币现金去换</li>
+      <li><strong>机场兑换台</strong> — 汇率最差，只在落地时换 500–1000 铢应急</li>
+      <li><strong>ATM 银联取现</strong> — 每次多付 200 铢手续费，不划算</li>
+    </ol>
+    <div class="alert alert-warn" style="margin-top:8px">⚠️ ATM 或 POS 机问"用人民币还是泰铢结算"时，<strong>务必选泰铢（THB）</strong>，否则汇率极差！</div>
+  </div>
+
+  <div class="sum-bar">
+    <div class="sum-item"><strong>现金建议</strong>每天备 500–1000 铢，应对夜市/交通/小摊</div>
+    <div class="sum-item"><strong>主要用现金场景</strong>夜市、街边摊、按摩小店、快船</div>
+  </div>
+
+  <div class="stitle">📱 手机通信 / 上网</div>
+
+  <div class="sec-card">
+    <h3>SIM 卡 vs 漫游</h3>
+    <table class="itbl">
+      <thead><tr><th>方案</th><th>费用</th><th>推荐度</th></tr></thead>
+      <tbody>
+        <tr><td><strong>AIS 本地 SIM</strong><br><small>机场柜台购买，带护照</small></td><td>299 铢/7天<br>（≈60元，15GB高速）</td><td><span class="tag tg">最推荐</span></td></tr>
+        <tr><td><strong>eSIM</strong>（Airalo/Holafly）<br><small>出发前网购，落地激活</small></td><td>¥40–80/7天<br>纯数据，无本地号码</td><td><span class="tag tg">推荐</span></td></tr>
+        <tr><td><strong>国内漫游日租</strong><br><small>移动/联通/电信</small></td><td>约 25–30元/天<br>6天约 ¥150–180</td><td><span class="tag tw">短期可用</span></td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:13px;margin-top:8px;color:#555">✈️ 推荐在 <strong>素万那普机场到达大厅</strong>直接买 AIS SIM 卡，5分钟搞定，覆盖最广（含考艾山区）。</p>
+  </div>
+
+  <div class="stitle">☑️ 出发前行动清单</div>
+
+  <div class="sec-card">
+    <h3>📋 关键 To-Do</h3>
+    <div id="checklist"></div>
+  </div>
+
+  <div class="sec-card">
+    <h3>⏱️ 出发前 72 小时倒排</h3>
+    <table class="itbl">
+      <thead><tr><th>时间</th><th>事项</th></tr></thead>
+      <tbody>
+        <tr><td><strong>3月31日</strong></td><td>提交 TDAC 数字入境卡（最早可提交日）</td></tr>
+        <tr><td><strong>4月1日</strong></td><td>关注 CA979 在线值机是否开放；复核座位安排</td></tr>
+        <tr><td><strong>4月1–2日</strong></td><td>确认3家酒店订单备注已录入系统</td></tr>
+        <tr><td><strong>4月2日上午</strong></td><td>再看天气，决定孩子带几套短袖、防晒和驱蚊用品</td></tr>
+        <tr><td><strong>4月2日中午前</strong></td><td>确认所有二维码、订单号、护照、银行卡在同一证件包</td></tr>
+        <tr><td><strong>4月2日出门前</strong></td><td>手机、移动电源、相机、儿童设备全部充满</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div><!-- end tips panel -->
+
+<!-- ════ HIDDEN MARKDOWN CONTENT ════ -->
+<textarea id="raw-itinerary" style="display:none">
+# 2026年4月曼谷-考艾亲子可下单行程表
+
+适用对象：一家三口，含 5 岁儿童
+行程日期：2026-04-02 至 2026-04-09
+默认返程机场：素万那普机场 `BKK`
+规划原则：少折返、避开正午暴晒、最后一天尽量松弛
+
+出发航班：`CA979`，`2026-04-02` 北京出发，`2026-04-03` 凌晨抵达泰国
+航班说明：按当前检索到的航班时刻，`CA979` 常规为 `PEK T3 20:00 -> BKK 00:10(+1)`；实际请在出发前 `7 天` 与 `24 小时` 各复核一次，以国航出票记录和临飞通知为准。
+
+## 4 月 3 日 周五 — 抵达曼谷
+
+- 凌晨抵达曼谷
+- 入住：**Centara Grand at Central Plaza Ladprao Bangkok**
+- 白天安排：以休息为主，不建议再排正式行程
+
+### 当天建议
+
+- 早午餐后补觉
+- 下午只在酒店和 `Central Ladprao` 活动
+- 晚上早点休息，为 4 日比赛留体力
+
+### 餐厅建议
+
+- 主选晚餐：[Chatuchak Cafe](https://www.centaradeals.com/en/detail/9443) — 酒店大堂层 all-day dining，落地当天不再移动
+- 备选晚餐：[Hagi 日料](https://www.centarahotelsresorts.com/centaragrand/cglb/hagi-japanese-restaurant) — 酒店内，日料口味对孩子通常更稳
+- 商场餐饮：直接在 Central Ladprao G/F 餐饮层找店即可
+
+### 是否需要下单
+
+- ✅ 酒店：需要
+- 其余：不需要
+
+---
+
+## 4 月 4 日 周六 — 比赛后进市区半日
+
+这是本次最适合进核心市区的半天，建议走一条线，不跨区。
+
+### 时间表
+
+- `08:40–10:35` 女儿比赛
+- `11:30–12:15` 从赛场/酒店出发去 Siam Paragon（建议打车）
+- `12:15–13:30` 在 Siam Paragon 午餐（直接在商场内解决）
+- `13:30–16:30` **SEA LIFE Bangkok**（提前下单，Siam Paragon 内）
+- `16:30–17:15` 视体力：方案A 继续逛 Siam Paragon / Siam Center；方案B 步行去 BACC
+- `17:45–19:00` **Benjakitti Park**（傍晚进公园，避免白天太热）
+- `19:00+` 晚餐后返回酒店休息
+
+### 餐厅建议
+
+- 午餐主选：[Nara Siam Paragon](https://naracuisine.com/branch/paragon/) — G/F 分店，10:00–22:00，稳妥泰餐
+- 午餐备选：Siam Paragon 内西式简餐
+- 晚餐：回酒店吃 Dynasty 或 Hagi
+
+### 下单建议
+
+- ✅ 必下单：**SEA LIFE Bangkok**
+- 不建议预订太多固定餐厅（孩子状态可能变化）
+
+### 备用方案（如赛后很累）
+
+- Children's Discovery Museum
+- Queen Sirikit Park / Chatuchak Park
+- Central Ladprao 商场
+
+---
+
+## 4 月 5 日 周日 — 去考艾入住
+
+入住：**InterContinental Khao Yai Resort**
+
+### 时间表
+
+- `08:30–09:30` 在曼谷早餐、收拾
+- `09:30–12:30` 曼谷→考艾（包车/酒店接送，约 2.5–3 小时）
+- `12:30–13:30` 抵达后入住/寄存行李，酒店内午餐
+- `15:00–17:30` 酒店内 Khao Yai Farms 或 Botanical Tour（轻活动，不要贪多）
+- `18:00+` 回酒店吃晚餐、散步、休息
+
+### 餐厅建议
+
+- 午餐：[Somying's Kitchen](https://khaoyai.intercontinental.com/dining/somyings-kitchen/) — 酒店全日餐厅，面向湖景
+- 下午茶：[Tea Carriage](https://khaoyai.intercontinental.com/dining/tea-carriage/) — 改造列车车厢，11:00–18:00，孩子喜欢
+- 晚餐：仍在 Somying's Kitchen，当天有车程不再外跑
+
+### 是否需要下单
+
+- ✅ 酒店：需要
+- ✅ 曼谷→考艾单程车：建议提前下单
+- 酒店活动：入住后尽快联系 concierge 确认时段
+
+---
+
+## 4 月 6 日 周一 — 考艾酒店日
+
+### 时间表
+
+- 上午：酒店早餐 → 泳池 / 拍照 / 度假区活动
+- 中午：酒店午餐
+- `15:30–18:00` 二选一：
+  - **方案 A**：酒店内自然/亲子活动（Planet Trekkers 寻宝、Botanical 骑行）
+  - **方案 B**：Khao Yai National Park 入口区域短停（自驾 20–30 分钟）
+
+### 餐厅建议
+
+- 早餐/午餐：Somying's Kitchen
+- 下午茶：Tea Carriage（⚠️ 注意 Tea Carriage 周一周二关闭，建议 4/5 日优先体验）
+- 晚餐：如下午出园区，直接回酒店吃或点 In-Room Dining
+
+### 是否需要下单
+
+- 酒店内活动：一般不需要，入住后现场预约
+- 若去国家公园：建议前一晚问酒店前台天气和车程
+
+---
+
+## 4 月 7 日 周二 — 返回曼谷 · Ending 夜
+
+入住：**The Peninsula Bangkok**
+
+### 时间表
+
+- `09:30–12:30` 从考艾返回曼谷（包车约 2.5–3 小时）
+- `13:00–14:00` 酒店或途中午餐
+- `14:00–16:30` 到酒店休息，孩子午睡，大人整理返程物品
+- `17:00–20:30` 酒店船去 **ICONSIAM / SOOKSIAM**，或留在酒店吃 **Thiptara**
+- `20:30+` 返回酒店，泡澡、整理行李、早睡
+
+### 餐厅建议
+
+- 记忆性晚餐：[Thiptara](https://www.peninsula.com/en/bangkok/hotel-fine-dining/thiptara-outdoor-thai) — 河边泰餐 18:00–23:00，最适合 Ending 晚餐 ⭐
+- 轻松本地：[SOOKSIAM](https://www.iconsiam.com/en/dining/sooksiam-home-of-yummy-goodies-from-all-77-provinces) — 一家三口边逛边吃
+- 午餐：[River Cafe & Terrace](https://www.peninsula.com/en/bangkok/hotel-fine-dining/river-cafe-terrace-buffet) — 河景，最稳
+
+### 是否需要下单
+
+- ✅ 曼谷酒店：需要
+- ✅ 考艾→曼谷单程车：提前下单
+- ICONSIAM：不需要
+
+---
+
+## 4 月 8 日 周三 — 最松弛的返程前一天
+
+核心原则：**只玩一个片区，不做跨城打卡。**
+
+> 如果最后一晚只订 4/7 一晚，请在预订时主动申请 late check-out 到 18:00 左右。
+
+### 主方案时间表
+
+- `08:00–09:00` 早餐
+- `09:30–10:30` 在酒店或河边轻松活动
+- `11:00–15:30` 酒店船去 ICONSIAM / SOOKSIAM，或参加酒店 junior class；午餐也放在同区域
+- `15:30–17:00` 拿到 late check-out → 回酒店取行李/洗澡/换飞机衣服；否则先取行李整理
+- `17:00–19:00` 提早吃晚餐（在酒店或 ICONSIAM 解决）
+- `22:30–23:00` 抵达 BKK 机场
+- `2026-04-09 01:30` 起飞返京
+
+### 餐厅建议
+
+- 仪式感午餐：[The Lobby Afternoon Tea](https://www.peninsula.com/en/bangkok/hotel-fine-dining/the-lobby-afternoon-tea) — 轻松有仪式感
+- 河景餐厅：[River Cafe & Terrace](https://www.peninsula.com/en/bangkok/hotel-fine-dining/river-cafe-terrace-buffet)
+- 精致中餐：[Mei Jiang](https://www.peninsula.com/en/bangkok/hotel-fine-dining/mei-jiang-chinese)
+- 多种本地味道：直接去 SOOKSIAM
+
+---
+
+## 建议下单清单
+
+### 酒店
+- 4/3：Centara Grand at Central Plaza Ladprao Bangkok
+- 4/5–4/7：InterContinental Khao Yai Resort
+- 4/7：The Peninsula Bangkok
+
+### 交通
+- 曼谷机场 → Centara Grand
+- 4/5 曼谷 → 考艾 单程车
+- 4/7 考艾 → 曼谷 单程车
+- 4/8 晚 曼谷市区 → BKK 机场
+
+### 门票
+- 4/4：**SEA LIFE Bangkok**（必须提前购买）
+
+---
+
+## 出发前准备 Checklist
+
+### 证件与入境
+- [ ] 检查 3 人护照有效期，预留足够空白页
+- [ ] 护照首页电子版 + 纸质复印件（手机和邮箱各一份）
+- [ ] 往返机票、3 家酒店确认单、考艾接送单存成 PDF
+- [ ] 泰中互免签，停留不超过 30 天免签
+- [ ] 最早 3月31日 为 3 人提交 TDAC（抵达前3天内）
+- [ ] TDAC 邮件版和下载版保存在手机和微信收藏
+
+### 航班与机场
+- [ ] 核对 CA979 时刻：PEK T3 20:00 → BKK 00:10(+1)
+- [ ] 4/2 建议最晚 17:00–17:30 到北京首都机场 T3
+- [ ] 在线值机约起飞前36小时开放，3小时截止
+- [ ] 确认行李额度（商务舱通常 2 件×32kg）
+
+### 酒店与地面交通
+- [ ] 3 段酒店备注：quiet / non-smoking / family with 5-year-old
+- [ ] 向 Peninsula Bangkok 申请 4/8 late check-out
+- [ ] 提前下单 4 段交通：BKK→Centara / 曼谷→考艾 / 考艾→曼谷 / 市区→BKK
+- [ ] Grab App 提前收藏3家酒店、Siam Paragon、ICONSIAM、BKK
+
+### 门票与活动
+- [ ] 购买 4/4 SEA LIFE Bangkok 门票，截图保存二维码
+- [ ] 入住考艾后联系 concierge 确认 Farms/Botanical Tour/寻宝时段
+- [ ] PB Valley 酒庄（如计划）：需提前 72 小时预约
+- [ ] 4/8 Peninsula junior class 需提前确认营业和预约
+
+### 钱包、通信与 App
+- [ ] 准备 Visa/Mastercard 与支付宝/微信支付
+- [ ] 准备少量泰铢现金（小额/街边/出租车）
+- [ ] 4/2 出发前完成漫游或泰国 eSIM 开通
+- [ ] 装好：国航 App、Grab、Google Maps、支付宝
+
+### 亲子物品
+- [ ] 轻薄夏装、遮阳帽、太阳镜、防晒霜
+- [ ] 孩子轻薄外套（酒店/商场空调足）
+- [ ] 泳衣、拖鞋、防水袋
+- [ ] 防蚊液、止痒药（考艾段必备）
+- [ ] 随身药包：退烧/止泻/抗过敏/创可贴/消毒湿巾/体温计
+- [ ] 孩子随身包：替换衣物、湿巾、零食、保温杯、小玩具或绘本
+- [ ] 登机随身包单独放第一晚立即要用的东西
+</textarea>
+
+<textarea id="raw-handbook" style="display:none">
+# 曼谷亲子行程 备选项目综合手册
+> 2026年4月3-8日 | 大人2+孩子1（5.5岁） | 调研日期：2026-03-17
+
+## 📋 使用说明
+
+本手册汇总三个区域（北曼谷Ladprao → 考艾 → 河畔Peninsula）的全部备选项目，供行程规划时挑选使用。
+
+**儿童友好标注含义：**
+- ✅推荐 — 明确欢迎5.5岁儿童，适合亲子
+- ⚠️可以但注意 — 可以带孩子但有条件限制
+- ❌不适合5岁 — 年龄限制或环境不适合
+
+**4月天气提醒：** 曼谷4月是全年最热月份（35-40°C），所有户外活动强烈建议安排在**早8:00-10:00**或**傍晚17:00后**。
+
+---
+
+## 一、北曼谷 Ladprao（4/3–4/4）
+
+**基地：Centara Grand at Central Plaza Ladprao**
+地址：1695 Phahonyothin Rd, Chatuchak, Bangkok 10900
+最近MRT：Phahon Yothin（直连商场）| 最近BTS：Mo Chit（步行约10分钟）
+
+---
+
+### 🍽️ 餐厅
+
+#### Beer Hima（เบียร์หิมะ）— 米其林 Bib Gourmand 2026 ⭐推荐
+- **亮点**: Chatuchak区唯一米其林Bib Gourmand，正宗南部泰菜海鲜
+- **儿童友好**: ✅推荐 — 官方标注Family Friendly，无年龄限制
+- **从酒店出发**: 出租车/Grab | 10-15分钟 | ฿80-120
+- **人均**: ฿300-500
+- **预约**: 建议电话预约 +66 2 954 3404，周末人多
+- **营业时间**: 每天 11:00-23:00 | **推荐晚餐 18:00-20:00**
+- **推荐菜**: 南部酸咖喱石斑鱼（可要求减辣）
+- [Google Maps](https://maps.google.com/?q=13.8267,100.5548)
+
+#### Prik-Yuak（พริกหยวก）— 米其林 Bib Gourmand 2026
+- **亮点**: 30年老店，无味精家常泰菜，环境雅致带花园
+- **儿童友好**: ✅推荐 — 口味温和可调
+- **从酒店出发**: 出租车/Grab | 15-20分钟 | ฿100-150
+- **人均**: ฿200-300
+- **营业时间**: 午餐 11:00-14:30 / 晚餐 17:30-21:00
+- [Google Maps](https://maps.google.com/?q=13.7780,100.5416)
+
+#### R-HAAN — 米其林 2星
+- **亮点**: 曼谷顶级泰式Fine Dining，皇家泰菜多道套餐
+- **儿童友好**: ❌ — **6岁以上方可入内**，5.5岁差半岁不符合
+- **人均**: ฿5,000-7,000 | 需提前2-4周预约
+- **备注**: 如夫妻单独用餐（孩子有人看管）可考虑
+
+#### Suan Bua — 酒店内泰式餐厅
+- **亮点**: 酒店内皇家宫廷泰菜，自助+点菜，零距离
+- **儿童友好**: ✅推荐 — 无限制，宫廷泰菜口味温和
+- **从酒店出发**: 酒店内 | 0分钟 | 免费
+- **人均**: 自助 ฿899/人；点菜 ฿500-800/人
+
+#### Dynasty — 酒店内粤菜餐厅
+- **亮点**: 港式点心自助，孩子爱吃
+- **儿童友好**: ✅推荐 — 无限制，点心丰富
+- **从酒店出发**: 酒店内 | 0分钟 | 免费
+- **人均**: 午餐自助 ฿888/人；晚餐 ฿600-1,000/人
+
+---
+
+### ☕ 咖啡厅
+
+#### Apfel Cafe ⭐推荐
+- **亮点**: 文艺花园咖啡馆，空间宽敞，有现场音乐
+- **儿童友好**: ✅ — 花园户外座位，开阔
+- **从酒店出发**: 出租车 | 约10分钟 | ฿60-80 | 人均 ฿100-200
+- **推荐时段**: 上午9:00-11:00（4月建议室内或傍晚）
+
+#### Oguiss Coffee
+- **亮点**: 近BTS，性价比极高精品咖啡
+- **儿童友好**: ✅ — 空间大
+- **从酒店出发**: BTS一站/出租车 | 约5-8分钟 | ฿16-50 | 人均 ฿60-100
+
+#### Behind the Bar
+- **亮点**: Chatuchak精品咖啡，牛角华夫饼招牌
+- **儿童友好**: ⚠️ — 空间偏小，15:30关门
+- **从酒店出发**: 步行 | 约15分钟 | 人均 ฿100-200
+
+#### Blackhills BKK
+- **亮点**: 日式+北欧极简风，全手工制作咖啡
+- **儿童友好**: ⚠️ — 慢吧风格，环境安静
+- **从酒店出发**: 出租车 | 约10分钟 | ฿60-80 | 人均 ฿100-200
+
+---
+
+### 🎡 家庭活动
+
+#### Children's Discovery Museum（儿童发现博物馆）⭐⭐强烈推荐
+- **亮点**: 泰国首家儿童博物馆，**免费**，室内空调，5.5岁完美适龄
+- **儿童友好**: ✅强烈推荐
+- **从酒店出发**: MRT Kamphaeng Phet+步行5分钟 | 约15分钟 | ฿23
+- **门票**: 免费 | **营业**: 周二至周日 10:00-16:00（周一休馆）
+- **4月天气**: ✅室内空调，不受高温影响 | 建议游玩2-3小时
+
+#### Or Tor Kor Market（อ.ต.ก. 鲜货市场）⭐推荐
+- **亮点**: CNN全球最佳鲜货市场之一，干净整洁有顶棚
+- **儿童友好**: ✅ — 干净，有座位，美食丰富
+- **从酒店出发**: MRT Kamphaeng Phet+步行2分钟 | 约10分钟 | ฿23
+- **营业**: 每天 6:00-18:00 | **推荐早上8:00-10:00**
+- **必吃**: 芒果糯米饭、烤鸡、新鲜热带水果
+
+#### Central Ladprao 商场（酒店直连）
+- **亮点**: 酒店直连，空调避暑，Central Kids Club可安置孩子
+- **儿童友好**: ✅推荐 — **Kids Club 3-12岁专业看护**
+- **从酒店出发**: 直连 | 0分钟 | 免费
+- **营业**: 每天 10:00-22:00 | **4月避暑天堂**
+
+#### Queen Sirikit Park
+- **亮点**: 2025年重新开放，大型植物园，2000+植物品种
+- **儿童友好**: ✅ — 开阔草坪、观鸟塔、自行车道
+- **从酒店出发**: MRT+步行/出租车 | 约15分钟 | ฿23/฿80
+- **推荐时段**: ⚠️4月必须**早8:00-10:00**或**傍晚17:00后**
+
+#### Chatuchak Weekend Market（乍都乍周末市场）
+- **亮点**: 全球最大周末市场，15,000+摊位
+- **儿童友好**: ⚠️ — 人多拥挤+4月极热
+- **从酒店出发**: BTS Mo Chit 1站 | 约8分钟 | ฿16
+- **推荐时段**: ⚠️**周六/日早上9:00-11:00**，控制1-2小时
+- **备注**: 4/3-4/4 非周末，主市场不完全开放。孩子中暑风险高
+
+---
+
+### 💆 SPA
+
+#### SPA Cenvaree（酒店内）⭐⭐首选
+- **亮点**: ASEAN Spa Standard获奖，酒店内零距离
+- **营业**: 周一至五 10:00-22:00；周末 09:00-22:00
+- **价格**: 泰式按摩 ฿1,500-2,500/60min；双人套餐 ฿5,000-8,000
+- **预约**: 02-541-1234 ext.4292
+- **孩子安置**:
+  - 方案A（推荐）：Central Kids Club（3-12岁，直连酒店）
+  - 方案B：一人SPA，一人带孩子在泳池/商场
+
+---
+
+## 二、考艾 Pak Chong（4/5–4/6）
+
+**基地：InterContinental Khao Yai Resort**
+地址：222 Moo 9, Thanarat Rd, Pak Chong District, Nakhon Ratchasima
+
+> ⚠️ 考艾**无公共交通**，所有外出需自驾或包车。酒店内活动丰富，可安排半天不出酒店。
+
+---
+
+### 🍽️ 餐厅
+
+#### Midwinter Khao Yai — 米其林推荐 · 城堡主题 ⭐推荐
+- **亮点**: 北欧白色城堡，连续两年米其林推荐，后方有大型儿童游乐场
+- **儿童友好**: ✅ — 儿童游乐场/迷你游乐园
+- **从酒店出发**: 自驾 | 约20-25分钟 | 出租车 ฿200-300
+- **人均**: ฿800-1,500 | 营业 10:00-23:00
+- **推荐时段**: 傍晚17:00-19:00（拍照+用餐+孩子玩）
+
+#### Poirot — 米其林推荐 · 酒店内Fine Dining
+- **亮点**: 火车车厢内精致法餐，俯瞰天鹅湖日落
+- **儿童友好**: ⚠️ — **官方要求6岁以上**，5.5岁需确认
+- **从酒店出发**: 步行 | 0分钟 | 人均 ฿2,500-4,000
+
+#### Somying's Kitchen — 酒店内全日餐厅
+- **亮点**: 农场到餐桌泰式+国际菜，全日开放
+- **儿童友好**: ✅ — 菜单多样，户外区宽敞
+- **从酒店出发**: 步行 | 0分钟 | 人均 ฿800-1,500
+
+#### Pak Chong Night Market — 本地夜市
+- **亮点**: 600米本地夜市，体验真正泰国生活
+- **儿童友好**: ✅ — 食物丰富，价格便宜
+- **从酒店出发**: 自驾 | 约25-30分钟 | 出租车 ฿250-350
+- **人均**: ฿100-300 | 营业 17:00-22:00
+
+---
+
+### ☕ 咖啡馆（田园风）
+
+#### Trot Cafe Khaoyai（马场咖啡馆）⭐首推
+- **亮点**: 自带马场可骑马、古董车体验、ATV
+- **儿童友好**: ✅强烈推荐 — 5岁可监护下骑马
+- **从酒店出发**: 自驾 | 约15-20分钟
+- **人均**: 咖啡 ฿80-150 + 骑马活动另计 | 营业 10:00-19:00
+- **推荐时段**: 上午10:00-12:00
+
+#### Primo Piazza Khao Yai（意大利小镇·羊驼互动）⭐推荐
+- **亮点**: 仿托斯卡纳小镇，可喂羊驼、美利奴羊、驴子
+- **儿童友好**: ✅强烈推荐 — 门票含饲料
+- **从酒店出发**: 自驾 | 约20-25分钟
+- **门票**: 成人 ฿200 / 儿童 ฿100 | 营业 09:00-18:00
+- **推荐时段**: 上午9:00-11:00（凉爽，动物活跃）
+
+#### Palio Village（意大利风情小镇）
+- **亮点**: 免费入场的彩色意大利风格建筑群
+- **儿童友好**: ✅ | **门票**: 免费 | 自驾20-25分钟
+
+#### Tea Carriage（酒店内火车车厢下午茶）
+- **亮点**: 改造火车车厢内精美下午茶，俯瞰天鹅湖
+- **儿童友好**: ✅ — 火车主题5岁孩子很新奇
+- **从酒店出发**: 步行 | 0分钟
+- **人均**: ฿1,200-1,800/套 | **⚠️ 周一周二关闭**，4/5日须优先体验
+
+---
+
+### 🌿 自然活动
+
+#### Khao Yai National Park（考艾国家公园）⭐必去
+- **亮点**: UNESCO世界遗产，野生大象/猴子/瀑布
+- **儿童友好**: ✅ — 5岁可走平坦步道和看瀑布
+- **从酒店出发**: 自驾 | 约20-30分钟到Pak Chong入口
+- **门票**: 外国成人 ฿400 / 儿童 ฿200 / 车辆 ฿30 → **一家三口约 ฿1,030**
+- **开放时间**: 06:00-18:00 | **推荐6:30入园，10:00前返回**
+- **推荐活动**: Haew Suwat瀑布、观鸟、开车看野生动物
+
+#### PB Valley Khao Yai Winery（葡萄酒庄园）
+- **亮点**: 泰国最知名葡萄酒庄，75分钟专业导览
+- **儿童友好**: ✅ — 儿童提供100%鲜葡萄汁
+- **从酒店出发**: 自驾 | 约20-30分钟
+- **门票**: 成人 ฿380 / 儿童 ฿300 → **一家三口约 ฿1,060**
+- **⚠️ 必须提前72小时预约！** 电话 +66 81 733 8783
+
+#### 酒店内活动
+- **Planet Trekkers**: 4-12岁火车主题儿童乐园（大人SPA时孩子安置于此）
+- **Swan Lake Treasure Hunt**: 4-10岁，跟地图在园区探索
+- **Botanical Garden骑行**: 免费自行车，5岁+可参与
+
+---
+
+### 💆 SPA
+
+#### Back on Track Spa（酒店内·火车主题SPA）⭐推荐
+- **亮点**: 百年火车车厢改造，100%本地有机产品，Bill Bensley设计
+- **从酒店出发**: 步行 | 0分钟
+- **价格**: 头颈肩按摩 ฿1,177起；传统泰式 ฿2,500-5,000+
+- **预约**: +66 44 082 039 或 intercontinental.khaoyai@ihg.com
+- **孩子安置**: **Planet Trekkers儿童俱乐部**（4-12岁，有专人看护）— 最佳选择
+
+---
+
+## 三、河畔 Peninsula（4/7–4/8）
+
+**基地：The Peninsula Bangkok**
+地址：333 Charoen Nakhon Road, Khlong San, Bangkok 10600
+
+**核心交通**: 酒店免费穿梭船至Sathorn码头（约3分钟）是连接河东岸的关键。
+
+---
+
+### 🍽️ 米其林餐厅
+
+#### Thiptara（Peninsula酒店内）⭐⭐最推荐亲子高档餐厅
+- **亮点**: 河畔柚木凉亭中的正宗泰菜，五座古董柚木sala
+- **米其林等级**: 米其林推荐（MICHELIN Plate）
+- **儿童友好**: ✅ — 无年龄限制，酒店自有餐厅最友好
+- **从酒店出发**: 步行 | 1-2分钟 | 免费
+- **人均**: ฿1,500-3,000 | 晚餐 18:30-22:30
+- **推荐**: 18:30-19:00入座，趁日落河景最美
+
+#### 80/20（创新泰菜）— 米其林 1星 ⭐唯一确认可入星级
+- **亮点**: 80%本地食材+20%创意，工业风loft
+- **儿童友好**: ⚠️ — **5岁以下不接待，5.5岁刚好可以，预约时务必确认**
+- **从酒店出发**: 穿梭船+出租车 | 约20分钟 | ฿80-120
+- **人均**: ฿4,500++（14道Tasting Menu） | 需提前预约 +66 99 118 2200
+
+#### Baan Phadthai — Bib Gourmand ⭐推荐
+- **亮点**: 精致Pad Thai，18种秘方酱汁，古建筑
+- **儿童友好**: ✅ — 无年龄限制
+- **从酒店出发**: 穿梭船+步行5分钟 | 约15分钟 | 免费
+- **人均**: ฿200-500 | 11:00-22:00
+
+#### Thai Taste Hub Mahanakhon CUBE — Bib Gourmand
+- **亮点**: Silom核心米其林街头美食集合，空调
+- **儿童友好**: ✅ — 无限制，家庭极友好
+- **从酒店出发**: 穿梭船+BTS | 约20-25分钟 | ฿30-50
+- **人均**: ฿100-300
+
+#### Le Normandie — 米其林 2星
+- **儿童友好**: ❌ — 7岁以上，需正装
+
+#### Mezzaluna — 米其林 2星（65楼）
+- **儿童友好**: ❌ — 7岁以上
+
+#### Saawaan — 米其林 1星
+- **儿童友好**: ❌ — **12岁以上（最严格）**
+
+---
+
+### ☕ 咖啡厅（ICONSIAM区域，穿梭船5-10分钟免费）
+
+#### Starbucks Reserve 河畔店 ⭐推荐
+- **亮点**: 泰国最大星巴克（1,200㎡），双层河景露台
+- **人均**: ฿150-350 | 推荐下午15:00-17:00
+
+#### %Arabica（ICONSIAM店）
+- **亮点**: 京都极简主义咖啡，玻璃地板+纯白空间
+- **人均**: ฿120-250
+
+#### James Boulangerie（ICONSIAM 6楼）
+- **亮点**: Iron Chef冠军法式烘焙+6楼河景
+- **人均**: ฿200-500
+
+---
+
+### 🛥️ 河岸活动
+
+#### ICONSIAM + SOOKSIAM ⭐必去
+- **亮点**: 东南亚最大购物中心，G层室内水上市场+MEGA HarborLand儿童乐园
+- **儿童友好**: ✅强烈推荐
+- **从酒店出发**: 穿梭船直达 | 5-10分钟 | 免费
+- **营业**: 每日 10:00-22:00 | 下午安排半天
+- **重点**: MEGA HarborLand 5,000㎡室内乐园（5个月-15岁），SOOKSIAM 泰国77府美食
+
+#### Asiatique The Riverfront（码头夜市）⭐推荐
+- **亮点**: 复古码头夜市，摩天轮+旋转木马+恐龙
+- **儿童友好**: ✅强烈推荐
+- **从酒店出发**: 穿梭船→Sathorn→免费接驳船 | 约25-30分钟 | 免费
+- **营业**: 16:00后营业 | **推荐17:00-21:00**
+- **儿童项目**: 旋转木马 ฿100/次；摩天轮 ฿500/人
+
+#### Wat Arun 郑王庙 ⭐推荐
+- **亮点**: 曼谷地标，精美陶瓷马赛克塔
+- **儿童友好**: ✅（注意爬塔安全）
+- **从酒店出发**: 穿梭船→快船 | 约22分钟 | ฿30-50
+- **门票**: ฿200/人，**12岁以下免费** | 08:00-18:00
+- **推荐**: ⚠️清晨08:00-09:00或16:00-17:30；爬塔台阶70度，5岁需牵手
+
+---
+
+### 💆 SPA（替代方案）
+
+> ⚠️ Peninsula Spa 不接待16岁以下，以下为替代方案。
+
+#### Let's Relax Spa — ICONSIAM对面 ⭐推荐替代
+- **亮点**: 泰国No.1连锁精品SPA，2024年底新开
+- **从酒店出发**: BTS Gold Line | 约10分钟 | ฿30
+- **价格**: 泰式按摩120min ฿1,140；Dream Package90min ฿1,045
+- **孩子安置**: 另一位家长带孩子去 MEGA HarborLand（同在ICONSIAM区域）
+
+#### Bhu Mhai Spa（ICONSIAM内）
+- **亮点**: 最方便的分头行动方案，在ICONSIAM内
+- **从酒店出发**: 穿梭船 | 5-10分钟 | 免费
+- **价格**: 足+头+肩 ฿800-1,500
+
+---
+
+## 四、米其林餐厅儿童政策速查表
+
+| 餐厅 | 等级 | 最低年龄 | 5.5岁可入？ | 区域 | 人均(฿) |
+|------|------|----------|-------------|------|---------|
+| Le Normandie | 2星 | 7岁 | ❌ | 河畔 | 5,000-8,000 |
+| Mezzaluna | 2星 | 7岁 | ❌ | 河畔 | 8,000-12,000 |
+| R-HAAN | 2星 | 6岁 | ❌ 差半岁 | 北曼谷远 | 5,000-7,000 |
+| Saawaan | 1星 | 12岁 | ❌ | Sathorn | 2,490++ |
+| **80/20** | **1星** | **5岁** | **✅ 刚好** | **河畔** | **4,500++** |
+| **Thiptara** | **米其林推荐** | **无限制** | **✅** | **Peninsula内** | **1,500-3,000** |
+| **Baan Phadthai** | **Bib Gourmand** | **无限制** | **✅** | **河畔** | **200-500** |
+| **Beer Hima** | **Bib Gourmand** | **无限制** | **✅** | **北曼谷** | **300-500** |
+| **Prik-Yuak** | **Bib Gourmand** | **无限制** | **✅** | **北曼谷** | **200-300** |
+| **Midwinter** | **米其林推荐** | **无限制** | **✅** | **考艾** | **800-1,500** |
+| Poirot | 米其林推荐 | 6岁 | ⚠️需确认 | 考艾酒店内 | 2,500-4,000 |
+
+---
+
+## 五、SPA + 孩子安置方案汇总
+
+| 区域 | SPA选项 | 孩子安置 | 推荐度 |
+|------|---------|---------|--------|
+| **北曼谷** | SPA Cenvaree（酒店内） | **Central Kids Club**（3-12岁，酒店直连） | ⭐⭐最方便 |
+| **考艾** | Back on Track Spa（火车车厢） | **Planet Trekkers**（4-12岁，酒店内） | ⭐⭐最有趣 |
+| **河畔** | Let's Relax / Bhu Mhai（ICONSIAM区） | **MEGA HarborLand**（ICONSIAM内5,000㎡乐园） | ⭐⭐最丰富 |
+| 河畔(备) | Peninsula Spa | ❌ 16岁以下不接待 | — |
+
+---
+
+## 六、交通参考
+
+### 区域间大交通
+
+| 路线 | 方式 | 时间 | 费用 |
+|------|------|------|------|
+| Ladprao → 考艾 | 自驾/包车 | 2.5-3小时 | 包车约 ฿3,000-5,000 |
+| 考艾 → Peninsula | 自驾/包车 | 2.5-3小时 | 同上 |
+| Peninsula → BKK机场 | 出租车/Grab | 45-75分钟 | ฿350-500 |
+
+### Ladprao区域
+
+| 目的地 | 方式 | 时间 | 费用 |
+|--------|------|------|------|
+| Or Tor Kor Market | MRT Kamphaeng Phet | 10分钟 | ฿23 |
+| Children's Discovery Museum | MRT+步行 | 15分钟 | ฿23 |
+| Chatuchak Market | BTS 1站 | 8-10分钟 | ฿16-23 |
+
+### Peninsula河畔区域
+
+| 目的地 | 方式 | 时间 | 费用 |
+|--------|------|------|------|
+| ICONSIAM | 穿梭船直达 | 5-10分钟 | 免费 |
+| Asiatique | 穿梭船→接驳船 | 25-30分钟 | 免费 |
+| Wat Arun | 穿梭船→快船 | 约22分钟 | ฿30-50 |
+| 80/20 | 穿梭船→出租车 | 约20分钟 | ฿80-120 |
+
+### 考艾区域（均需自驾/出租车）
+
+| 目的地 | 车程 |
+|--------|------|
+| 考艾国家公园 | 20-30分钟 |
+| PB Valley酒庄 | 20-30分钟（需提前72h预约！） |
+| Trot Cafe马场 | 15-20分钟 |
+| Primo Piazza羊驼 | 20-25分钟 |
+| Midwinter城堡 | 20-25分钟 |
+| Pak Chong夜市 | 25-30分钟 |
+
+---
+
+> 调研日期：2026-03-17 | 价格、营业时间、儿童政策可能变动，建议出行前再次确认
+</textarea>
+
+<script>
+// ── Tab switching ──
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  // Lazy render markdown
+  if (id === 'itinerary' && !window._itineraryRendered) renderItinerary();
+  if (id === 'handbook' && !window._handbookRendered) renderHandbook();
+}
+
+// ── marked.js config ──
+marked.use({
+  gfm: true,
+  breaks: true,
+  renderer: (function(){
+    const r = new marked.Renderer();
+    r.link = (href, title, text) => `<a href="${href}" target="_blank" rel="noopener">${text}</a>`;
+    r.checkbox = (checked) => `<input type="checkbox" ${checked ? 'checked' : ''} onclick="return true">`;
+    return r;
+  })()
+});
+
+function renderItinerary() {
+  const raw = document.getElementById('raw-itinerary').value;
+  document.getElementById('itinerary-content').innerHTML = marked.parse(raw);
+  window._itineraryRendered = true;
+}
+
+function renderHandbook() {
+  const raw = document.getElementById('raw-handbook').value;
+  document.getElementById('handbook-content').innerHTML = marked.parse(raw);
+  window._handbookRendered = true;
+}
+
+// ── Checklist builder ──
+const checkItems = [
+  '检查3人护照有效期',
+  '护照电子版+复印件存好',
+  '3/31 提交 TDAC 数字入境卡',
+  '购买 SEA LIFE Bangkok 门票（4/4用）',
+  '预订曼谷→考艾 包车（4/5用）',
+  '预订考艾→曼谷 包车（4/7用）',
+  '预订机场→酒店接送',
+  '预订市区→BKK机场（4/8晚）',
+  '申请 Peninsula late check-out（4/8）',
+  '开通泰国eSIM 或 漫游套餐',
+  '装好 Grab、Google Maps、支付宝',
+  '准备500–1000铢现金应急',
+  '防晒/驱蚊液/遮阳帽',
+  '孩子随身药包准备好',
+  'PB Valley酒庄提前72h预约（如计划）',
+];
+
+(function buildChecklist() {
+  const saved = JSON.parse(localStorage.getItem('bkk-checklist') || '{}');
+  const el = document.getElementById('checklist');
+  el.innerHTML = checkItems.map((item, i) => {
+    const checked = !!saved[i];
+    return `<div class="checklist-item ${checked ? 'checked' : ''}" id="ci${i}">
+      <input type="checkbox" id="cb${i}" ${checked ? 'checked' : ''} onchange="toggleCheck(${i})">
+      <label for="cb${i}">${item}</label>
+    </div>`;
+  }).join('');
+})();
+
+function toggleCheck(i) {
+  const saved = JSON.parse(localStorage.getItem('bkk-checklist') || '{}');
+  const cb = document.getElementById('cb' + i);
+  saved[i] = cb.checked;
+  localStorage.setItem('bkk-checklist', JSON.stringify(saved));
+  document.getElementById('ci' + i).classList.toggle('checked', cb.checked);
+}
+
+// ── Auto-render itinerary on load ──
+renderItinerary();
+</script>
+
+<div class="page-footer" style="max-width:800px;margin:0 auto">
+  🌏 曼谷亲子行程 2026年4月 · 调研日期 2026-03-17<br>
+  价格、政策如有变动，出行前请再次确认
+</div>
+
+</body>
+</html>

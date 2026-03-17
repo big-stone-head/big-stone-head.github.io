@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>曼谷亲子行程地图 2026年4月</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+#map { width: 100%; height: calc(100vh - 60px); }
+.header {
+  background: #1a1a2e; color: white; padding: 10px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 8px;
+}
+.header h1 { font-size: 16px; font-weight: 600; }
+.legend {
+  display: flex; flex-wrap: wrap; gap: 8px; font-size: 12px; align-items: center;
+}
+.legend-item { display: flex; align-items: center; gap: 3px; }
+.legend-dot {
+  width: 12px; height: 12px; border-radius: 50%; display: inline-block; border: 1px solid rgba(255,255,255,0.3);
+}
+.leaflet-popup-content { font-size: 13px; line-height: 1.5; min-width: 200px; }
+.popup-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; color: #1a1a2e; }
+.popup-category { font-size: 11px; color: #666; margin-bottom: 6px; display: flex; align-items: center; gap: 4px; }
+.popup-info { margin: 4px 0; }
+.popup-info strong { color: #333; }
+.popup-kid-yes { color: #2d8a4e; font-weight: 600; }
+.popup-kid-warn { color: #d4a017; font-weight: 600; }
+.popup-kid-no { color: #c0392b; font-weight: 600; }
+.popup-transport { background: #f5f5f5; padding: 4px 8px; border-radius: 4px; margin-top: 6px; font-size: 12px; }
+.area-badge {
+  display: inline-block; padding: 1px 6px; border-radius: 8px; font-size: 10px;
+  font-weight: 600; color: white; margin-left: 4px;
+}
+.area-ladprao { background: #6c5ce7; }
+.area-khaoyai { background: #00b894; }
+.area-peninsula { background: #e17055; }
+.coord-note { font-size: 10px; color: #999; font-style: italic; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🗺️ 曼谷亲子行程 2026年4月3-8日</h1>
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot" style="background:#e74c3c"></span>酒店</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#e67e22"></span>餐厅</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#f1c40f"></span>咖啡</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#27ae60"></span>SPA</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#3498db"></span>活动</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#555"></span>商场/交通</div>
+  </div>
+</div>
+
+<div id="map"></div>
+
+<script>
+// Initialize map centered on Peninsula
+var map = L.map('map').setView([13.74, 100.52], 13);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; OpenStreetMap contributors',
+  maxZoom: 18
+}).addTo(map);
+
+// Custom icon factory
+function makeIcon(color, size) {
+  size = size || 10;
+  return L.divIcon({
+    className: '',
+    html: '<div style="width:'+size+'px;height:'+size+'px;background:'+color+';border:2px solid white;border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,0.4);"></div>',
+    iconSize: [size, size],
+    iconAnchor: [size/2, size/2],
+    popupAnchor: [0, -size/2]
+  });
+}
+
+var hotelIcon = makeIcon('#e74c3c', 18);
+var restaurantIcon = makeIcon('#e67e22', 12);
+var cafeIcon = makeIcon('#f1c40f', 10);
+var spaIcon = makeIcon('#27ae60', 10);
+var activityIcon = makeIcon('#3498db', 12);
+var mallIcon = makeIcon('#555', 10);
+
+// Layer groups
+var hotelLayer = L.layerGroup();
+var restaurantLayer = L.layerGroup();
+var cafeLayer = L.layerGroup();
+var spaLayer = L.layerGroup();
+var activityLayer = L.layerGroup();
+var mallLayer = L.layerGroup();
+
+// Area layer groups
+var ladpraoLayer = L.layerGroup();
+var khaoyaiLayer = L.layerGroup();
+var peninsulaLayer = L.layerGroup();
+
+function popup(name, category, area, kidStatus, kidText, reason, transport) {
+  var areaCls = area === '北曼谷' ? 'area-ladprao' : area === '考艾' ? 'area-khaoyai' : 'area-peninsula';
+  var kidCls = kidStatus === 'yes' ? 'popup-kid-yes' : kidStatus === 'warn' ? 'popup-kid-warn' : 'popup-kid-no';
+  var kidIcon = kidStatus === 'yes' ? '✅' : kidStatus === 'warn' ? '⚠️' : '❌';
+  return '<div class="popup-title">' + name + ' <span class="area-badge ' + areaCls + '">' + area + '</span></div>' +
+    '<div class="popup-category">' + category + '</div>' +
+    '<div class="popup-info"><span class="' + kidCls + '">' + kidIcon + ' ' + kidText + '</span></div>' +
+    '<div class="popup-info"><strong>推荐：</strong>' + reason + '</div>' +
+    (transport ? '<div class="popup-transport">🚗 ' + transport + '</div>' : '');
+}
+
+function addMarker(lat, lng, icon, categoryLayer, areaLayer, popupHtml) {
+  var m = L.marker([lat, lng], {icon: icon}).bindPopup(popupHtml);
+  categoryLayer.addLayer(m);
+  areaLayer.addLayer(m);
+  return m;
+}
+
+// ===================== HOTELS =====================
+addMarker(13.8199, 100.5618, hotelIcon, hotelLayer, ladpraoLayer,
+  popup('🏨 Centara Grand Ladprao', '基地酒店 4/3-4/4', '北曼谷', 'yes', '亲子酒店',
+    '直连Central商场+MRT，Kids Club可用', '直连MRT Phahon Yothin'));
+
+addMarker(14.5217, 101.3917, hotelIcon, hotelLayer, khaoyaiLayer,
+  popup('🏨 InterContinental Khao Yai', '基地酒店 4/5-4/6', '考艾', 'yes', '亲子度假村',
+    '火车主题+天鹅湖+Planet Trekkers儿童俱乐部', '距曼谷约2.5-3小时车程'));
+
+addMarker(13.7186, 100.5108, hotelIcon, hotelLayer, peninsulaLayer,
+  popup('🏨 The Peninsula Bangkok', '基地酒店 4/7-4/8', '河畔', 'yes', '五星河畔酒店',
+    '免费穿梭船+Thiptara餐厅+三层泳池', '穿梭船至Sathorn 3分钟'));
+
+// ===================== LADPRAO RESTAURANTS =====================
+addMarker(13.8267, 100.5548, restaurantIcon, restaurantLayer, ladpraoLayer,
+  popup('Beer Hima 🌟Bib Gourmand', '🍽️ 米其林餐厅', '北曼谷', 'yes', '家庭友好，无年龄限制',
+    'Chatuchak唯一Bib Gourmand，正宗南部泰菜', '出租车10-15分钟 | ฿80-120'));
+
+addMarker(13.7780, 100.5416, restaurantIcon, restaurantLayer, ladpraoLayer,
+  popup('Prik-Yuak 🌟Bib Gourmand', '🍽️ 米其林餐厅', '北曼谷', 'yes', '家庭友好，口味温和',
+    '30年老店，无味精家常泰菜+花园', '出租车15-20分钟 | ฿100-150'));
+
+addMarker(13.7310, 100.5850, restaurantIcon, restaurantLayer, ladpraoLayer,
+  popup('R-HAAN 🌟🌟2星', '🍽️ 米其林2星', '北曼谷', 'no', '6岁以上，5.5岁不符',
+    '曼谷顶级泰式Fine Dining（孩子无法入内）', '出租车30-45分钟 | ฿200-350'));
+
+addMarker(13.8199, 100.5619, restaurantIcon, restaurantLayer, ladpraoLayer,
+  popup('Suan Bua 皇家泰菜', '🍽️ 酒店内餐厅', '北曼谷', 'yes', '无限制，服务贴心',
+    '宫廷泰菜自助+点菜，口味温和适合儿童', '酒店内 | 0分钟'));
+
+addMarker(13.8200, 100.5617, restaurantIcon, restaurantLayer, ladpraoLayer,
+  popup('Dynasty 粤菜', '🍽️ 酒店内餐厅', '北曼谷', 'yes', '无限制，点心孩子爱吃',
+    '港式点心自助 ฿888/人', '酒店内 | 0分钟'));
+
+// ===================== LADPRAO CAFES =====================
+addMarker(13.8100, 100.5620, cafeIcon, cafeLayer, ladpraoLayer,
+  popup('Apfel Cafe ⭐', '☕ 咖啡厅', '北曼谷', 'yes', '花园座位，空间宽敞',
+    '文艺花园咖啡馆+现场音乐', '出租车10分钟 | ฿60-80'));
+
+addMarker(13.8340, 100.5590, cafeIcon, cafeLayer, ladpraoLayer,
+  popup('Oguiss Coffee', '☕ 咖啡厅', '北曼谷', 'yes', '空间大，近BTS',
+    '性价比极高 ฿60-100', 'BTS一站 | ฿16'));
+
+addMarker(13.8140, 100.5536, cafeIcon, cafeLayer, ladpraoLayer,
+  popup('Behind the Bar', '☕ 咖啡厅', '北曼谷', 'warn', '空间偏小，15:30关门',
+    '精品咖啡+牛角华夫饼招牌', '步行15分钟'));
+
+addMarker(13.8120, 100.5630, cafeIcon, cafeLayer, ladpraoLayer,
+  popup('Blackhills BKK', '☕ 咖啡厅', '北曼谷', 'warn', '慢吧风格，环境安静',
+    '日式+北欧极简风，全手工咖啡', '出租车10分钟 | ฿60-80'));
+
+addMarker(13.7999, 100.5505, cafeIcon, cafeLayer, ladpraoLayer,
+  popup('Talen Coffee Drip', '☕ 乍都乍市场内', '北曼谷', 'warn', '站位为主',
+    '市场内手冲咖啡小店', 'BTS/MRT 15分钟 | ฿16-23'));
+
+// ===================== LADPRAO ACTIVITIES =====================
+addMarker(13.8065, 100.5530, activityIcon, activityLayer, ladpraoLayer,
+  popup('Children\'s Discovery Museum ⭐⭐', '🎡 免费儿童博物馆', '北曼谷', 'yes', '专为儿童设计，5.5岁完美适龄',
+    '泰国首家儿童博物馆，免费！室内空调', 'MRT+步行15分钟 | ฿23'));
+
+addMarker(13.8090, 100.5530, activityIcon, activityLayer, ladpraoLayer,
+  popup('Queen Sirikit Park', '🌳 公园', '北曼谷', 'yes', '开阔草坪、观鸟塔',
+    '2025年重新开放，仅限清晨/傍晚', 'MRT+步行 | ฿23'));
+
+addMarker(13.7999, 100.5506, activityIcon, activityLayer, ladpraoLayer,
+  popup('Chatuchak Weekend Market', '🛒 市场', '北曼谷', 'warn', '人多+4月极热，控制1-2h',
+    '全球最大周末市场15000+摊位', 'BTS 1站 | ฿16'));
+
+addMarker(13.8020, 100.5505, activityIcon, activityLayer, ladpraoLayer,
+  popup('Or Tor Kor Market ⭐', '🛒 美食市场', '北曼谷', 'yes', '干净有座位，美食丰富',
+    'CNN全球最佳鲜货市场，比乍都乍凉爽', 'MRT+步行2分钟 | ฿23'));
+
+addMarker(13.8198, 100.5619, mallIcon, mallLayer, ladpraoLayer,
+  popup('Central Ladprao 商场', '🏬 商场（酒店直连）', '北曼谷', 'yes', 'Kids Club 3-12岁看护',
+    '酒店直连，4月避暑+SPA时孩子安置方案', '酒店直连 | 0分钟'));
+
+// ===================== LADPRAO SPA =====================
+addMarker(13.8197, 100.5620, spaIcon, spaLayer, ladpraoLayer,
+  popup('SPA Cenvaree ⭐⭐', '💆 酒店内SPA', '北曼谷', 'yes', '孩子送商场Kids Club',
+    'ASEAN获奖SPA，双人套餐 ฿5,000-8,000', '酒店内 | 0分钟'));
+
+addMarker(13.7220, 100.5870, spaIcon, spaLayer, ladpraoLayer,
+  popup('Loft Thai Boutique Spa', '💆 精品SPA', '北曼谷', 'warn', '需另行安排孩子',
+    '获奖精品SPA，距离远30-45分钟', '出租车30-45分钟 | ฿200-300'));
+
+// ===================== KHAO YAI RESTAURANTS =====================
+addMarker(14.6228, 101.3644, restaurantIcon, restaurantLayer, khaoyaiLayer,
+  popup('Midwinter Khao Yai 🌟米其林推荐 ⭐', '🍽️ 城堡主题餐厅', '考艾', 'yes', '后方有大型儿童游乐场',
+    '北欧白色城堡+米其林推荐，适合半天', '自驾20-25分钟 | 出租车฿200-300'));
+
+addMarker(14.5218, 101.3918, restaurantIcon, restaurantLayer, khaoyaiLayer,
+  popup('Poirot 🌟米其林推荐', '🍽️ 酒店内Fine Dining', '考艾', 'warn', '官方6岁+，5.5岁需确认',
+    '火车车厢内法餐，天鹅湖日落景观', '酒店内 | 0分钟'));
+
+addMarker(14.5216, 101.3916, restaurantIcon, restaurantLayer, khaoyaiLayer,
+  popup('Somying\'s Kitchen', '🍽️ 酒店内全日餐厅', '考艾', 'yes', '菜单多样，户外宽敞',
+    '农场到餐桌，泰式+国际菜', '酒店内 | 0分钟'));
+
+addMarker(14.7045, 101.4117, restaurantIcon, restaurantLayer, khaoyaiLayer,
+  popup('Pak Chong Night Market', '🍽️ 本地夜市', '考艾', 'yes', '食物丰富，价格便宜',
+    '600米本地夜市 ฿100-300/人', '自驾25-30分钟 | 出租车฿250-350'));
+
+addMarker(14.58, 101.39, restaurantIcon, restaurantLayer, khaoyaiLayer,
+  popup('The Mew KhaoYai', '🍽️ 亲子咖啡餐厅', '考艾', 'yes', '户外游乐场+西式儿童菜单',
+    '披萨汉堡+泰菜，家庭午餐好选择', '自驾15-20分钟'));
+
+// ===================== KHAO YAI CAFES =====================
+addMarker(14.55, 101.38, cafeIcon, cafeLayer, khaoyaiLayer,
+  popup('Trot Cafe ⭐首推', '☕🐎 马场咖啡馆', '考艾', 'yes', '骑马+喂马+古董车+ATV',
+    '5岁可监护下骑马，安排1.5-2h', '自驾15-20分钟'));
+
+addMarker(14.58, 101.33, cafeIcon, cafeLayer, khaoyaiLayer,
+  popup('Primo Piazza ⭐', '☕🦙 羊驼互动', '考艾', 'yes', '门票含饲料，孩子爱喂羊驼',
+    '意大利小镇+羊驼/美利奴羊互动', '自驾20-25分钟'));
+
+addMarker(14.63, 101.37, cafeIcon, cafeLayer, khaoyaiLayer,
+  popup('Palio Village', '☕🏘️ 意大利风情小镇', '考艾', 'yes', '免费逛，彩色建筑',
+    '免费入场+咖啡+小商店', '自驾20-25分钟'));
+
+addMarker(14.56, 101.40, cafeIcon, cafeLayer, khaoyaiLayer,
+  popup('Floryday 花田咖啡', '☕🌸 花田咖啡馆', '考艾', 'yes', '花田空间开阔',
+    '拍亲子照绝佳，停留30-45分钟', '自驾15-25分钟'));
+
+addMarker(14.5219, 101.3919, cafeIcon, cafeLayer, khaoyaiLayer,
+  popup('Tea Carriage 火车下午茶', '☕🚂 酒店内', '考艾', 'yes', '火车主题孩子新奇',
+    '改造火车车厢+天鹅湖景 ฿1,200-1,800/套', '酒店内 | 0分钟'));
+
+// ===================== KHAO YAI ACTIVITIES =====================
+addMarker(14.4380, 101.3725, activityIcon, activityLayer, khaoyaiLayer,
+  popup('Khao Yai National Park ⭐必去', '🌿 UNESCO世界遗产', '考艾', 'yes', '平坦步道+瀑布适合5岁',
+    '野生大象/猴子/瀑布，一家三口฿1,030', '自驾20-30分钟'));
+
+addMarker(14.5735, 101.2908, activityIcon, activityLayer, khaoyaiLayer,
+  popup('PB Valley Winery', '🍷 葡萄酒庄', '考艾', 'yes', '儿童提供鲜葡萄汁',
+    '75分钟专业导览+品酒，需提前72h预约！', '自驾20-30分钟'));
+
+addMarker(14.5215, 101.3920, activityIcon, activityLayer, khaoyaiLayer,
+  popup('Planet Trekkers 儿童俱乐部', '🎡 酒店内儿童乐园', '考艾', 'yes', '4-12岁，专人看护',
+    '火车主题+喂兔子+手工+SPA时安置孩子', '酒店内 | 0分钟'));
+
+// ===================== KHAO YAI SPA =====================
+addMarker(14.5220, 101.3915, spaIcon, spaLayer, khaoyaiLayer,
+  popup('Back on Track Spa ⭐', '💆🚂 火车主题SPA', '考艾', 'yes', '孩子送Planet Trekkers',
+    '百年火车车厢改造，฿1,177起', '酒店内 | 0分钟'));
+
+// ===================== PENINSULA RESTAURANTS =====================
+addMarker(13.7186, 100.5109, restaurantIcon, restaurantLayer, peninsulaLayer,
+  popup('Thiptara ⭐⭐最推荐', '🍽️ 米其林推荐·酒店内', '河畔', 'yes', '无年龄限制，最推荐亲子高档餐厅',
+    '河畔柚木凉亭泰菜，日落河景绝美', '酒店内 | 1-2分钟'));
+
+addMarker(13.7270, 100.5140, restaurantIcon, restaurantLayer, peninsulaLayer,
+  popup('80/20 🌟1星 ⭐唯一可入星级', '🍽️ 米其林1星', '河畔', 'warn', '5岁以下不接待，5.5岁刚好可以',
+    '唯一确认接受5.5岁孩子的米其林星级餐厅', '穿梭船+出租车20分钟 | ฿80-120'));
+
+addMarker(13.7242, 100.5132, restaurantIcon, restaurantLayer, peninsulaLayer,
+  popup('Baan Phadthai ⭐ Bib Gourmand', '🍽️ 米其林Bib Gourmand', '河畔', 'yes', '无年龄限制，休闲环境',
+    '精致Pad Thai ฿200-500/人，高性价比', '穿梭船+步行15分钟 | 免费'));
+
+addMarker(13.7244, 100.5290, restaurantIcon, restaurantLayer, peninsulaLayer,
+  popup('Thai Taste Hub Bib Gourmand', '🍽️ 米其林美食广场', '河畔', 'yes', '无限制，家庭极友好',
+    '空调米其林街头美食 ฿100-300/人', '穿梭船+BTS 20-25分钟 | ฿30-50'));
+
+addMarker(13.7235, 100.5163, restaurantIcon, restaurantLayer, peninsulaLayer,
+  popup('Le Normandie 🌟🌟2星', '🍽️ 米其林2星 法餐', '河畔', 'no', '7岁以上，需正装',
+    '曼谷最具历史法式Fine Dining', '穿梭船+出租车 | ฿50-100'));
+
+addMarker(13.7225, 100.5139, restaurantIcon, restaurantLayer, peninsulaLayer,
+  popup('Mezzaluna 🌟🌟2星', '🍽️ 米其林2星 65楼', '河畔', 'no', '7岁以上',
+    '65楼高空夜景Fine Dining', '穿梭船+出租车 | ฿50-100'));
+
+addMarker(13.7212, 100.5358, restaurantIcon, restaurantLayer, peninsulaLayer,
+  popup('Saawaan 🌟1星', '🍽️ 米其林1星 泰菜', '河畔', 'no', '12岁以上（最严格）',
+    '隐藏在Sathorn小巷的精致泰菜', '穿梭船+出租车 | ฿100-150'));
+
+// ===================== PENINSULA CAFES =====================
+addMarker(13.7266, 100.5101, cafeIcon, cafeLayer, peninsulaLayer,
+  popup('Starbucks Reserve ⭐', '☕ ICONSIAM 1楼河畔', '河畔', 'yes', '友好',
+    '泰国最大星巴克1200㎡，双层河景露台', '穿梭船5-10分钟 | 免费'));
+
+addMarker(13.7264, 100.5099, cafeIcon, cafeLayer, peninsulaLayer,
+  popup('%Arabica', '☕ ICONSIAM 1楼', '河畔', 'yes', '可以（空间较小）',
+    '京都极简主义咖啡，玻璃地板+纯白空间', '穿梭船5-10分钟 | 免费'));
+
+addMarker(13.7263, 100.5102, cafeIcon, cafeLayer, peninsulaLayer,
+  popup('D\'ARK', '☕ ICONSIAM The Veranda', '河畔', 'yes', '友好',
+    '河景Comfort Food+精品咖啡', '穿梭船5-10分钟 | 免费'));
+
+addMarker(13.7267, 100.5098, cafeIcon, cafeLayer, peninsulaLayer,
+  popup('James Boulangerie', '☕ ICONSIAM 6楼', '河畔', 'yes', '甜点面包吸引孩子',
+    'Iron Chef冠军法式烘焙+6楼河景', '穿梭船+上楼10分钟 | 免费'));
+
+// ===================== PENINSULA ACTIVITIES =====================
+addMarker(13.7265, 100.5100, activityIcon, activityLayer, peninsulaLayer,
+  popup('ICONSIAM + SOOKSIAM ⭐必去', '🛒🎡 东南亚最大购物中心', '河畔', 'yes', '强烈推荐！HarborLand 5000㎡乐园',
+    '室内水上市场+MEGA HarborLand儿童乐园+影院', '穿梭船5-10分钟 | 免费'));
+
+addMarker(13.7054, 100.5106, activityIcon, activityLayer, peninsulaLayer,
+  popup('Asiatique The Riverfront ⭐', '🎡 码头夜市', '河畔', 'yes', '摩天轮+旋转木马+恐龙',
+    '复古码头仓库夜市，17:00后前往', '穿梭船+接驳船25-30分钟 | 免费'));
+
+addMarker(13.7437, 100.4888, activityIcon, activityLayer, peninsulaLayer,
+  popup('Wat Arun 郑王庙 ⭐', '🛕 地标景点', '河畔', 'yes', '可以但爬塔需大人牵手',
+    '曼谷地标，12岁以下免费！清晨或傍晚去', '穿梭船+快船22分钟 | ฿30-50'));
+
+// ===================== PENINSULA SPA =====================
+addMarker(13.7185, 100.5107, spaIcon, spaLayer, peninsulaLayer,
+  popup('Peninsula Spa ❌', '💆 酒店内SPA', '河畔', 'no', '16岁以下不接待',
+    '五星豪华但不接待儿童，需替代方案', '酒店内'));
+
+addMarker(13.7260, 100.5095, spaIcon, spaLayer, peninsulaLayer,
+  popup('Let\'s Relax Spa ⭐推荐替代', '💆 连锁精品SPA', '河畔', 'warn', '孩子去ICONSIAM HarborLand',
+    '泰国No.1连锁SPA ฿1,045起，ICONSIAM旁', 'BTS 10分钟 | ฿30'));
+
+addMarker(13.7268, 100.5097, spaIcon, spaLayer, peninsulaLayer,
+  popup('Bhu Mhai Spa', '💆 ICONSIAM内', '河畔', 'warn', '孩子去同商场HarborLand',
+    '最方便的分头行动方案', '穿梭船5-10分钟 | 免费'));
+
+addMarker(13.7220, 100.5300, spaIcon, spaLayer, peninsulaLayer,
+  popup('So Thai Spa', '💆 Sathorn区', '河畔', 'warn', '需另行安排孩子',
+    'Couple Package 4h ฿5,500/两人', '出租车15-20分钟 | ฿100-200'));
+
+// Add all layers to map
+hotelLayer.addTo(map);
+restaurantLayer.addTo(map);
+cafeLayer.addTo(map);
+spaLayer.addTo(map);
+activityLayer.addTo(map);
+mallLayer.addTo(map);
+
+// Layer control - by category
+var categoryOverlays = {
+  '🔴 酒店': hotelLayer,
+  '🟠 餐厅': restaurantLayer,
+  '🟡 咖啡': cafeLayer,
+  '🟢 SPA': spaLayer,
+  '🔵 活动/景点': activityLayer,
+  '⚫ 商场/交通': mallLayer
+};
+
+L.control.layers(null, categoryOverlays, {collapsed: true, position: 'topright'}).addTo(map);
+
+// Area control - custom control
+var AreaControl = L.Control.extend({
+  options: { position: 'bottomright' },
+  onAdd: function(map) {
+    var div = L.DomUtil.create('div', 'leaflet-bar');
+    div.style.cssText = 'background:white;padding:8px 12px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.3);font-size:13px;';
+    div.innerHTML = '<div style="font-weight:700;margin-bottom:6px;">快速定位</div>' +
+      '<button onclick="map.setView([13.82,100.56],14)" style="display:block;width:100%;padding:4px 8px;margin:3px 0;border:1px solid #6c5ce7;background:#f0efff;border-radius:4px;cursor:pointer;font-size:12px;color:#6c5ce7;">📍 北曼谷 Ladprao</button>' +
+      '<button onclick="map.setView([14.55,101.38],12)" style="display:block;width:100%;padding:4px 8px;margin:3px 0;border:1px solid #00b894;background:#e8faf5;border-radius:4px;cursor:pointer;font-size:12px;color:#00b894;">📍 考艾 Khao Yai</button>' +
+      '<button onclick="map.setView([13.72,100.51],14)" style="display:block;width:100%;padding:4px 8px;margin:3px 0;border:1px solid #e17055;background:#fef0ec;border-radius:4px;cursor:pointer;font-size:12px;color:#e17055;">📍 河畔 Peninsula</button>' +
+      '<button onclick="map.setView([14.1,100.9],9)" style="display:block;width:100%;padding:4px 8px;margin:3px 0;border:1px solid #555;background:#f5f5f5;border-radius:4px;cursor:pointer;font-size:12px;color:#555;">🗺️ 全景</button>';
+    L.DomEvent.disableClickPropagation(div);
+    return div;
+  }
+});
+new AreaControl().addTo(map);
+
+</script>
+</body>
+</html>
