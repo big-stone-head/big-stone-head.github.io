@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EC 運営者のための A/B テスト 入門トレーニングマニュアル | PTMIND</title>
+<meta name="description" content="EC サイト運営を任された方のための、A/B テスト入門トレーニングマニュアル。Ptengine で会員登録率・CVR・GMV を伸ばすための系統知識。" />
+<meta name="author" content="Leo (Ptmind)" />
+
+<!-- Fonts: Noto Sans JP + Plus Jakarta Sans for Latin -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- Tailwind CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Markdown + Math -->
+<script src="https://cdn.jsdelivr.net/npm/marked@4.3.0/marked.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          'ptlime': '#C8F050',
+          'ptlime-soft': '#EDFBC4',
+          'ptlime-dark': '#A8D630',
+          'ptink': '#101C1F',
+          'ptink-soft': '#2A3538',
+          'ptgreen': '#1E4830',
+          'ptblue': '#579FF8',
+          'ptorange': '#FF903B',
+        },
+        fontFamily: {
+          'jp': ['"Noto Sans JP"', '"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+          'en': ['"Plus Jakarta Sans"', '"Noto Sans JP"', 'system-ui', 'sans-serif'],
+          'mono': ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+  body {
+    font-family: "Noto Sans JP", "Plus Jakarta Sans", system-ui, sans-serif;
+    font-feature-settings: "palt";
+    letter-spacing: 0.01em;
+    color: #101C1F;
+    background: #FAFAF7;
+  }
+
+  /* Reading progress bar */
+  #progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #C8F050 0%, #A8D630 100%);
+    width: 0%;
+    z-index: 100;
+    transition: width 80ms linear;
+  }
+
+  /* ========== Rendered content styling ========== */
+  .prose-pt {
+    color: #101C1F;
+    line-height: 1.85;
+    font-size: 16px;
+  }
+  .prose-pt h1 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    line-height: 1.3;
+    margin: 0 0 1.5rem;
+    color: #101C1F;
+    letter-spacing: -0.01em;
+  }
+  .prose-pt h1:first-child {
+    font-size: 2.75rem;
+    margin-top: 0;
+    padding-top: 1rem;
+    background: linear-gradient(180deg, #101C1F 0%, #2A3538 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .prose-pt h1:not(:first-child) {
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid #E5E5E0;
+    position: relative;
+  }
+  .prose-pt h1:not(:first-child)::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: #C8F050;
+    border-radius: 2px;
+  }
+  .prose-pt h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.4;
+    margin: 2.5rem 0 1rem;
+    color: #101C1F;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .prose-pt h2::before {
+    content: "";
+    width: 6px;
+    height: 24px;
+    background: #C8F050;
+    border-radius: 3px;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .prose-pt h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.5;
+    margin: 2rem 0 0.75rem;
+    color: #101C1F;
+  }
+  .prose-pt p {
+    margin: 0.9rem 0;
+  }
+  .prose-pt strong {
+    font-weight: 700;
+    color: #101C1F;
+    background: linear-gradient(180deg, transparent 60%, #EDFBC4 60%);
+    padding: 0 2px;
+  }
+  .prose-pt a {
+    color: #1E4830;
+    text-decoration: underline;
+    text-decoration-color: #C8F050;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    transition: all 150ms ease;
+    word-break: break-all;
+  }
+  .prose-pt a:hover {
+    color: #0F3820;
+    text-decoration-color: #A8D630;
+    background: #EDFBC4;
+  }
+  .prose-pt ul, .prose-pt ol {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+  }
+  .prose-pt li {
+    margin: 0.4rem 0;
+    padding-left: 0.25rem;
+  }
+  .prose-pt ul > li::marker {
+    color: #C8F050;
+    font-size: 1.1em;
+  }
+  .prose-pt ol > li::marker {
+    color: #1E4830;
+    font-weight: 700;
+  }
+  /* Checklist items */
+  .prose-pt li > input[type="checkbox"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #C8F050;
+    border-radius: 6px;
+    margin-right: 10px;
+    vertical-align: -4px;
+    cursor: pointer;
+    transition: all 150ms ease;
+    background: white;
+  }
+  .prose-pt li > input[type="checkbox"]:checked {
+    background: #C8F050;
+    border-color: #C8F050;
+    position: relative;
+  }
+  .prose-pt li > input[type="checkbox"]:checked::after {
+    content: "✓";
+    position: absolute;
+    top: -4px;
+    left: 3px;
+    color: #101C1F;
+    font-weight: 800;
+    font-size: 16px;
+  }
+  .prose-pt ul:has(li > input[type="checkbox"]) {
+    list-style: none;
+    padding-left: 0;
+    background: #FBFCF5;
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+    border: 1px solid #EDFBC4;
+  }
+  .prose-pt ul:has(li > input[type="checkbox"]) > li {
+    padding-left: 0;
+  }
+  .prose-pt ul:has(li > input[type="checkbox"]) > li::marker {
+    content: "";
+  }
+
+  /* Tables */
+  .prose-pt table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 1.5rem 0;
+    font-size: 0.94em;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(16,28,31,0.05);
+    border: 1px solid #E5E5E0;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  @media (min-width: 768px) {
+    .prose-pt table {
+      display: table;
+      white-space: normal;
+    }
+  }
+  .prose-pt thead {
+    background: #101C1F;
+    color: white;
+  }
+  .prose-pt th {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.92em;
+    border-bottom: 2px solid #C8F050;
+  }
+  .prose-pt td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #F0F0EB;
+    vertical-align: top;
+  }
+  .prose-pt tbody tr:last-child td {
+    border-bottom: none;
+  }
+  .prose-pt tbody tr:hover {
+    background: #FBFCF5;
+  }
+
+  /* Blockquotes */
+  .prose-pt blockquote {
+    margin: 1.5rem 0;
+    padding: 1.25rem 1.5rem;
+    background: linear-gradient(135deg, #FBFCF5 0%, #EDFBC4 100%);
+    border-left: 4px solid #C8F050;
+    border-radius: 0 12px 12px 0;
+    color: #101C1F;
+    font-weight: 500;
+  }
+  .prose-pt blockquote p {
+    margin: 0;
+  }
+  .prose-pt blockquote p + p {
+    margin-top: 0.5rem;
+  }
+
+  /* Code */
+  .prose-pt code {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    background: #F0F4E3;
+    color: #1E4830;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-weight: 500;
+  }
+  .prose-pt pre {
+    background: #101C1F;
+    color: #F8FAFC;
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1.25rem 0;
+    font-size: 0.9em;
+    line-height: 1.6;
+  }
+  .prose-pt pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    font-weight: 400;
+  }
+
+  /* Horizontal rule */
+  .prose-pt hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #E5E5E0 20%, #E5E5E0 80%, transparent);
+    margin: 3rem 0;
+  }
+
+  /* KaTeX math display */
+  .prose-pt .katex-display {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.5rem 0;
+    margin: 1.25rem 0;
+  }
+
+  /* TOC */
+  .toc-list {
+    font-size: 0.9rem;
+  }
+  .toc-list a {
+    display: block;
+    padding: 6px 12px;
+    color: #2A3538;
+    border-left: 2px solid transparent;
+    transition: all 150ms ease;
+    text-decoration: none;
+    line-height: 1.5;
+    border-radius: 0 6px 6px 0;
+  }
+  .toc-list a:hover {
+    background: #FBFCF5;
+    border-left-color: #C8F050;
+    color: #101C1F;
+  }
+  .toc-list a.active {
+    background: #EDFBC4;
+    border-left-color: #C8F050;
+    color: #101C1F;
+    font-weight: 600;
+  }
+  .toc-list .toc-h1 { padding-left: 0; font-weight: 600; margin-top: 12px; }
+  .toc-list .toc-h1:first-child { margin-top: 0; }
+  .toc-list .toc-h2 a { padding-left: 24px; font-size: 0.85rem; }
+
+  /* Anchor link icon on hover */
+  .prose-pt h1, .prose-pt h2, .prose-pt h3 {
+    scroll-margin-top: 80px;
+  }
+
+  /* Mobile menu drawer */
+  .sidebar-drawer {
+    transition: transform 280ms ease;
+  }
+  @media (max-width: 1023px) {
+    .sidebar-drawer {
+      transform: translateX(-100%);
+    }
+    .sidebar-drawer.open {
+      transform: translateX(0);
+    }
+  }
+
+  /* Hide scrollbar on the TOC aside while keeping scrollability */
+  .toc-scroll::-webkit-scrollbar {
+    width: 4px;
+  }
+  .toc-scroll::-webkit-scrollbar-thumb {
+    background: #D0E8A0;
+    border-radius: 2px;
+  }
+  .toc-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Print-friendly */
+  @media print {
+    #progress-bar, header, aside, #mobile-backdrop { display: none !important; }
+    main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+    .prose-pt h1 { page-break-before: always; }
+    .prose-pt h1:first-child { page-break-before: auto; }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Focus states */
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid #C8F050;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Chapter number badges */
+  .chapter-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #C8F050;
+    color: #101C1F;
+    font-weight: 800;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 999px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+</style>
+</head>
+
+<body class="antialiased">
+
+<!-- Reading progress bar -->
+<div id="progress-bar" role="progressbar" aria-label="読書進捗"></div>
+
+<!-- Top header -->
+<header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-gray-200">
+  <div class="max-w-[1400px] mx-auto px-4 lg:px-8 h-16 flex items-center justify-between gap-4">
+    <div class="flex items-center gap-3 min-w-0">
+      <!-- PTMIND logo mark -->
+      <div class="relative flex-shrink-0" aria-hidden="true">
+        <div class="w-9 h-9 rounded-full bg-ptink flex items-center justify-center">
+          <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none">
+            <path d="M8 16 L8 8 Q8 6 10 6 L12 6 Q14 6 14 8 L14 16" stroke="#C8F050" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M12 8 L12 16 L16 16" stroke="#C8F050" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="12" cy="6" r="1.2" fill="#C8F050"/>
+          </svg>
+        </div>
+      </div>
+      <div class="min-w-0">
+        <div class="text-[10px] font-en font-bold uppercase tracking-widest text-gray-500">PTMIND Training</div>
+        <div class="text-sm lg:text-base font-bold text-ptink truncate">A/B テスト入門マニュアル</div>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <button id="menu-toggle" class="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100 cursor-pointer" aria-label="目次を開く" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-ptink" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile backdrop -->
+<div id="mobile-backdrop" class="fixed inset-0 bg-ptink/40 backdrop-blur-sm z-30 hidden lg:hidden" aria-hidden="true"></div>
+
+<!-- Layout: sidebar + main -->
+<div class="max-w-[1400px] mx-auto lg:px-8 lg:grid lg:grid-cols-[280px_1fr] lg:gap-10 relative">
+
+  <!-- Sidebar TOC -->
+  <aside id="sidebar" class="sidebar-drawer fixed lg:sticky top-0 lg:top-16 left-0 z-40 w-80 lg:w-auto h-screen lg:h-[calc(100vh-4rem)] bg-white lg:bg-transparent border-r border-gray-200 lg:border-r-0 pt-20 lg:pt-8 pb-8 px-4 lg:px-0 overflow-y-auto toc-scroll">
+    <div class="mb-4 flex items-center justify-between lg:justify-start">
+      <div class="text-[10px] font-en font-bold uppercase tracking-widest text-gray-400">Contents</div>
+      <button id="menu-close" class="lg:hidden w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 cursor-pointer" aria-label="目次を閉じる">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <nav id="toc" class="toc-list"></nav>
+
+    <div class="mt-8 pt-6 border-t border-gray-200">
+      <div class="text-[10px] font-en font-bold uppercase tracking-widest text-gray-400 mb-2">Document</div>
+      <div class="text-xs text-gray-600 leading-relaxed space-y-1">
+        <div>約 12,000 字</div>
+        <div>全 8 章</div>
+        <div>作成日：2026-04-21</div>
+        <div>作成者：Leo (Ptmind)</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <main class="min-w-0 px-4 lg:px-0 py-8 lg:py-12 pb-24">
+    <!-- Hero banner -->
+    <div class="mb-10 p-6 lg:p-8 rounded-2xl bg-gradient-to-br from-ptlime-soft via-white to-white border border-ptlime-soft">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="inline-block w-2 h-2 rounded-full bg-ptlime"></span>
+        <span class="text-[11px] font-en font-bold uppercase tracking-widest text-ptgreen">Training Manual for EC Operators</span>
+      </div>
+      <div class="text-sm text-ptink-soft">会員登録率・CVR・GMV をデータで伸ばす、最初の一冊</div>
+    </div>
+
+    <article id="content" class="prose-pt max-w-none"></article>
+
+    <!-- Footer -->
+    <footer class="mt-20 pt-8 border-t border-gray-200 text-sm text-gray-600">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-ptink flex items-center justify-center">
+            <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none">
+              <path d="M8 16 L8 8 Q8 6 10 6 L12 6 Q14 6 14 8 L14 16" stroke="#C8F050" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="M12 8 L12 16 L16 16" stroke="#C8F050" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="12" cy="6" r="1.2" fill="#C8F050"/>
+            </svg>
+          </div>
+          <div>
+            <div class="font-bold text-ptink">PTMIND / Ptengine</div>
+            <div class="text-xs">A/B Testing Training Resources</div>
+          </div>
+        </div>
+        <div class="text-xs text-gray-500">© 2026 PTMIND Co., Ltd.  |  Created by Leo</div>
+      </div>
+    </footer>
+  </main>
+</div>
+
+<!-- Markdown source (embedded) -->
+<script type="text/markdown" id="md-source"># EC 運営者のための A/B テスト 入門トレーニングマニュアル
+
+**〜 会員登録率・CVR・GMV をデータで伸ばす、最初の一冊 〜**
+
+---
+
+**対象読者**：EC サイトの運営を任されたばかりの方。統計やマーケティングの高度な知識は不要。「A/B テストは聞いたことあるけど、具体的に何をすればいいか分からない」という段階から、「自分で仮説を立て、テストを設計し、結果を読み解ける」段階まで引き上げることを目的とします。
+
+**使い方**：
+- 最初は第 1 章から順に読んでください。各章の終わりに **チェックリスト** がついています。
+- 実際にテストを回すときは、第 3 章（設計）と第 5 章（分析）を手元に置いて参照してください。
+- 第 7 章の事例集は、自分のサイトに似た業態を先に読むと発想が広がります。
+
+**作成日**：2026-04-21
+**作成者**：Leo（Ptmind）
+
+---
+
+## 目次
+
+1. [第 1 章：なぜ EC サイトに A/B テストが必要なのか](#第-1-章なぜ-ec-サイトに-ab-テストが必要なのか)
+2. [第 2 章：A/B テストとは何か — 本質と統計の基礎](#第-2-章ab-テストとは何か--本質と統計の基礎)
+3. [第 3 章：科学的な A/B テスト設計](#第-3-章科学的な-ab-テスト設計)
+4. [第 4 章：テスト中の判断 — 観るべきもの、観てはいけないもの](#第-4-章テスト中の判断--観るべきもの観てはいけないもの)
+5. [第 5 章：終了後の分析とインサイト抽出](#第-5-章終了後の分析とインサイト抽出)
+6. [第 6 章：EC 特有の落とし穴と対策](#第-6-章ec-特有の落とし穴と対策)
+7. [第 7 章：日本の EC/D2C 企業の A/B テスト事例集](#第-7-章日本の-ecd2c-企業の-ab-テスト事例集)
+8. [第 8 章：明日から始めるための 5 つのステップ](#第-8-章明日から始めるための-5-つのステップ)
+9. [付録：用語集・参考文献](#付録用語集参考文献)
+
+---
+
+# 第 1 章：なぜ EC サイトに A/B テストが必要なのか
+
+## 1.1 「直感」だけでは勝てない時代になった
+
+EC サイトを運営していると、毎日のように「この CTA の文言を変えた方がいいのでは」「このバナーは邪魔では」「このフォームは項目が多すぎる」といった疑問が浮かんできます。
+
+そこで多くの運営者がやってしまうのが「**担当者の感覚で変えてしまう**」ことです。これ自体が悪いわけではありません。問題は、**変えた結果、本当に良くなったのかが誰にも分からない**という点です。
+
+世界のトップ企業のデータを見てみましょう。
+
+| 企業 | 年間 A/B テスト数 | 仮説の成功率 |
+|------|------------------|-------------|
+| Booking.com | 約 25,000 件（約 70 件/日） | 約 10% |
+| Microsoft（全社） | 約 20,000 件 | 約 33%（1/3 ルール） |
+| Netflix | 常時 200 件以上を並行 | — |
+| Google / Bing | — | 10〜20% |
+
+**Booking.com の仮説成功率はわずか 10%**。つまり、世界最高レベルのチームが練り上げた仮説でも、**10 個のうち 9 個は期待通りの結果にならない**のです。
+
+もしあなたが「担当者の直感」だけで変更を加えていたら、その 9 割は本当はマイナスの効果を持っているかもしれません。そしてそれに気づかないまま、毎日売上を少しずつ失い続けているかもしれません。
+
+> 💡 **覚えてほしいこと**：テストは「失敗する」のではありません。仮説が「棄却される」だけです。棄却された仮説は損失ではなく、**知識への投資** です。Booking.com はこの「9 割の失敗」から学び続けることで世界最大の旅行サイトになりました。
+
+## 1.2 HiPPO 決定という落とし穴
+
+EC 業界でよく知られる言葉に **HiPPO**（Highest Paid Person's Opinion ＝ 最も給料の高い人の意見）があります。
+
+- 「社長が『このバナーは赤にしろ』と言ったから赤にした」
+- 「部長が『フォーム項目を増やそう』と言ったから増やした」
+
+このような意思決定は、実は **データを装った政治** です。Harvard Business Review の調査によれば、「データドリブン経営をしている」と答えた企業の **84%** は、最終判断を「管理層の直感」に委ねていました。
+
+A/B テストが提供するのは「データが答えを出す」という、これまでの組織になかった新しい意思決定の仕組みです。社長が赤が好きでも、A/B テストで青の方が CVR が高ければ、青が採用される。**肩書きではなく、数字が決める**。これこそが A/B テストの最大の価値です。
+
+## 1.3 A/B テストがもたらす具体的な ROI
+
+「それで、実際にどれくらい効果があるの？」という問いに、公開データで答えます。
+
+- **Amazon のカート位置最適化**：単一のテストで年間数千万ドル規模の利益を生んだと言われる
+- **ZOZOTOWN の推薦エンジン**：A/B テストを経て全展開した結果、**全体の注文金額 +1.29%**（プラットフォーム全体の金額に対してこの数字は巨大）
+- **Ptengine 自社サイト**：ファーストビューの差別化訴求テストで **新規登録 CVR +73%**
+- **RIZAP**：ヒートマップ × A/B テストで **申込件数 +167%**、**フォーム入力率 2.5 倍**
+
+成功したテストの平均改善幅は **CVR または売上で +10〜28%**（VWO 2025 State of Optimization より）。月商 1,000 万円の EC サイトなら、成功テストが 1 つあたり月 100〜280 万円の増収に相当します。
+
+## 1.4 EC サイトにおける 3 つの「黄金スポット」
+
+A/B テストは「どこでテストするか」が成果を左右します。EC では以下の 3 箇所が **最も費用対効果が高い** 領域です。
+
+| 領域 | なぜ効くか | 典型的な改善施策 |
+|------|-----------|----------------|
+| **LP（ランディングページ）** | 広告からの初回接触、期待値を満たせなければ即離脱 | ファーストビューの訴求、社会的証明、動画 vs 画像 |
+| **商品詳細ページ（PDP）** | 購入決定の直前、ここで迷わせると離脱する | 画像点数、レビュー位置、アコーディオン UI |
+| **カート・決済フロー** | 金銭のやり取り直前、わずかな不安で離脱する | フォーム項目数、送料無料ライン、安心マーク |
+
+理由：この 3 箇所に EC サイト全体の流量の 60〜80% が集中しており、**単位訪問者あたりの価値が最も高い** からです。「CTA を 1 箇所変えただけで CVR +5%」のような具体的な成功が出やすいのもこの領域です。
+
+逆に、「会員マイページの色」や「フッターのリンク順」のような領域は、流量は薄く、改善しても事業への影響が小さい。まずは黄金スポットから始めましょう。
+
+## 1.5 「A/B テストをやらない」ことの隠れたコスト
+
+A/B テストをしない選択には、見えないコストがあります。
+
+1. **誤った方向に進んだ時の損失**：直感で入れた「改善」が実は -5% の CVR だった場合、毎日静かに売上が失われ続ける
+2. **チームが学習しない**：仮説を立てて検証するサイクルがないと、担当者が変わるたびに同じ失敗が繰り返される
+3. **社内の意思決定が政治化する**：データがないと、結局は声の大きい人の意見で決まる
+
+## チェックリスト：第 1 章
+
+- [ ] A/B テストの仮説は、世界最高レベルのチームでも **10 個中 1〜2 個しか成功しない** と理解した
+- [ ] 自社の意思決定が HiPPO になっていないか、直近 3 ヶ月の判断を振り返ってみた
+- [ ] 自サイトの「黄金スポット（LP・PDP・カート/決済）」が特定できている
+- [ ] A/B テストをしないことで、失われているかもしれない売上を概算で試算した
+
+---
+
+# 第 2 章：A/B テストとは何か — 本質と統計の基礎
+
+## 2.1 A/B テストの正体：ランダム化比較実験
+
+A/B テストを「2 つのデザインを並べて数字が高い方を選ぶ」と思っていたら、それは誤解です。本質はもっと深く、**「ランダム化比較実験（Randomized Controlled Trial, RCT）」というオンライン版** です。
+
+医学で新薬を承認するときに使われる最も厳格な検証手法と、実は同じ仕組みです。
+
+| 要素 | A/B テストでの意味 |
+|------|-------------------|
+| **ランダム化（Randomization）** | 訪問者を A 群と B 群にランダムに割り振る。A 群と B 群の人間の性質が統計的に同じになる |
+| **並行実施（Parallel）** | A と B を同じ時間帯で並行して走らせる。時間の影響（平日/週末、天気、ニュース）を排除できる |
+| **統制（Controlled）** | テストしたい 1 点だけを変えて、それ以外は揃える |
+
+この 3 つが揃って初めて「A と B の差は、変更点のせいで起きた」と **因果的に** 言えます。
+
+## 2.2 相関と因果は違う — これが A/B テストの最大の価値
+
+「昨日セールを打ったら売上が 20% 伸びた」— これは **相関関係** です。
+
+本当にセールのおかげかもしれないし、
+- たまたま昨日は給料日だったかも
+- 天気が良かったから外出客が増えたかも
+- 競合サイトがダウンしていたかも
+
+**A/B テストは「因果関係」を確定できる唯一の手法** です。同じ日、同じ時間帯、同じユーザー層に対して、セールを見た人と見ていない人を比較すれば、他の全ての条件が揃うため、差はセールのみに起因すると判断できます。
+
+普通のデータ分析（BI 分析）は相関までしか見えません。「どの施策が本当に効いているか」を知りたければ、A/B テストが必要になります。
+
+## 2.3 統計用語のやさしい解説
+
+A/B テストに関する統計用語を、EC の現場で通じるレベルで整理します。
+
+| 用語 | 直感的な意味 | 実務での典型値 |
+|------|-------------|---------------|
+| **帰無仮説（H0）** | 「A と B に差はない」という悲観的な前提 | 常にこれをスタートに置く |
+| **対立仮説（H1）** | 「A と B には差がある」という主張 | データが強く示唆したら採択 |
+| **p 値（p-value）** | 「もし本当に差がないとしたら、この結果が偶然出る確率」 | 5%（0.05）以下で有意とする |
+| **有意水準 α（アルファ）** | 間違って「差がある」と判断してしまう許容確率 | 通常 5% |
+| **検出力（1-β）** | 本当に差があるときに、ちゃんと検出できる確率 | 通常 80% |
+| **Type I Error（第一種過誤）** | 実際は差がないのに「差がある」と誤判定 → 無効/負の施策を上げてしまう | α で制御 |
+| **Type II Error（第二種過誤）** | 実際は差があるのに「ない」と誤判定 → 良い施策を見逃してしまう | β で制御 |
+
+### p 値のよくある誤解
+
+「p 値 = 0.03 だった」と聞いたとき、多くの人が「B が A より良い確率が 97% ということだ」と思います。**これは間違いです**。
+
+正しい解釈：
+> 「もし A と B が本当に同じだと仮定して、今回のような（あるいはそれ以上に極端な）データが偶然出る確率は 3% しかない」
+
+つまり p 値は「偶然起きる確率」の上限に近い概念です。「B の方が良い確率」という直接的な答えを返してくれるのは、次に説明するベイズ統計です。
+
+## 2.4 頻度論 vs ベイズ統計（Ptengine はベイズ派）
+
+| 観点 | 頻度論（Frequentist） | ベイズ統計（Bayesian） |
+|------|---------------------|----------------------|
+| 確率の定義 | 長期的な頻度 | 主観的な信念の度合い |
+| 出力 | p 値、信頼区間 | 「B が A に勝つ確率は 92%」「改善幅は 3〜8% の可能性が高い」 |
+| 事前設定 | サンプルサイズの事前計算が必須 | 事前分布（prior）の設定 |
+| ビジネスへの説明 | 難しい | 直感的で伝えやすい |
+| 低トラフィックでの使用 | 不向き（大サンプル必要） | 向き |
+| 途中で見ることへの耐性 | 弱い（詳細は第 4 章） | やや強い |
+
+**Ptengine はベイズ統計を採用しています**。これは、日本の中小 EC サイト（月間 UU が 1 万〜10 万程度）にとって非常に有利です。頻度論では「統計的有意性に達するまで 3 ヶ月」というケースでも、ベイズでは 1 ヶ月で「勝ちパターンが 93% の確率」のような答えが出せるためです。
+
+ただしベイズも万能ではありません。事前分布の設定が不適切だと結果が歪みます。また、次章で説明する「覗き見問題」は頻度論ほど重くないものの、完全に免除されるわけではありません。
+
+## チェックリスト：第 2 章
+
+- [ ] A/B テストが「ランダム化比較実験」であり、医学の臨床試験と同じ仕組みだと説明できる
+- [ ] 相関関係と因果関係の違いを、自分の言葉で説明できる
+- [ ] p 値の正しい意味（「偶然出る確率」）と、よくある誤解（「B が勝つ確率」）の違いが分かる
+- [ ] Ptengine がベイズ統計を採用している意味と、その利点が理解できた
+
+---
+
+# 第 3 章：科学的な A/B テスト設計
+
+ここから実践編です。テストは「走らせてから考える」のではなく、**走らせる前の設計** がほとんど全てです。
+
+## 3.1 良い仮説のかたち
+
+A/B テストを成功に導く仮説には、共通のフォーマットがあります。
+
+> **仮説テンプレート**
+>
+> 「**[データや観察]** が起きているので、**[変更内容]** を実施すれば、**[ターゲットユーザー]** の **[指標]** が **[具体的な変化]** するだろう。これを **[測定方法]** で検証する。」
+
+### 悪い仮説の例
+
+❌ 「ボタンの色を赤から緑に変えれば CVR が上がるはず」
+→ 根拠がない、変化幅も曖昧
+
+### 良い仮説の例
+
+✅ 「ヒートマップ分析で、購入ボタンがファーストビュー外にあり**クリック率が 0.3%** しかないと判明した。購入ボタンをファーストビュー内に移動すれば、**初回訪問者の購入 CVR** が **現状の 1.8% から 2.5% 以上**に改善するだろう。これを Ptengine の CVR A/B テストで検証する。」
+
+**良い仮説の 4 つの条件**：
+
+1. **根拠がある**：なぜこの変更を提案するのか、データや観察で説明できる
+2. **具体的**：何を、どこで、どう変えるかが明確
+3. **測定可能**：結果を数値で判断できる
+4. **反証可能**：「失敗」の条件も明確（例：CVR 上昇 2.2% 未満なら棄却）
+
+## 3.2 優先順位を決める：ICE スコアリング
+
+やりたいテストは無限にあります。限られたリソースをどこに振るかを決めるのが **ICE スコアリング** です。
+
+| 項目 | 意味 | スケール |
+|------|------|---------|
+| **Impact**（インパクト） | 成功した場合の事業インパクト | 1〜10 |
+| **Confidence**（自信度） | 成功する可能性についての自信 | 1〜10 |
+| **Ease**（実施の容易さ） | 実装・実行のしやすさ | 1〜10 |
+
+スコア = I × C × E の掛け算で出し、高い順に着手します。
+
+### 実例
+
+| テスト案 | I | C | E | スコア |
+|---------|---|---|---|-------|
+| カート内レコメンドのアルゴリズム変更 | 8 | 6 | 3 | 144 |
+| 会員登録フォームの項目を 7 → 4 に削減 | 7 | 9 | 9 | **567** |
+| ファーストビューの動画 vs 静止画 | 6 | 5 | 6 | 180 |
+
+→ まず「フォーム項目削減」に着手すべき。高インパクト × 高自信度 × 実装も簡単。
+
+チームが慣れてきたら **PXL フレームワーク**（10 個以上の Yes/No 質問で客観性を高める）に移行すると、判断のブレがなくなります。
+
+## 3.3 KPI の 3 層構造：Primary / Secondary / Guardrail
+
+A/B テストの指標は **3 つの層** に分けて設計します。
+
+| 層 | 役割 | EC での例 | 判断 |
+|----|------|-----------|------|
+| **Primary Metric**（主指標） | 勝敗を決める | 購入 CVR、会員登録率 | これで勝敗判定 |
+| **Secondary Metric**（副指標） | 勝因・敗因の理解を助ける | 平均客単価、PDP 滞在時間、カート到達率 | 参考情報 |
+| **Guardrail Metric**（ガードレール指標） | これを壊したら即停止 | ページ読込速度、エラー率、NPS、返品率 | 赤ライン |
+
+### よくある失敗
+
+「CVR（主指標）が +5% になったので上げよう！」→ しかし実は **返品率（ガードレール）** が +30% になっていた。短期的に数字は上がったが、長期的にはマイナス。
+
+Airbnb の事例では、毎月の実験のうち **約 25 件が何らかのガードレール指標を侵害** しており、そのうち 20% は施策を中止しています。
+
+## 3.4 サンプルサイズと期間の決め方
+
+A/B テストを走らせる前に、**必要なサンプル数と期間は計算できます**。計算せずに始めると、「1 ヶ月走らせたけど結論出ない」という事態になります。
+
+### 直感的な公式
+
+$$ n = \frac{16\sigma^2}{\delta^2} $$
+
+- **n**：各グループに必要なサンプル数
+- **σ**：指標のばらつき（標準偏差）
+- **δ**：検出したい最小効果 = **MDE（Minimum Detectable Effect）**
+
+### MDE の決め方
+
+| MDE の設定 | どういう意味か | 向いている場面 |
+|-----------|--------------|---------------|
+| 1〜2% | 非常に小さな変化も捉えたい | 月間 UU 100 万以上の大型 EC |
+| 5〜10% | 中程度の変化を捉えたい | 月間 UU 1 万〜50 万の中小 EC |
+| 15〜20% | 大きな変化のみ捉えたい | 月間 UU 5,000 以下の低トラフィックサイト |
+
+**実務の目安**：日本の中小 EC サイトで、現状 CVR が 2% の場合、MDE 10% 相対改善（CVR 2.0% → 2.2%）を検出したいなら、**各グループ約 16,000〜30,000 ユニークビジター、期間約 2〜3 週間** が必要です。
+
+### 期間の黄金ルール
+
+- **最低 1 完全週（7 日）は走らせる**：EC のユーザー行動には明確な曜日効果（平日は情報収集、週末に購入など）がある
+- **推奨は 2 業務サイクル（2 週間）**：給料日・ボーナス日などのサイクルを含める
+- **最長 4 週間まで**：それ以上は Cookie 消失や Novelty Effect で精度が落ちる
+- **大型セール期間は避ける**（楽天スーパーセール、ブラックフライデー等）：ユーザー構造が普段と全く異なる
+
+## 3.5 セグメント設計 — 事前に決めておく
+
+A/B テストの結果を分析するとき、「新規客だけ見たらどうだろう」「モバイルだけ見たらどうだろう」と後から切り口を増やしたくなります。
+
+しかし **事後的に無限にセグメントを切ると、必ず「たまたま有意」な結果が見つかってしまう**（多重比較問題）。
+
+**対策**：事前に見たいセグメントを 3〜5 個に絞っておく。EC での典型は：
+
+1. 新規客 vs 既存客
+2. デバイス（PC / スマホ / タブレット）
+3. 流入元（自然検索 / 広告 / SNS / メルマガ）
+4. 既存会員 vs 新規会員
+
+## 3.6 SRM（Sample Ratio Mismatch）の防止
+
+50/50 で分けるように設定したのに、実際には 48.5 / 51.5 になっている — これが **SRM（サンプル比の不一致）** です。一見誤差に見えますが、サンプルが大きいと統計的に有意な偏りになります。
+
+Microsoft と Booking.com の研究では、**実験全体の約 6% で SRM が発生** しており、放置するとテスト結果そのものが信頼できません。
+
+**よくある原因**：
+
+- Bot のアクセスが片方のグループに偏る
+- リダイレクト処理が片方のみに入り、そこで離脱が増える
+- 分流ロジックが特定ブラウザで動かない
+- Cookie の扱いに差がある
+
+**対策**：
+1. Ptengine 等のツールで自動的に SRM 検知を有効にする
+2. SRM が発生したら **テストを停止** し、原因を突き止める
+3. 原因を修正してから再実行。SRM が出たままのデータは **捨てる**
+
+## 3.7 A/A テストで基盤を確認する
+
+本番テストの前に、**同じバージョン（A と A）を並行させる** テストを 1〜2 週間走らせることを強く推奨します。
+
+目的：
+- **本来は差が出ないはず** のテストで有意な差が出るなら、分流やトラッキングに不具合がある
+- Ptengine を初めて使う組織は、まず A/A で自社の計測環境を検証する
+
+これで地盤が固まれば、以降のテストは安心して走らせられます。
+
+## チェックリスト：第 3 章
+
+- [ ] 次に走らせたいテストの仮説を、4 つの条件（根拠・具体・測定可能・反証可能）で書ける
+- [ ] ICE スコアリングで、候補を 3 つ以上比較して優先順位をつけた
+- [ ] Primary・Secondary・Guardrail の 3 層で指標を設計した
+- [ ] 必要サンプル数と期間を事前に計算した
+- [ ] 分析したいセグメントを 3〜5 個事前に決めた
+- [ ] SRM 検知が有効になっていることを確認した
+- [ ] 可能なら A/A テストを 1 回実施した
+
+---
+
+# 第 4 章：テスト中の判断 — 観るべきもの、観てはいけないもの
+
+テスト設計が終わったら、あとは決められた期間が終わるまで **基本的に待つ** ことが仕事です。ここで多くの EC 運営者が致命的なミスを犯します。
+
+## 4.1 Peeking Problem（覗き見問題）— 最大の罠
+
+「3 日経ったら B が明らかに勝っていた。もう結論出たし、これで採用でいいよね？」
+
+**これが最も多い失敗パターン** です。なぜなら、途中で何度も結果を見ていると、**本来は差がないのに「差がある」と誤判定する確率が急上昇** するからです。
+
+### 数学的な真実
+
+設定した α = 5% は「1 回だけ結果を見る」という前提のものです。途中で k 回覗くと、実際の誤判定確率は：
+
+$$ \alpha_{\text{実際}} \approx 1 - (1 - 0.05)^k $$
+
+| 覗き見回数 | 実際の誤判定率 |
+|-----------|---------------|
+| 1 回（期間終了時のみ） | **5%** |
+| 5 回 | **約 23%** |
+| 10 回 | **約 40%** |
+| 毎日 1 回 × 14 日 | **約 51%** |
+
+つまり毎日覗き見ると、「勝利宣言」の **約半分は偽物** になります。
+
+### 対策
+
+**最初のルールは「事前に決めたサンプルサイズ / 期間まで、勝敗判定をしない」**。これを守るだけで 90% の問題は回避できます。
+
+## 4.2 早期停止のルール
+
+では「本当に早期停止していい場面」はないのでしょうか？あります。ただし **明確なルールに従う** 必要があります。
+
+### 方法 1：Sequential Testing（逐次検定）
+
+専門的な手法（SPRT、O'Brien-Fleming Alpha Spending 等）で、覗き見を許しつつ全体の α を 5% に保つ計算をします。Ptengine のベイズ統計もこの系統に近い考え方です。
+
+### 方法 2：実務向け簡易ルール（初心者向け）
+
+1. **最低 7 日は必ず走らせる**（1 業務週期をカバー）— ここまでは絶対に勝敗判定しない
+2. **7 日経過後、事前計算のサンプルサイズまで**は「ガードレール指標の監視専用」。主指標で勝敗を決めない
+3. **サンプルサイズに到達** して初めて判定する
+
+## 4.3 Guardrail 指標：即停止すべき条件
+
+一方で、**待たずに即座にテストを止めるべき場面** もあります。以下のガードレール違反があった場合です。
+
+| 違反内容 | 閾値 | 理由 |
+|---------|------|------|
+| ページ読込時間が +20% 以上 | UX 致命的ダメージ | SEO 悪化、直帰率上昇 |
+| 5xx エラー率の急増 | いつもの 3 倍以上 | システム障害の可能性 |
+| 売上 / GMV が連続 2 日で -15% 以上 | ビジネスへの直接損害 | 損失拡大前に停止 |
+| NPS や CS 問い合わせの急増 | 通常比 +50% 以上 | 顧客離反の兆候 |
+
+**判断のコツ**：「これを 30 日間放置したらどうなるか」を想像する。もし耐えられない損害になるなら即停止。
+
+## 4.4 Novelty Effect と Primacy Effect の見分け方
+
+人間は「新しいもの」に一時的に反応しやすく、また「変えられた」ことに一時的に反発もします。
+
+| 現象 | 定義 | よく起きる場面 | 見分け方 |
+|------|------|---------------|---------|
+| **Novelty Effect**（新奇性効果） | 一時的に新版が持ち上げられるが、やがて慣れて効果が消える | 新バナー、新キャンペーン、新ポップアップ | 初週が高く、後半に下がる |
+| **Primacy Effect**（親近性効果） | 既存ユーザーが変化に反発し、一時的にマイナス。慣れると戻る / 上がる | ナビゲーション大改修、決済フロー刷新 | 初週が低く、後半に回復 |
+
+### 識別テクニック
+
+1. **前半と後半で結果を比較する**：大きく違う場合は一時効果の疑い
+2. **新規ユーザーのみで分析する**：Primacy Effect の影響を受けにくい
+3. **既存ユーザーを「変更を見た初週 vs 2 週目以降」で比較する**：Novelty 減衰が見える
+
+Pinterest の実例：ある badge 機能のテストで、短期 A/B では DAU +7% だったが、1 年の長期ホールドアウトで見ると **+2.5% まで減衰**。差の **60% 以上が Novelty Effect** でした。
+
+### 対策
+
+- 新奇性の疑いが強い場合：**テスト期間を 3〜4 週間に延長** し、定常状態を確認
+- 決済フローなど長期効果が重要な施策：**1〜2% のユーザーでロングホールドアウト** を 3〜6 ヶ月維持
+
+## 4.5 Bot・異常トラフィックへの対処
+
+Bot はテスト結果を大きく歪めます。
+
+### 必須の対策
+
+- **GA4 の標準 Bot フィルターは不十分**：GPTBot、PerplexityBot、ClaudeBot 等の新興 AI クローラーはカバーされていない
+- Ptengine や Shopify 等の EC プラットフォームには専用の Bot フィルターがあるので **必ず有効化**
+- User-Agent、極端に高頻度なアクセス、0 秒滞在の「ユーザー」を除外するルールを事前に設定
+
+### 運用ルール
+
+- テスト開始前に Bot トラフィックが **全体の 5% 未満** であることを確認
+- 10% を超える場合、まず Bot 除外フィルタを整備してからテストを始める
+- **事前に除外ルールを設定**（事後的に「このデータ怪しいから除外しよう」は後付けバイアスになる）
+
+## チェックリスト：第 4 章
+
+- [ ] テスト期間中、主指標を毎日覗いて勝敗判定する行為が、どれだけ危険か理解した
+- [ ] 事前に計算したサンプルサイズ / 期間まで、**勝敗判定をしない** と決めた
+- [ ] ガードレール違反の閾値を事前に文書化した
+- [ ] Novelty Effect と Primacy Effect の見分け方が分かる
+- [ ] Bot フィルタが有効になっていることを確認した
+
+---
+
+# 第 5 章：終了後の分析とインサイト抽出
+
+テスト期間が終了しました。データが集まりました。**ここから本当の勝負が始まります**。勝ち負けを見て喜んで終わるのは素人。ここでの分析の深さが、次回のテストの質を決めます。
+
+## 5.1 統計的有意性 ≠ ビジネス的有意性
+
+この 2 つを混同すると、会社に損害を与えます。
+
+| 観点 | 定義 | 判断主体 |
+|------|------|---------|
+| **統計的有意性** | p < 0.05（または「B が A に勝つ確率 > 95%」） | 数学が判定 |
+| **ビジネス的有意性** | 実装コスト・運用コストを超えて、事業に価値がある変化幅 | 人間が判定 |
+
+### ありがちな 2 つのパターン
+
+**ケース A：統計的には有意だが、ビジネスには無意味**
+- 大手 EC が CVR +0.3%、p = 0.01 で統計的有意
+- しかし +0.3% は誤差範囲で、実装・保守コストを考えると採算に合わない
+- → **採用しない** 判断もあり
+
+**ケース B：統計的には有意ではないが、ビジネス的に捨てがたい**
+- 中小 EC が CVR +15%、p = 0.08 で統計的には棄却ライン
+- しかし変化幅が大きい
+- → **サンプルを増やして再テスト** するべき
+
+### 実務的な判断マトリクス
+
+| | 統計的有意 ✓ | 統計的有意 ✗ |
+|---|---|---|
+| **ビジネス的有意 ✓** | 🟢 採用 | 🟡 サンプル増やして再テスト |
+| **ビジネス的有意 ✗** | 🟡 再考（コスト対効果） | 🔴 棄却 |
+
+**日本の中小 EC での目安**：実務的に採用する最低ラインは **相対改善 +5% 以上**（実装コストを回収できる閾値）。
+
+## 5.2 セグメント分析とシンプソンのパラドックス
+
+全体で B が勝っているように見えても、**どのセグメントでも実は A が勝っている** という逆説が起こり得ます。これが **シンプソンのパラドックス** です。
+
+### 実例
+
+| セグメント | A 組の CVR | B 組の CVR | セグメント内の勝者 |
+|-----------|-----------|-----------|-------------------|
+| 新規客（A 組は 80%、B 組は 40%） | 2.5% | 3.0% | B |
+| 既存客（A 組は 20%、B 組は 60%） | 8.0% | 10.0% | B |
+| **全体の単純平均** | **3.6%** | **7.2%** | B |
+
+一見 B の圧勝。しかし実はこれ、**B 組に既存客（元々 CVR が高い層）が多く割り振られていた** だけで、同じセグメント同士で比べると B の優位性は小さいか、実は A の方が良い可能性すらあります。
+
+### 対策
+
+1. **分流が本当にランダムか SRM 検知で確認する**（第 3.6 節）
+2. 事前登録したセグメントごとに個別に勝敗を見る
+3. 全体結果とセグメント結果が食い違う場合は **一度立ち止まる**
+
+## 5.3 二次指標との整合性
+
+主指標が勝ったときこそ、**副指標・ガードレール指標を必ず確認** してください。
+
+### 例：GMV 上がったが NPS 下がった
+
+- **GMV +3%**（統計的有意、ビジネス的にも有意）
+- **NPS -5pt**（統計的有意）
+
+どう判断するか？
+
+考慮点：
+- 短期 vs 長期：GMV の +3% は今月の数字。NPS の -5pt は 3〜6 ヶ月後のリピート・口コミに響く
+- 規模感：GMV +3% と NPS -5pt は、**時間軸を合わせると NPS のダメージが勝る**ケースが多い
+- 可逆性：UI 変更は戻せるが、壊れた信頼は回復に年単位かかる
+
+**原則**：ガードレール指標が明確に悪化した場合、よほど戦略的理由がない限り上げない。
+
+## 5.4 長期効果の確認 — ホールドアウト手法
+
+A/B テストの結果は短期のスナップショットに過ぎません。**3 ヶ月後も効果が残っているか** は、実はテストでは分かりません。
+
+### ホールドアウト手法
+
+- テストで勝った版を全量 98〜99% に上げる
+- しかし **1〜2% のユーザーには旧版を残す**（ホールドアウト群）
+- 3〜6 ヶ月後、ホールドアウト群と全量群の差を比較すれば、**真の長期効果** が見える
+
+Pinterest の事例では、これによって短期効果の 60% 以上が Novelty Effect だったと判明しました。
+
+**適用対象**：
+- 重大な機能変更
+- レコメンドアルゴリズムの刷新
+- サブスク解約率や LTV への影響が懸念される変更
+
+## 5.5 Experiment Log（実験日誌）の書き方
+
+組織で A/B テストを続けていく最大の資産は **実験日誌** です。
+
+### 必ず記録すべき 10 項目
+
+| 項目 | 内容 |
+|------|------|
+| 1. 実験 ID | YYYY-MM-実験番号 |
+| 2. 仮説 | 第 3.1 節のテンプレートに従った一文 |
+| 3. 根拠 | なぜこの仮説に至ったのか（データ・観察・先行事例） |
+| 4. 主指標・副指標・ガードレール | 具体的な定義と閾値 |
+| 5. MDE とサンプルサイズ | 事前計算の結果 |
+| 6. 期間 | 開始日・終了日 |
+| 7. 結果 | 勝ち / 引き分け / 負け |
+| 8. セグメント別結果 | 事前登録したセグメントごと |
+| 9. **学び** | このテストから何が分かったか（仮説の是非を超えて） |
+| 10. 次の仮説 | この学びから次にやるべきこと |
+
+### 「失敗」テストこそ宝
+
+**Microsoft の全社データでは 1/3 が neutral、1/3 が negative**。つまり 2/3 は「失敗」。しかしこの 2/3 こそが **ユーザーについての組織の理解** を深める情報源です。
+
+- 負けたら「なぜ」を 3 回問う
+- チームで「予想していた結果と違ったのはなぜか」を議論する
+- 失敗仮説は捨てずにログに残す
+
+メルカリ・北欧暮らしの道具店の実例では、**A/B テスト前に全員が結果を予想して紙に書く** という運用をしており、これで学習効果が倍増します。
+
+## 5.6 実験フライホイール
+
+A/B テストは単発ではなく、**循環** が成果を生みます。
+
+```
+仮説 → テスト設計 → 実行 → 分析 → 学び
+  ↑                              ↓
+  └──────── 次の仮説 ←──────────┘
+```
+
+**毎回のテスト結果から必ず次の仮説を生む**。これができていれば、3 ヶ月後のテスト精度・成功率は大幅に上がります。
+
+- **勝った** → なぜ勝てたのか？他のページに横展開できるか？拡張版で更に勝てるか？
+- **引き分け** → 分流やサンプルの問題？それとも仮説自体が弱かった？
+- **負けた** → ユーザーがこの方向性を嫌ったのか？それとも実装の問題か？
+
+## チェックリスト：第 5 章
+
+- [ ] 統計的有意性とビジネス的有意性を別々に判断する習慣がついた
+- [ ] セグメント分析でシンプソンのパラドックスを警戒するようになった
+- [ ] ガードレール指標を無視せず、必ず確認している
+- [ ] 実験日誌のフォーマットを準備した（Notion や Google Docs で OK）
+- [ ] 「失敗テストからの学び」を 1 つ以上、次の仮説に繋げた
+
+---
+
+# 第 6 章：EC 特有の落とし穴と対策
+
+EC 業界ならではの注意点を集中的に扱います。
+
+## 6.1 季節性と大型セール期間
+
+楽天スーパーセール、ブラックフライデー、お中元・お歳暮、年末年始 — これらの期間は **普段と全く違うユーザー** がサイトを訪れます。
+
+### 典型的な違い
+
+- 価格敏感型ユーザー比率が急増
+- 初訪問者が多く、既存客の比率が下がる
+- 「とりあえず見る」スクロール行動が中心
+
+### ルール
+
+| タイミング | やること |
+|-----------|---------|
+| 大型セール 1 週間前 | **進行中のテストを凍結**（結果が歪む） |
+| 大型セール期間中 | **セール専用のテストのみ** 実施（例：セール LP のバナーテスト） |
+| 大型セール終了後 1 週間 | ユーザー行動の正常化待ち、新テスト開始を見送る |
+
+## 6.2 クロスデバイス問題
+
+日本のモバイル EC では、**購買の 65% がスマホで開始され、そのうち 61% が PC で完結** するという調査があります（Google, 2019）。
+
+### 何が問題か
+
+- Cookie ベースの分流だと、同じユーザーがスマホでは A 群、PC では B 群に入る
+- スマホで見たのは A だが、購入は B として計上 — **コンバージョン帰属がめちゃくちゃに**
+
+### 対策（優先順）
+
+1. **User-ID ベース分流**：ログイン会員は User-ID で割り振ることでデバイス跨ぎに耐える
+2. **ログインユーザーセグメントで分析**：未ログインは参考程度に留める
+3. **諦めてノイズを許容**：MDE を大きめに設定し、小さな差は検出対象外にする
+
+日本の EC は会員制度が普及しているので、**会員の User-ID 分流** が現実的かつ強力な選択肢です。
+
+## 6.3 推薦・検索アルゴリズムとの干渉
+
+PDP や検索結果ページを A/B テストする際、裏で動いている **推薦アルゴリズム** と干渉することがあります。
+
+### 問題
+
+- A/B テストで UI が変わると、ユーザーのクリック行動が変わる
+- 推薦アルゴリズムがその「変化した行動」を学習データにしてしまう
+- 結果として、アルゴリズムそのものが歪んでしまう
+
+### 対策
+
+- **アルゴリズム系テストと UI 系テストは同じページで並行しない**
+- 推薦アルゴリズムの実験は専用フレームワーク（Interleaving 等）で別実施
+- UI テスト期間中は、アルゴリズムの新モデルの rollout を凍結
+
+## 6.4 低トラフィックサイトの戦略
+
+月間 UU が 5,000 未満、月間注文が 500 未満のサイトでは、従来型の頻度論 A/B テストは現実的ではありません（サンプルが足りない）。
+
+### 低トラフィック向け戦略
+
+| 手法 | 適用条件 | 特徴 |
+|------|---------|------|
+| **ベイズ統計** | 月 UU 1,000+ | Ptengine 標準。90% 信頼度で頻度論より 30〜50% 高速 |
+| **Multi-Armed Bandit** | 時限キャンペーン | 自動で勝ち組に流量を寄せる、機会損失を最小化 |
+| **MDE を 15〜20% に設定** | 中〜低トラフィック | 大きな変化のみ検出、小修正は諦める |
+| **高トラフィックページに集中** | 全サイト | トップ 3 ページに 80% のリソース投入 |
+| **定性調査で補う** | 全サイト | ヒートマップ、ユーザーインタビュー、セッションリプレイ |
+
+**中小 EC（月 UU 10 万以下）への推奨**：
+- フレームワーク：ベイズ（Ptengine 標準）
+- 信頼度：90%（95% より速度優先）
+- 主対象：LP、PDP、カート・決済のみ
+
+## 6.5 複数テストの並行運用
+
+テストを複数同時に走らせるとき、**互いに干渉する** ことがあります。
+
+### 2 つの戦略
+
+| 戦略 | やり方 | メリット | デメリット |
+|------|-------|---------|-----------|
+| **互斥（Exclusion）** | 1 ユーザーは 1 テストのみ参加 | 干渉ゼロ | テスト速度が遅い |
+| **重複（Overlapping）** | 1 ユーザーが複数テストに参加 | 大量のテストを同時実施可 | 交互作用の可能性 |
+
+### ルール
+
+- **同じ要素・同じフローを触るテストは必ず互斥**（例：カート表示の変更テスト 2 本）
+- **異なるページのテストなら重複 OK**（例：LP のテストと会員登録フォームのテスト）
+- 10 本以上並行するなら、定期的に「交互作用チェック」を行う
+
+**初学者へのアドバイス**：慣れないうちは **互斥を基本** にしてください。複雑性が増える前にまず仕組み自体を回す。
+
+## チェックリスト：第 6 章
+
+- [ ] 大型セール前後のテスト運用ルールを決めた
+- [ ] クロスデバイス対策として User-ID 分流の利用を検討した
+- [ ] 自サイトの月間 UU に応じた MDE 設定を決めた
+- [ ] 低トラフィックならベイズ統計 + 90% 信頼度を採用した
+- [ ] 複数テスト並行時の互斥・重複ルールを明確にした
+
+---
+
+# 第 7 章：日本の EC/D2C 企業の A/B テスト事例集
+
+他社の実例から学ぶことは、自分の仮説を膨らませる最速の方法です。**自社に近い業態を探して、仮説を真似る** ことから始めてください。
+
+## 7.1 事例 1：北欧、暮らしの道具店（クラシコム）
+
+**業態**：ライフスタイル EC・メディア
+**課題**：メルマガ経由のアプリダウンロード率向上
+
+- **テスト**：4 パターン比較（機能訴求の詳細版、ボタン強調版、**コンパクト版**、商品押し版）
+- **結果**：シンプルな「コンパクト版」が勝利
+- **学び**：**情報を詰め込むほど反応は下がる**。シンプルが勝つ典型例
+- **参考**：[Kurashicom Tech Blog](https://note.com/kurashicom_tech/n/n104bec8332b6)
+
+## 7.2 事例 2：BASE FOOD（完全栄養食 D2C）
+
+**業態**：完全栄養食のサブスク D2C
+**課題**：広告 LP の CVR、LTV ベース ROI
+
+- **テスト**：プロ撮影のみ vs UGC（実ユーザーの食卓写真）埋め込み
+- **結果**：**CVR 最大 1.24 倍**、LTV ベース **ROI 約 380%**
+- **学び**：「オシャレすぎる UGC」は逆効果。**ターゲットに近い日常感** がカギ
+- **参考**：[Letro 導入事例](https://service.aainc.co.jp/product/letro/article/case-interview-basefood)
+
+## 7.3 事例 3：BULK HOMME（メンズスキンケア D2C）
+
+**業態**：メンズスキンケア D2C
+**課題**：SNS 広告の新規獲得、CPA、LP の CVR
+
+- **テスト**：SNS 広告クリエイティブの UGC 有無・撮影背景・被写体バリエーション、LP 上の「お客様コメント付き UGC」有無
+- **結果**：1 年で **SNS 経由新規獲得 10 倍、CPA 1/3、LP CVR 160% 改善**。一部 LP で **CVR 1% 台 → 4% 台**
+- **学び**：A/B テストの累積で「勝ちパターンのクリエイティブ傾向」が見える化される
+- **参考**：[SELECK インタビュー](https://seleck.cc/1241)
+
+## 7.4 事例 4：ZOZOTOWN
+
+**業態**：ファッション EC プラットフォーム
+**課題**：推薦経由の閲覧・注文金額、全体 CVR
+
+- **テスト**：自社ルールベース推薦 vs Google Recommendations AI
+- **結果**：
+  - 推薦経由商品閲覧 **+217%**
+  - 推薦経由注文金額 **+262%**
+  - 全体注文金額 **+1.29%**（プラットフォーム規模では巨大なインパクト）
+- **学び**：大規模 EC は常時 50 本規模のテストを並行実行する基盤を持つ
+- **参考**：[ZOZO TECH BLOG](https://techblog.zozo.com/entry/ab-testing-standardization)
+
+## 7.5 事例 5：yutori（若年層向け D2C アパレル）
+
+**業態**：若年層向け D2C アパレル（複数ブランド）
+**課題**：自社 EC のレコメンド経由収益
+
+- **テスト**：閲覧履歴ベース vs **購入履歴ベース** のレコメンドロジック
+- **結果**：
+  - レコメンド利用率 **+118%**
+  - レコメンド経由 CVR **+130%**
+  - レコメンド経由収益 **+140%（売上 1.4 倍）**
+- **学び**：多くの EC が「レコメンドは入れて終わり」になっている。**アルゴリズム見直しだけで大幅改善余地** がある
+- **参考**：[PR TIMES](https://prtimes.jp/main/html/rd/p/000000025.000042640.html)
+
+## 7.6 事例 6：Oisix（食材宅配 D2C）
+
+**業態**：食材宅配 D2C
+**課題**：お試しセット購入者の定期引き上げ率、メルマガ CVR
+
+- **テスト①（LP）**：UGC あり vs なし
+- **テスト②（メルマガ）**：生成 AI 作成 vs 人力作成
+- **結果**：
+  - LP：**PC 版 CVR 1.15 倍、モバイル 1.10 倍**
+  - メルマガ：**生成 AI の方が CVR 約 2 倍**
+- **学び**：お試し → 定期の「引き上げハードル」対策には UGC。大量配信型チャネルでは生成 AI のバリエーションテストが威力
+- **参考**：[Letro Oisix 事例](https://service.aainc.co.jp/product/letro/article/case-interview-oisixradaichi)
+
+## 7.7 事例 7：メルカリ
+
+**業態**：C2C フリマアプリ
+**課題**：出品完了率、購入完了率、検索・推薦精度
+
+- **運用**：ほぼ全ての開発案件で A/B テスト実施、常時 50 本前後を並行
+- **仕組み**：**Experiment Design Doc（EDD）** テンプレートで仮説・指標・サンプルサイズを事前定義
+- **学び**：**「テストを走らせる前に予想を書き残す」** が組織の学習を倍増させる。EC 新人でも真似できる基本動作
+- **参考**：[メルカリエンジニアリング](https://engineering.mercari.com/blog/entry/20221212-dc31d8e3d8/)
+
+## 7.8 事例 8：COHINA（小柄女性向け D2C）
+
+**業態**：身長 150cm 前後の女性専用 D2C アパレル
+**課題**：「自分の体型に合うか」への不安解消、CVR・リピート率
+
+- **テスト**：通常画像のみ vs **身長別モデル着用画像 + Instagram ライブ切抜き動画**の追加
+- **結果**：具体数値は非公開。類似 D2C ベンチマークでは CVR +380% 等の大幅改善
+- **学び**：**ターゲットを極端に絞る D2C** は、そのユーザー固有の不安を LP で直接解消するテストが効く
+- **参考**：[ecforce 記事](https://ec-force.com/blog/d2c_no42)
+
+## 7.9 事例 9：土屋鞄製造所
+
+**業態**：レザー鞄・財布 D2C
+**課題**：施策実行スピード、直帰率、カテゴリ閲覧率
+
+- **テスト**：Shopify 移行 + 内製化によるヘッダーメニュー構造最適化
+- **結果**：公開数値なし。業界メディアで「直帰率低減の好事例」として紹介
+- **学び**：A/B テストを回すには **実行できるチーム体制（内製化）** が前提
+- **参考**：[コマースピック](https://www.commercepick.com/archives/23969)
+
+## 7.10 事例 10：UNITED ARROWS
+
+**業態**：セレクトショップ EC・実店舗
+**課題**：Cookie レス環境での新規獲得、広告 CTR/CVR
+
+- **テスト**：Criteo コンテクスチュアル広告 vs 他社従来型広告
+- **結果**：**CTR +800%、CVR +300%**
+- **学び**：A/B テストは「サイト内」だけでなく **広告配信側でも活用** する
+- **参考**：[Criteo 成功事例](https://www.criteo.com/jp/success-stories/united-arrows/)
+
+---
+
+## 7.11 Ptengine ユーザー事例（中小 EC 向けの参考）
+
+より自社規模に近い事例として、Ptengine 導入企業の成果を紹介します。
+
+### Ptengine 事例 A：電通 × E 社（コラーゲン製品）
+
+- **テスト**：女優起用ファーストビュー vs **一般人による「実績訴求」**ファーストビュー
+- **結果**：スマホ CVR **3% → 5.4%（+80%）**、特定箇所 CVR 13.9% → 21%
+- **学び**：ヒートマップ × 数値データの組み合わせが説得力ある改善提案を生む
+- **参考**：[Ptengine 電通事例](https://www.ptengine.jp/casestudies/dentsu/)
+
+### Ptengine 事例 B：High Link（カラリア 香りの定期便）
+
+- **運用**：**4 ヶ月で 250 件超の A/B テスト**を実施
+- **学び**：サブスク D2C は「爆速学習」マインドセット。エンジニア不在でも企画担当者・デザイナーが自ら検証できることが重要
+- **参考**：[Ptengine High Link 事例](https://www.ptengine.jp/casestudies/high-link/)
+
+### Ptengine 事例 C：BOXIL（スマートキャンプ）
+
+- **テスト**：CTA ボタンのデザイン・文言変更
+- **結果**：**CVR +20%**、施策実行ペースが月 2 回 → **週 2〜3 回** に加速
+- **学び**：「ヒートマップ分析 → 仮説 → A/B → 全体反映」のサイクル確立が組織の変化速度を決める
+- **参考**：[Ptengine BOXIL 事例](https://www.ptengine.jp/casestudies/smart-camp/)
+
+### Ptengine 事例 D：RIZAP
+
+- **テスト**：ヒートマップで離脱多発箇所を特定し、訴求を補強
+- **結果**：**申込件数 +167%、フォーム入力率 2.5 倍、フォーム離脱率 -30%**。データ作業時間が 1 日 6 時間 → **ほぼ 0** に
+- **学び**：データリテラシーが低くても使えるツールが、組織全体の意識を変える
+- **参考**：[Ptengine RIZAP 事例](https://www.ptengine.jp/casestudies/rizap/)
+
+### Ptengine 事例 E：アミナコレクション（実店舗 → EC 転換）
+
+- **課題**：GA4 が複雑、流入の **40% 以上がノーリファラー**
+- **テスト**：全チャネルに URL パラメータ付与、Ptengine Experience でコンテンツ追加を定量評価
+- **結果**：ノーリファラー **40%+ → 20% 程度に削減**、EC サイト **PV +135%**
+- **学び**：実店舗から EC 転換する企業の典型課題と対処法
+- **参考**：[Ptengine アミナコレクション事例](https://www.ptengine.jp/casestudies/aminacollection/)
+
+### Ptengine 事例 F：Ptengine 自社サイト
+
+- **テスト**：機能列挙のファーストビュー vs **差別化価値（POD）を最上部に** 配置
+- **結果**：**新規登録 CVR +73%**、ベイズ勝率 **98.49%**
+- **学び**：差別化価値を最上部に置くべきで、機能列挙は補足
+- **参考**：[Ptengine 73% CVR 改善](https://www.ptengine.jp/blog/howto/pod-cvr-improvement/)
+
+### Ptengine 事例 G：コスメ EC PDP のアコーディオン UI
+
+- **テスト**：全情報展開 vs **アコーディオン UI**（タップで展開）
+- **結果**：2 週間で **CVR +17.3%、KBF 到達率 +42%、カラーバリエーション注視度 +35%**
+- **学び**：PDP 改善の本質は情報量ではなく **情報構造の設計**。情報を隠してもユーザーは自ら必要な情報に到達する
+- **参考**：[Ptengine アコーディオン事例](https://www.ptengine.jp/blog/noset/accordion_ui/)
+
+---
+
+## 7.12 すぐ真似できる「日本 EC 定番 10 パターン」
+
+以下は EC 運営の世界で **実績のある改善パターン** です。優先度の高い順に整理しました。まずこの中から自社に合うものを選んで試してみてください。
+
+| # | パターン | 典型的な改善幅 | 着手のしやすさ |
+|---|---------|--------------|--------------|
+| 1 | **フォーム項目削減**（特に会員登録・決済） | **CVR 1.5〜2 倍** | ◎（設定変更のみ） |
+| 2 | **CTA ボタンの色・文言** | CV 約 25% | ◎ |
+| 3 | **チェックアウト前の不安解消**（返品ポリシー・SSL マーク） | フォーム通過率改善 | ◎ |
+| 4 | **ソーシャルプルーフ表示**（レビュー・購入者数） | CVR 向上 | ○ |
+| 5 | **送料無料ライン表示**（「あと ○○ 円」） | カート離脱 -15% | ○ |
+| 6 | **モバイル固定 CTA**（追従バナーをヘッダー固定へ） | CVR **+107%** | ○ |
+| 7 | **LINE ログイン / SNS ログイン追加** | 新規会員 **6 倍**、利用数 **11 倍** | ○ |
+| 8 | **カート内レコメンド** | 客単価向上 | △ |
+| 9 | **画像 vs 動画**（ファーストビュー） | 業態依存 | △ |
+| 10 | **価格表示**（税込 vs 税抜、月額換算） | 価格受容性向上 | △ |
+
+**最初の 1 ヶ月**は、**フォーム項目削減 + CTA ボタン + 不安解消** の 3 つから始めるのが最も勝率が高いと言われます。
+
+---
+
+# 第 8 章：明日から始めるための 5 つのステップ
+
+ここまで長く読んでくださりありがとうございます。理論はここで終わりです。最後に、**実行可能な具体アクション** をお渡しします。
+
+## ステップ 1：現状把握（Week 1）
+
+1. Ptengine で **過去 30 日間のヒートマップ** を全主要ページ（TOP、LP、PDP、カート）で取得
+2. 各ページの **直帰率・CVR・滞在時間** を確認
+3. **漏斗分析**：訪問 → PDP → カート → 決済 → 完了 の各段階の遷移率を計算
+4. 「どこで最も漏れているか」を 1 つ特定する
+
+## ステップ 2：最初の仮説を 3 つ書く（Week 1）
+
+ステップ 1 の「最も漏れている場所」について、第 3.1 節のテンプレートで仮説を 3 つ書く。
+
+例（カートから決済への離脱が大きい場合）：
+- 仮説 1：フォーム項目が 10 個あり離脱を招いている。7 → 4 個に削減すれば決済 CVR +10%
+- 仮説 2：送料が表示されず不安を招いている。「送料 0 円」バナーを追加すれば +5%
+- 仮説 3：セキュリティマークがない。SSL・決済ロゴを追加すれば +3%
+
+ICE スコアリングで優先順位を決める。
+
+## ステップ 3：最初のテストを設計する（Week 2）
+
+優先順位 1 位の仮説について、以下を文書化：
+
+- 仮説文
+- Primary / Secondary / Guardrail 指標
+- MDE とサンプルサイズ（計算）
+- 期間（最低 2 週間推奨）
+- 分析予定のセグメント
+- 想定する結果（チーム全員で事前予想）
+
+## ステップ 4：実行・待機・ガードレール監視（Week 3〜4）
+
+- Ptengine で設定して開始
+- **主指標は覗き見ない**。ガードレール指標のみ日次チェック
+- 異常があれば即停止、なければそのまま期間満了まで待つ
+
+## ステップ 5：分析・記録・次の仮説（Week 5）
+
+- 結果を第 5 章の手順で分析
+- 実験日誌（Notion / Google Docs / メルカリ式 EDD）に記録
+- 学びから次の仮説を生成
+- ステップ 3 に戻る
+
+---
+
+## 最後に：A/B テスト運営で大事な 5 つの心構え
+
+1. **「テストを走らせる前に文字で書き残す」** — メルカリ・北欧暮らしの道具店の共通運用。これだけでも組織の学習速度が倍になります
+2. **小さい施策から始める** — CTA 文言、送料無料ライン、フォーム項目削減など **低コスト高効果** から
+3. **ヒートマップと A/B テストを組み合わせる** — Ptengine の最大の強みは両者の統合。「なぜ勝ったか／負けたか」を必ず可視化
+4. **サブスク・D2C は「引き上げ LP」が勝負どころ** — Oisix・BASE FOOD の UGC 活用は典型成功パターン
+5. **8〜9 割のテストは負ける** — **失敗しないテストは学びがない**。継続することが全て
+
+A/B テストは一度始めると、**組織の意思決定の質そのものが変わります**。「偉い人の意見」ではなく「ユーザーの行動」が決めるようになる。それは単なるマーケティング施策ではなく、**データドリブン文化** への転換の入口です。
+
+あなたの最初のテストが、その転換の第一歩になることを願っています。
+
+---
+
+# 付録：用語集・参考文献
+
+## 用語集
+
+| 用語 | 意味 |
+|------|------|
+| **A/B テスト** | 2 つ以上のバリエーションをランダムに振り分けて比較する実験手法 |
+| **CVR**（Conversion Rate） | コンバージョン率。訪問者のうち目標行動（購入・登録等）を取った割合 |
+| **MDE**（Minimum Detectable Effect） | 最小検出可能効果。検出したい最小の差 |
+| **SRM**（Sample Ratio Mismatch） | 想定した分流比率と実際の分流比率がずれること |
+| **Guardrail Metric** | ガードレール指標。悪化したら即停止する底線 |
+| **HiPPO**（Highest Paid Person's Opinion） | 最も給料の高い人の意見で決めてしまう意思決定 |
+| **Novelty Effect** | 新奇性効果。新しさによる一時的な反応 |
+| **Primacy Effect** | 親近性効果。既存ユーザーの一時的な反発 |
+| **Peeking Problem** | 覗き見問題。途中で結果を見て誤判定する罠 |
+| **Shimpson のパラドックス** | 全体と各セグメントで勝者が逆転する逆説 |
+| **Bayesian Statistics** | ベイズ統計。信念の度合いで確率を扱う（Ptengine 採用） |
+| **Frequentist Statistics** | 頻度論統計。長期頻度で確率を扱う |
+| **ICE Scoring** | Impact × Confidence × Ease の優先度付け |
+| **EDD**（Experiment Design Doc） | 実験設計ドキュメント（メルカリ等で採用） |
+| **POD**（Point of Difference） | 差別化価値 |
+| **KBF**（Key Buying Factor） | 購買決定要因 |
+| **Holdout Group** | ホールドアウト群。長期効果測定のため旧版に残すユーザー群 |
+
+## 必読書（世界標準）
+
+- Ronny Kohavi, Diane Tang, Ya Xu, **"Trustworthy Online Controlled Experiments: A Practical Guide to A/B Testing"**（2020, Cambridge University Press）— A/B テスト世界のバイブル。Google / Microsoft / LinkedIn の経験を凝縮
+- Avinash Kaushik, **"Web Analytics: An Hour a Day"** — HiPPO 概念の元祖
+
+## 参考リンク
+
+### 統計・方法論
+- [CXL - Frequentist vs Bayesian](https://cxl.com/blog/bayesian-frequentist-ab-testing/)
+- [Evan Miller's Sample Size Calculator](https://www.evanmiller.org/ab-testing/sample-size.html)
+- [Microsoft Research - SRM Diagnosis](https://www.microsoft.com/en-us/research/articles/diagnosing-sample-ratio-mismatch-in-a-b-testing/)
+- [Airbnb Engineering - Guardrail Metrics](https://medium.com/airbnb-engineering/designing-experimentation-guardrails-ed6a976ec669)
+- [Pinterest Engineering - Holdout Groups](https://medium.com/pinterest-engineering/how-holdout-groups-drive-sustainable-growth-35a4786c3801)
+
+### 日本 EC 実例
+- [Ptengine 公式お客さまストーリー](https://www.ptengine.jp/casestudies/)
+- [Ptengine ブログ - EC サイト 27 A/B テストアイデア](https://www.ptengine.jp/blog/howto/ab-test-basic-idea-for-ec/)
+- [DLPO - 20 の A/B テスト事例](https://dlpo.jp/blog/cxl-20-ab-test-ideas.php)
+- [LISKUL - A/B テスト CVR 改善事例まとめ](https://liskul.com/abtest_casestudy-2289)
+
+### 既存の深度資料（社内参照）
+- `ABテスト-パーソナライゼーション/ABテスト_パーソナライゼーション_深度調研報告.md`（統計基盤、方法論、個性化の深度調研）
+- `ABテスト-パーソナライゼーション/ABテスト仮説フレームワーク完全ガイド_改善版.md`（6 要素フレームワーク・ワークシート付き）
+
+---
+
+**本マニュアルの作成日**：2026-04-21
+**作成者**：Leo（Ptmind）
+**対象読者**：EC 運営を任されたばかりの事業責任者
+**次のステップ**：このマニュアルを読み終えた方は、[第 8 章のステップ 1] から実行を開始してください
+</script>
+
+<script>
+  // ========== Render markdown ==========
+  const source = document.getElementById('md-source').textContent;
+
+  // GitHub-compatible slug (matches anchor targets in the embedded TOC)
+  function slugify(text) {
+    return String(text).toLowerCase().trim()
+      .replace(/[^\w\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FAF\u3400-\u4DBF\uFF10-\uFF19\uFF21-\uFF3A\uFF41-\uFF5A\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '');
+  }
+
+  // Dedup slugs
+  const slugCounts = {};
+  function uniqueSlug(base) {
+    if (!slugCounts[base]) {
+      slugCounts[base] = 1;
+      return base;
+    }
+    return base + '-' + (slugCounts[base]++);
+  }
+
+  // marked v4 renderer: heading(text, level, raw)
+  // text = already-parsed inline HTML, raw = original text for slug
+  const renderer = new marked.Renderer();
+  renderer.heading = function(text, level, raw) {
+    const id = uniqueSlug(slugify(raw));
+    return `<h${level} id="${id}">${text}</h${level}>\n`;
+  };
+
+  marked.setOptions({
+    gfm: true,
+    breaks: false,
+    headerIds: false,
+    mangle: false,
+    renderer
+  });
+
+  const html = marked.parse(source);
+  document.getElementById('content').innerHTML = html;
+
+  // ========== Build TOC (h1 only — chapter-level) ==========
+  const toc = document.getElementById('toc');
+  const headings = document.querySelectorAll('#content h1');
+  const tocHtml = [];
+  headings.forEach((h) => {
+    const text = h.textContent;
+    const id = h.id;
+    tocHtml.push(`<div class="toc-h1"><a href="#${id}" data-target="${id}">${text}</a></div>`);
+  });
+  toc.innerHTML = tocHtml.join('');
+
+  // ========== Scroll spy ==========
+  const tocLinks = toc.querySelectorAll('a');
+  const headingMap = new Map();
+  headings.forEach(h => headingMap.set(h.id, h));
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        tocLinks.forEach(a => {
+          a.classList.toggle('active', a.dataset.target === id);
+        });
+      }
+    });
+  }, { rootMargin: '-80px 0px -70% 0px', threshold: 0 });
+
+  headings.forEach(h => observer.observe(h));
+
+  // ========== Reading progress bar ==========
+  const progressBar = document.getElementById('progress-bar');
+  function updateProgress() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+    progressBar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  // ========== Mobile menu ==========
+  const sidebar = document.getElementById('sidebar');
+  const menuToggle = document.getElementById('menu-toggle');
+  const menuClose = document.getElementById('menu-close');
+  const backdrop = document.getElementById('mobile-backdrop');
+
+  function openMenu() {
+    sidebar.classList.add('open');
+    backdrop.classList.remove('hidden');
+    menuToggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    sidebar.classList.remove('open');
+    backdrop.classList.add('hidden');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  menuToggle.addEventListener('click', openMenu);
+  menuClose.addEventListener('click', closeMenu);
+  backdrop.addEventListener('click', closeMenu);
+
+  // Close on TOC link click (mobile)
+  tocLinks.forEach(a => {
+    a.addEventListener('click', () => {
+      if (window.innerWidth < 1024) closeMenu();
+    });
+  });
+
+  // ESC closes menu
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && sidebar.classList.contains('open')) closeMenu();
+  });
+
+  // ========== KaTeX rendering ==========
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) {
+      renderMathInElement(document.getElementById('content'), {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '$', right: '$', display: false }
+        ],
+        throwOnError: false
+      });
+    }
+  });
+  // Trigger after scripts load (since katex is deferred)
+  window.addEventListener('load', () => {
+    if (window.renderMathInElement) {
+      renderMathInElement(document.getElementById('content'), {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '$', right: '$', display: false }
+        ],
+        throwOnError: false
+      });
+    }
+  });
+</script>
+
+</body>
+</html>
