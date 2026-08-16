@@ -1,0 +1,20 @@
+{%- comment -%}
+  BIGROCK 字标：四面体巨石 monogram + BIGROCK 字样。
+  取自 deepseek-harness 的 BrandWordmark.tsx，去掉了「AGENT」胶囊
+  （那是 agent 产品的标识，博客不该带）。
+
+  monogram 的三个内层面用 opacity 分层，所以整枚图形只吃 currentColor
+  一个颜色，深浅两套主题都不用换色。
+  字母是 live text 而非路径，靠 textLength 把宽度钉死，
+  否则宽度会随各平台解析到的字体浮动，撑坏 header 的布局。
+{%- endcomment -%}
+<svg class="brand-logo" viewBox="0 0 127 24" fill="none" role="img" aria-label="BIGROCK">
+  <g transform="translate(1.5 5.2) scale(0.8)">
+    <path d="M7.9 0.6 L15.6 0.6 L20.4 5.4 L11.6 5.4 Z" fill="currentColor" opacity="0.55"/>
+    <path d="M7.9 0.6 L11.6 5.4 L7.4 12.1 L1.5 7.3 Z" fill="currentColor" opacity="0.78"/>
+    <path d="M11.6 5.4 L20.4 5.4 L21.7 12.6 L15.1 16.5 L7.4 12.1 Z" fill="currentColor"/>
+    <path d="M1.5 7.3 L7.4 12.1 L15.1 16.5 L5.6 14.9 Z" fill="currentColor" opacity="0.62"/>
+  </g>
+  <text x="27" y="16.6" textLength="96" lengthAdjust="spacing"
+        fill="currentColor" font-size="14" font-weight="700" letter-spacing="2.5">BIGROCK</text>
+</svg>

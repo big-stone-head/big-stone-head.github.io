@@ -1,9 +1,9 @@
 {%- comment -%}
-  统一文章列表：把两个来源合并后按日期倒序、再按年份分组。
+  统一文章列表：把两个来源合并后按日期倒序，再按年份分组成卡片。
     来源 1 = _data/articles.yml（独立排版长文，HTML 原样发布在 /articles/ 下）
     来源 2 = _posts/*.md（走 Jekyll 主题的文章）
   两者结构不同，无法直接 concat，故先编码成 "日期~|~语言~|~链接~|~标题~|~摘要" 字符串再排序。
-  参数：lang —— 传 'zh' / 'ja' 只列该语言；不传则全列。
+  参数：lang —— 传 'zh' / 'ja' 只列该语言；不传则全列（并显示语言标签）。
 {%- endcomment -%}
 
 {%- assign flang = include.lang | default: '' -%}
@@ -26,39 +26,60 @@
 {%- endfor -%}
 
 {%- assign rows = rows | sort | reverse -%}
-{%- assign current_year = '' -%}
+{%- assign lim = include.limit | default: 0 | plus: 0 -%}
+{%- if lim > 0 -%}{%- assign rows = rows | slice: 0, lim -%}{%- endif -%}
 
+{%- comment -%} 先数出每年各有几篇，供分节标题显示 {%- endcomment -%}
+{%- assign years = '' | split: ',' -%}
 {%- for row in rows -%}
   {%- assign f = row | split: '~|~' -%}
-  {%- assign year = f[0] | slice: 0, 4 -%}
-  {%- assign md = f[0] | slice: 5, 5 | replace: '-', '.' -%}
+  {%- assign y = f[0] | slice: 0, 4 -%}
+  {%- unless years contains y -%}
+    {%- assign yr = y | split: '~~NOSPLIT~~' -%}
+    {%- assign years = years | concat: yr -%}
+  {%- endunless -%}
+{%- endfor -%}
 
-  {%- if year != current_year -%}
-    {%- unless forloop.first -%}
-    </ul>
-  </section>
-    {%- endunless -%}
-  <section class="year-group">
-    <div class="year-label">{{ year }}</div>
-    <ul class="entry-list">
-    {%- assign current_year = year -%}
-  {%- endif -%}
+{%- for y in years -%}
+  {%- assign n = 0 -%}
+  {%- for row in rows -%}
+    {%- assign f = row | split: '~|~' -%}
+    {%- if f[0] contains y -%}{%- assign n = n | plus: 1 -%}{%- endif -%}
+  {%- endfor -%}
 
-      <li class="entry">
-        <div class="entry-date">{{ md }}</div>
-        <h2 class="entry-title"><a href="{{ f[2] | relative_url }}">{{ f[3] }}</a></h2>
-        {%- if f[4] != blank %}
-        <p class="entry-summary">{{ f[4] }}</p>
-        {%- endif %}
-        {%- if flang == '' %}
-        <div class="entry-tags">
-          <span class="tag tag-{{ f[1] }}">{% if f[1] == 'ja' %}日本語{% else %}中文{% endif %}</span>
+  <div class="section-head">
+    <h2>{{ y }}</h2>
+    <span class="count">{{ n }} 篇</span>
+  </div>
+
+  <ul class="entry-list">
+  {%- assign i = 0 -%}
+  {%- for row in rows -%}
+    {%- assign f = row | split: '~|~' -%}
+    {%- assign ry = f[0] | slice: 0, 4 -%}
+    {%- if ry == y -%}
+    {%- assign palette = i | modulo: 4 -%}
+    <li class="entry p{{ palette }}">
+      <div class="entry-aside">
+        <div class="entry-date" aria-hidden="true">
+          <span class="d-day">{{ f[0] | date: '%d' }}</span>
+          <span class="d-mon">{{ f[0] | date: '%b' }}</span>
         </div>
+        {%- if flang == '' %}
+        <span class="tag">{% if f[1] == 'ja' %}日本語{% else %}中文{% endif %}</span>
         {%- endif %}
-      </li>
-
-  {%- if forloop.last -%}
-    </ul>
-  </section>
-  {%- endif -%}
+      </div>
+      <h3 class="entry-title">
+        <a href="{{ f[2] | relative_url }}">
+          <span class="sr-date">{{ f[0] }}</span>{{ f[3] }}
+        </a>
+      </h3>
+      {%- if f[4] != blank %}
+      <p class="entry-summary">{{ f[4] }}</p>
+      {%- endif %}
+    </li>
+    {%- assign i = i | plus: 1 -%}
+    {%- endif -%}
+  {%- endfor -%}
+  </ul>
 {%- endfor -%}

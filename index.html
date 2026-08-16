@@ -2,12 +2,29 @@
 layout: default
 ---
 <section class="hero">
-  <h1>{{ site.author_name }}</h1>
+  <p class="eyebrow">{{ site.author_name }} · {{ site.role }}</p>
+  <h1>多半个<span class="mark">想法</span></h1>
+  <p class="hero-tagline">一个产品人的 AI 落地现场笔记</p>
   <p class="hero-bio">{{ site.bio }}</p>
-  <p class="hero-meta">
-    <span>{{ site.role }}</span>
-    <span>中文 / 日本語</span>
-  </p>
+  <div class="hero-tags">
+    <span class="chip b1">AI 落地</span>
+    <span class="chip b2">日本市场</span>
+    <span class="chip b3">产品与组织</span>
+    <span class="chip b4">中文 / 日本語</span>
+  </div>
 </section>
 
-{% include entry-list.html %}
+{% include entry-list.html limit=8 %}
+
+<div class="browse">
+  <a class="z" href="{{ '/zh/' | relative_url }}">
+    {%- assign zh_n = site.posts | where: 'lang', 'zh' | size -%}
+    {%- assign zh_a = site.data.articles | where: 'lang', 'zh' | size -%}
+    <div>中文文章<span>全部 {{ zh_n | plus: zh_a }} 篇</span></div>
+  </a>
+  <a class="j" href="{{ '/ja/' | relative_url }}">
+    {%- assign ja_n = site.posts | where: 'lang', 'ja' | size -%}
+    {%- assign ja_a = site.data.articles | where: 'lang', 'ja' | size -%}
+    <div>日本語記事<span>全 {{ ja_n | plus: ja_a }} 本</span></div>
+  </a>
+</div>
