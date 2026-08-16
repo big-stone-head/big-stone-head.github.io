@@ -4,6 +4,7 @@ title: "我让三个AI编程助手互相\"会诊\"，结果发现了它们各自
 date: 2026-02-12
 lang: zh
 lang_pair: "/2026/02/12/ai-coding-agents-battle-royale-ja/"
+description: "Token 烧穷之后，我让三个 AI 编程助手互相「会诊」代码，结果各自的「人格」暴露无遗。"
 ---
 ## 正文
 

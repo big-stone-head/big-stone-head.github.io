@@ -1,19 +1,14 @@
 ---
 layout: default
 ---
-<article>
+<article class="post">
   <header class="post-header">
     <h1>{{ page.title }}</h1>
     <div class="post-meta">
-      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time>
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y 年 %-m 月 %-d 日" }}</time>
+      <span class="tag tag-{{ page.lang }}">{% if page.lang == 'ja' %}日本語{% else %}中文{% endif %}</span>
       {% if page.lang_pair %}
-        <span class="lang-switch">
-          {% if page.lang == 'zh' %}
-            <a href="{{ page.lang_pair | relative_url }}">日本語版 →</a>
-          {% else %}
-            <a href="{{ page.lang_pair | relative_url }}">中文版 →</a>
-          {% endif %}
-        </span>
+        <a href="{{ page.lang_pair | relative_url }}">{% if page.lang == 'zh' %}日本語版 →{% else %}中文版 →{% endif %}</a>
       {% endif %}
     </div>
   </header>
@@ -24,5 +19,9 @@ layout: default
 </article>
 
 <nav class="post-nav">
-  <a href="{{ page.lang == 'ja' ? '/ja/' : '/zh/' | relative_url }}">← 返回列表</a>
+  {% if page.lang == 'ja' %}
+  <a href="{{ '/ja/' | relative_url }}">← 記事一覧へ</a>
+  {% else %}
+  <a href="{{ '/zh/' | relative_url }}">← 返回文章列表</a>
+  {% endif %}
 </nav>

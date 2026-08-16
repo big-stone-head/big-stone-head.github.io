@@ -4,6 +4,7 @@ title: "Vibe Codingから「自律作業」へ：Coding Agentで開発・調査�
 date: 2026-03-02
 lang: ja
 lang_pair: "/2026/03/02/coding-agent-full-automation/"
+description: "感想は語らない。「映画を観ながらAIが開発を回す」状態に至るまでの全記録。Skillsのソースも全公開。"
 ---
 ## 本文
 

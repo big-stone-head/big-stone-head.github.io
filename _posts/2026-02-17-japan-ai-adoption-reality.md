@@ -4,6 +4,7 @@ title: "日本のAI導入、いま本当はどこまで進んでいるのか？�
 date: 2026-02-17
 lang: zh
 lang_pair: "/2026/02/17/japan-ai-adoption-reality-ja/"
+description: "ChatGPT 问世三年，日本企业的 AI 导入究竟走到了哪一步——用数据看清现在的位置，以及接下来会发生什么。"
 ---
 ## 本文
 

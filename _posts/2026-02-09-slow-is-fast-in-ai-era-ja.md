@@ -4,6 +4,7 @@ title: "AI協働時代の「急がば回れ」：ツールが強力になるほ�
 date: 2026-02-09
 lang: ja
 lang_pair: "/2026/02/09/slow-is-fast-in-ai-era/"
+description: "3分でスピーチ原稿、5つのAgentで1週間分の開発量。それでもAI協働の本質は「速さ」ではない。"
 ---
 ## 本文
 

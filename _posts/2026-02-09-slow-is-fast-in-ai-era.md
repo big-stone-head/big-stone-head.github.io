@@ -4,6 +4,7 @@ title: "AI协作时代的「慢即是快」：为什么工具越强大，思考�
 date: 2026-02-09
 lang: zh
 lang_pair: "/2026/02/09/slow-is-fast-in-ai-era-ja/"
+description: "3 分钟写完演讲稿、5 个 Agent 一天干完过去一周的开发量——但 AI 协作的关键从来不是「更快」。"
 ---
 # 中文版
 

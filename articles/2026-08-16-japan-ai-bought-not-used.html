@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>如果你想在日本市场做AI创业，这份报告你可以好好读一读</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --font-sans:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,'Hiragino Sans','Yu Gothic',sans-serif;
+  --text-primary:#1D1D1F; --text-secondary:#6E6E73; --text-muted:#86868B;
+  --bg:#FFFFFF; --bg-subtle:#F5F5F7; --bg-card:#FFFFFF;
+  --border:#D2D2D7; --border-subtle:#E8E8ED;
+  --positive:#16A34A; --warning:#EA580C; --negative:#DC2626;
+  --accent:#0066CC;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-sans);color:var(--text-primary);background:var(--bg);line-height:1.75;font-size:16px}
+
+/* ---------- Hero ---------- */
+.hero{background:linear-gradient(135deg,#0a4d99 0%,#0066CC 55%,#3b8de3 100%);color:#fff;padding:72px 24px 64px}
+.hero-inner{max-width:760px;margin:0 auto}
+.hero h1{font-size:32px;line-height:1.35;font-weight:700;letter-spacing:.01em}
+.hero .sub{margin-top:18px;font-size:16px;opacity:.92;line-height:1.8}
+.hero .meta{margin-top:28px;display:flex;gap:20px;flex-wrap:wrap;font-size:13.5px;opacity:.85}
+.hero .meta span{display:inline-flex;align-items:center;gap:6px}
+.hero .meta i{font-style:normal;background:rgba(255,255,255,.18);border-radius:999px;padding:3px 12px}
+
+/* ---------- Layout ---------- */
+.layout{display:flex;max-width:1120px;margin:0 auto;align-items:flex-start}
+.toc{position:sticky;top:0;width:256px;flex-shrink:0;height:100vh;overflow-y:auto;padding:32px 20px 60px;border-right:1px solid var(--border-subtle);background:var(--bg)}
+.toc-title{font-size:12px;font-weight:600;color:var(--text-muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px}
+.toc a{display:block;color:var(--text-secondary);text-decoration:none;font-size:13.5px;line-height:1.5;padding:6px 10px 6px 14px;border-left:2px solid transparent;border-radius:0 8px 8px 0;margin-bottom:2px}
+.toc a.h3{padding-left:28px;font-size:12.5px;color:var(--text-muted)}
+.toc a:hover{color:var(--accent);background:var(--bg-subtle)}
+.toc a.active{color:var(--accent);border-left-color:var(--accent);background:rgba(0,102,204,.07);font-weight:600}
+main{flex:1;min-width:0;padding:56px 40px 80px}
+article{max-width:760px;margin:0 auto}
+
+/* ---------- Typography ---------- */
+h2{font-size:24px;font-weight:700;margin:64px 0 22px;padding-top:12px;line-height:1.4}
+h2::before{content:'';display:block;width:36px;height:3px;background:var(--accent);border-radius:2px;margin-bottom:14px}
+h3{font-size:18px;font-weight:600;margin:40px 0 14px;color:var(--text-primary)}
+h3 .star{color:var(--warning);font-size:15px;letter-spacing:1px}
+p{margin-bottom:1.1em;color:var(--text-primary)}
+strong{font-weight:600}
+em{color:var(--text-secondary)}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+hr{border:none;border-top:1px solid var(--border-subtle);margin:44px 0}
+ol,ul{margin:0 0 1.1em 1.4em}
+li{margin-bottom:.35em}
+
+blockquote{background:rgba(0,102,204,.06);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:16px 20px;margin:26px 0;color:var(--text-primary)}
+blockquote p{margin-bottom:.4em}
+blockquote p:last-child{margin-bottom:0}
+
+table{width:100%;border-collapse:collapse;font-size:14px;margin:22px 0;background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:12px;overflow:hidden;display:block;overflow-x:auto}
+thead,tbody{display:table;width:100%;table-layout:auto}
+th{background:var(--bg-subtle);font-weight:600;text-align:left;padding:10px 14px;border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:10px 14px;border-bottom:1px solid var(--border-subtle);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td em{color:var(--text-secondary)}
+
+/* ---------- Components ---------- */
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:28px 0}
+.stat{background:var(--bg-subtle);border:1px solid var(--border-subtle);border-radius:14px;padding:18px 18px 16px}
+.stat .num{font-size:30px;font-weight:700;line-height:1.2;color:var(--accent)}
+.stat .num.red{color:var(--negative)}
+.stat .num.green{color:var(--positive)}
+.stat .lbl{font-size:12.5px;color:var(--text-secondary);margin-top:6px;line-height:1.5}
+
+.chart-card{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:14px;padding:24px;margin:28px 0}
+.chart-card h4{font-size:14.5px;font-weight:600;margin-bottom:4px}
+.chart-card .note{font-size:12px;color:var(--text-muted);margin-bottom:14px}
+.chart-wrap{position:relative;height:280px}
+.chart-wrap.tall{height:320px}
+
+.opp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:28px 0}
+.opp{background:var(--bg-subtle);border:1px solid var(--border-subtle);border-radius:14px;padding:18px;cursor:pointer;transition:border-color .15s}
+.opp:hover{border-color:var(--accent)}
+.opp .rank{font-size:12px;color:var(--text-muted);font-weight:600;letter-spacing:.06em}
+.opp .name{font-size:15.5px;font-weight:600;margin:4px 0 6px}
+.opp .star{color:var(--warning);font-size:13px}
+.opp .why{font-size:13px;color:var(--text-secondary);margin-top:8px;line-height:1.6}
+@media(max-width:640px){.opp-grid{grid-template-columns:1fr}}
+
+.pit{display:flex;gap:16px;margin:22px 0;background:var(--bg-subtle);border:1px solid var(--border-subtle);border-radius:14px;padding:18px 20px}
+.pit .no{flex-shrink:0;width:36px;height:36px;border-radius:50%;background:var(--negative);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:16px}
+.pit .body h4{font-size:15.5px;font-weight:600;margin-bottom:4px}
+.pit .body p{font-size:14px;color:var(--text-secondary);margin-bottom:.4em}
+.pit .body p:last-child{margin-bottom:0}
+.pit .fix{color:var(--text-primary)}
+.pit .fix b{color:var(--positive)}
+
+.timeline{margin:32px 0}
+.tl-item{position:relative;padding:0 0 26px 34px;border-left:2px solid var(--border-subtle);margin-left:10px}
+.tl-item:last-child{border-left-color:transparent;padding-bottom:4px}
+.tl-item::before{content:'';position:absolute;left:-8px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(0,102,204,.12)}
+.tl-item .when{font-size:12.5px;font-weight:700;color:var(--accent);letter-spacing:.04em}
+.tl-item .what{font-size:15.5px;font-weight:600;margin:2px 0 8px}
+.tl-item ul{font-size:14px;color:var(--text-secondary);margin-bottom:0}
+.tl-item li{margin-bottom:.25em}
+
+.track{border-radius:14px;padding:20px 22px;margin:22px 0;border:1px solid var(--border-subtle)}
+.track.red{background:rgba(220,38,38,.05);border-left:3px solid var(--negative)}
+.track.yellow{background:rgba(234,88,12,.05);border-left:3px solid var(--warning)}
+.track .tag{display:inline-block;font-size:12px;font-weight:700;padding:2px 10px;border-radius:999px;margin-bottom:10px}
+.track.red .tag{background:rgba(220,38,38,.12);color:var(--negative)}
+.track.yellow .tag{background:rgba(234,88,12,.12);color:var(--warning)}
+
+details{border:1px solid var(--border-subtle);border-radius:12px;padding:14px 18px;margin:14px 0;background:var(--bg-card)}
+details[open]{background:var(--bg-subtle)}
+summary{cursor:pointer;font-weight:600;font-size:14.5px;list-style:none;display:flex;align-items:center;gap:8px}
+summary::before{content:'▸';color:var(--accent);transition:transform .15s}
+details[open] summary::before{transform:rotate(90deg)}
+details .inner{margin-top:12px;font-size:14px;color:var(--text-secondary)}
+details .inner p{font-size:14px;color:var(--text-secondary)}
+
+.callout{background:rgba(0,102,204,.06);border-radius:14px;padding:20px 22px;margin:28px 0;border:1px solid rgba(0,102,204,.15)}
+.callout .t{font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.05em;margin-bottom:6px}
+
+.badge{display:inline-block;font-size:12px;font-weight:600;border-radius:999px;padding:2px 10px;margin-left:6px;vertical-align:middle}
+.badge.g{background:rgba(22,163,74,.12);color:var(--positive)}
+.badge.y{background:rgba(234,88,12,.12);color:var(--warning)}
+
+/* ---------- TOC toggle (mobile) ---------- */
+.toc-toggle{display:none;position:fixed;top:14px;left:14px;z-index:60;width:42px;height:42px;border-radius:12px;border:1px solid var(--border);background:var(--bg-card);font-size:18px;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+@media(max-width:860px){
+  .toc{position:fixed;left:0;top:0;z-index:50;transform:translateX(-100%);transition:transform .2s ease;box-shadow:2px 0 16px rgba(0,0,0,.08)}
+  .toc.open{transform:translateX(0)}
+  .toc-toggle{display:block}
+  main{padding:64px 20px 60px}
+  .hero h1{font-size:25px}
+  h2{font-size:21px}
+}
+</style>
+</head>
+<body>
+<a href="/" style="position:fixed;top:12px;left:12px;z-index:9999;font:500 13px/1 -apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;color:#0066CC;background:rgba(255,255,255,.92);border:1px solid #D2D2D7;border-radius:6px;padding:8px 12px;text-decoration:none;box-shadow:0 1px 3px rgba(0,0,0,.08);">← big-stone-head</a>
+
+
+<button class="toc-toggle" id="tocToggle" aria-label="目录">☰</button>
+
+<header class="hero">
+  <div class="hero-inner">
+    <h1>如果你想在日本市场做AI创业，这份报告你可以好好读一读</h1>
+    <p class="sub">把截至 2026 年 6 月底的日本 AI 市场数据全部摊开研究之后，我看到的是一个极其罕见的错位——而这个错位，就是全部机会的来源。</p>
+    <div class="meta">
+      <span><i>2026-08-16</i></span>
+      <span><i>约 45 分钟读完</i></span>
+      <span><i>数据截止 2026-06-30</i></span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="toc" id="toc">
+  <div class="toc-title">目录</div>
+  <!-- TOC 由 JS 自动生成 -->
+</nav>
+
+<main>
+<article id="content">
+
+<h2>一组让我停下来反复看的数字</h2>
+
+<p>先给你看一组数字，来自 PwC 今年春天做的六国生成 AI 实态调查：</p>
+
+<div class="chart-card">
+  <h4>生成 AI 导入率 vs 「效果大幅超出期待」比例（美 / 英 / 日）</h4>
+  <div class="note">来源：PwC《生成AI実態調査2026 春》6 国比较。导入率几乎持平，满意度差了四倍多。</div>
+  <div class="chart-wrap"><canvas id="chartGap"></canvas></div>
+</div>
+
+<div class="stat-row">
+  <div class="stat"><div class="num">87%</div><div class="lbl">日本生成 AI 导入率（同比 +11pt），与美国 90%、英国 89% 基本持平</div></div>
+  <div class="stat"><div class="num red">9%</div><div class="lbl">日本企业认为「效果大幅超出期待」的比例——全球最低</div></div>
+  <div class="stat"><div class="num green">38%</div><div class="lbl">美国同口径比例，是日本的 4 倍多</div></div>
+</div>
+
+<p>翻译成人话就是：日本企业已经付过钱了，也已经承认"必须用 AI"这件事了，但绝大多数买回去的东西，没产生价值。</p>
+
+<p>我盯着这组数字想了很久，越想越觉得这是创业史上最好的一种市场状态。因为做新市场最贵的一步是"教育市场"——你得先说服客户"这个东西有用"，再说服他买。而在日本，这一步已经被 ChatGPT 和政府替你付掉了。<strong>你唯一要证明的是："我的东西真的有用。"</strong></p>
+
+<p>教育成本，别人已经买单了。</p>
+
+<p>那么为什么买了没用？PwC 归纳了三个结构性原因：</p>
+
+<ol>
+  <li><strong>只做了任务替换</strong>：停留在"邮件写作辅助"这种局部最优，没有重新设计业务流程</li>
+  <li><strong>回避系统整合投资</strong>：因安全顾虑和遗留系统，不愿投资"把 AI 接进现有系统"</li>
+  <li><strong>经营层承诺不足</strong>：成功案例里超六成是 CEO 主导，日本普遍是"甩给现场"</li>
+</ol>
+
+<p>另有调查显示，日本企业推进 AI 的障碍前三是：安全顾虑（33.5%）、想不出具体用法（26.0%）、信息系统部门不配合（22.4%）。还有一个扎心的细节：<strong>用不好 AI 的人群里，"课长/组长级"最多——不是现场不会用，是中间管理层没跟上。</strong></p>
+
+<blockquote>
+  <p><strong>这个空隙就是产品机会。</strong>一个能让课长级管理者在周一早上看到"上周我的团队因为这个工具省了多少小时、少犯了几次错"的产品，比一个更聪明的模型有价值得多。日本企业缺的不是 AI 能力，是<strong>把 AI 能力接进现有工作流、并且能被证明有效</strong>的东西。</p>
+</blockquote>
+
+<h2>先把市场的「量」说清楚：三个数字互相打架，别被骗</h2>
+
+<p>日本 AI 市场规模有三套完全不同的口径在流通，混用会导致严重误判。逐一拆开：</p>
+
+<table>
+  <thead><tr><th>口径</th><th>数字</th><th>出处</th><th>包含什么</th></tr></thead>
+  <tbody>
+    <tr><td><strong>AI 市场整体支出</strong></td><td>2025 年 2.37 兆日元 → 2029 年 6.89 兆日元（CAGR 36.0%）</td><td>IDC 2026V1</td><td>硬件+软件+服务全算，<strong>含大量数据中心和 GPU 采购</strong></td></tr>
+    <tr><td><strong>AI 系统市场（另一口径）</strong></td><td>2024 年 1.34 兆日元 → 2029 年 4.19 兆日元</td><td>IDC Japan，2025-05</td><td>口径更窄，剔除部分基础设施</td></tr>
+    <tr><td><strong>生成 AI 单独</strong></td><td>2024 年 1,016 亿日元 → 2028 年 8,028 亿日元（CAGR 84.4%）</td><td>IDC Japan，2024-08</td><td><strong>只算生成 AI 相关支出</strong></td></tr>
+  </tbody>
+</table>
+
+<p><strong>创业者该用哪个？</strong>用第三个，而且要再打折。第一个数字（2.37 兆）里很大一块是软银、NTT 这类公司买 GPU 建数据中心，和你无关。<strong>你能碰到的盘子是「生成 AI 软件与服务」这一层，2026 年大约在 2,000-3,000 亿日元量级，2028 年约 8,000 亿。</strong></p>
+
+<div class="chart-card">
+  <h4>创业者真正够得着的盘子：日本生成 AI 市场（亿日元，按 84.4% CAGR）</h4>
+  <div class="note">来源：IDC Japan。2024 年 1,016 亿 → 2028 年 8,028 亿。盘子约 20 亿美元量级——它不大，但客单价高、流失率低。</div>
+  <div class="chart-wrap"><canvas id="chartMarket"></canvas></div>
+</div>
+
+<blockquote>
+  <p><strong>在日本做 AI，不要指望靠"日本市场规模"撑出一个大公司。</strong>这个市场的价值是：客单价高、流失率低、竞争密度低于美国。它适合做一个 3-30 亿日元 ARR 的高利润生意，或者作为出海亚洲的跳板。想做百亿美金公司，请去美国。</p>
+</blockquote>
+
+<h3>融资口径也在打架（重要提醒）</h3>
+
+<p>调研中我遇到两套 2026 上半年数字：</p>
+
+<ul>
+  <li><strong>Speeda/INITIAL 系口径</strong>：总额约 3,779 亿日元，同比 +12%</li>
+  <li><strong>Unicorn Farm 口径</strong>：132 件、1,377 亿日元，AI 横向标签 31 件占 23%</li>
+</ul>
+
+<p>差异来自数据库收录门槛和"是否算 AI"的判定标准不同。<strong>引用时务必标注口径，不要混用。</strong>但两套数据的方向一致：金额向头部集中。日经报道 4-6 月期 AI 创业融资同比减少四成，其中约九成金额集中在 1 亿美元以上的超大轮次。</p>
+
+<div class="chart-card">
+  <h4>2026 上半年日本 AI 创业融资件数：4 月见顶后连续下滑</h4>
+  <div class="note">来源：Speeda/INITIAL。"有个 AI 想法就能融到 3 亿日元"的窗口在 4 月之后关闭了。</div>
+  <div class="chart-wrap"><canvas id="chartFunding"></canvas></div>
+</div>
+
+<h2>2026 上半年发生的四件大事（改变了竞争格局）</h2>
+
+<h3>大事一：Sakana AI 一家吸走了整个市场的增量</h3>
+<p>单轮约 310 亿日元（累计超 300 亿），估值约 4,000 亿日元（部分报道称"超 1,000 亿日元估值区间"，口径与时点不一），成为日本非上市创业公司最高估值之一。<strong>它的存在改变了投资人的心理锚点</strong>：现在日本 VC 看基础模型项目，第一句话就是"你比 Sakana 强在哪"。这条路，事实上关闭了。</p>
+
+<h3>大事二：政府 1 兆日元砸向国产 AI，44 家企业联合体成立</h3>
+<p>经产省主导，本田、索尼等 44 家出资，软银、Preferred Networks 等构想新公司，目标 1 兆参数级国产大模型。2026 年度预算计上约 3,000 亿日元（财源为 GX 经济移行债）。算力侧的配套是大手笔：采购 NVIDIA Rubin 约 27,500 基，2028 年堺市算力中心。数字厅同时启动了国产 LLM 试用项目「源内（Gennai）」。</p>
+<p><strong>对创业者的实际影响有两条</strong>：</p>
+<ol>
+  <li><strong>负面</strong>：人才被虹吸，顶级 AI 工程师薪资被抬高</li>
+  <li><strong>正面（更重要）</strong>：「日本国产 / 数据在日本境内 / 符合日本法规」正在变成 B2B 采购的正式加分项，尤其在金融、医疗、公共部门。<strong>如果你的产品能真实做到数据不出境 + 日本法人主体，这是一条不需要技术优势的护城河。</strong></li>
+</ol>
+<p>这笔钱不是给应用层创业公司的，但它的溢出效应你可以吃。</p>
+
+<h3>大事三：OpenAI 和 Anthropic 都把日本当正式战场了</h3>
+
+<table>
+  <thead><tr><th></th><th>OpenAI Japan</th><th>Anthropic Japan</th></tr></thead>
+  <tbody>
+    <tr><td><strong>设立</strong></td><td>约 2 年 10 个月，已搬 3 次办公室</td><td>约 1 年</td></tr>
+    <tr><td><strong>人数</strong></td><td>约 80 人</td><td>相对精简</td></tr>
+    <tr><td><strong>代表</strong></td><td>—</td><td>前 Snowflake Japan 社长</td></tr>
+    <tr><td><strong>据点</strong></td><td>东京</td><td>丸之内</td></tr>
+    <tr><td><strong>渠道</strong></td><td>NTT Data 日本首个代理店合约、与软银合资 SB OAI Japan</td><td>通过 NEC、Accenture Japan、Deloitte Japan 等伙伴</td></tr>
+    <tr><td><strong>客户</strong></td><td>企业市场重点投入</td><td>乐天、LINE Yahoo、Mercari 等已导入 Claude</td></tr>
+  </tbody>
+</table>
+
+<p>OpenAI 同时宣布把资源集中到法人市场和编程用途，降低消费者产品优先级，并联合高盛等 19 家设立 AI 导入咨询新公司（初期投资超 40 亿美元）。</p>
+
+<blockquote>
+  <p><strong>通用型 AI 助手 / 通用聊天机器人这条路彻底堵死。</strong>这两家加上他们的日本代理商已经把大企业客户吃了。<strong>但反过来看</strong>：这些巨头都在"卖能力"，没人愿意做脏活——把 AI 塞进某个具体行业三十年没变过的工作流里。<strong>脏活就是你的机会。</strong></p>
+</blockquote>
+
+<h3>大事四：物理 AI 成为 4-6 月最大融资赛道</h3>
+<p>日经报道，2026 年 4-6 月新兴企业融资中物理 AI（フィジカルAI）最多。经产省与 NEDO 在 6 月启动了 AI 机器人 / 物理 AI 多模态基础模型开发事业，Noetra 与产综研获采择，研发期至 2030 年度。制造现场的主流做法是<strong>「レトロフィット」（对既有设备后装 AI 单元和传感器）</strong>，而非整体更换。</p>
+<p><strong>对创业者的实际影响</strong>：如果你有硬件或机器人背景，这是 2026 下半年日本最热的融资赛道。如果你是纯软件团队，绕开——这里资本密度和技术门槛都太高。</p>
+
+<h2>三条结构性事实（机会的真正来源）</h2>
+
+<h3>事实一：87% 导入率 vs 9% 满意度</h3>
+<p>前面已经说过，不重复。只强调一句：<strong>这是整份报告的核心，"买了"和"有用"之间的巨大空隙，就是产品机会本身。</strong></p>
+
+<h3>事实二：资本集中 = 上游关闭，下游敞开</h3>
+<p>50 亿日元以上轮次翻倍，50 亿以下微跌。钱都去了基础模型、半导体、物理 AI。<strong>这意味着应用层的竞争密度反而在下降</strong>——聪明钱都跑去追大项目了，做"介护记录自动化"这种不性感的生意，你的竞争者变少了。</p>
+<p>而且日本 SaaS 的历史证明这种生意能做大：</p>
+
+<div class="stat-row">
+  <div class="stat"><div class="num">156,000</div><div class="lbl">ANDPAD（建设）覆盖公司数，累计融资约 209 亿日元</div></div>
+  <div class="stat"><div class="num">8,500+</div><div class="lbl">LegalOn（法务）付费企业数，累计融资约 286 亿日元，2026 年完成 71.4 亿日元 E 轮并与 OpenAI 战略合作</div></div>
+  <div class="stat"><div class="num">60,000</div><div class="lbl">カケハシ（药局）可覆盖药局数，累计融资约 289 亿日元</div></div>
+</div>
+
+<h3>事实三：覆盖率的三个洼地</h3>
+
+<div class="chart-card">
+  <h4>AI / DX 覆盖率的断层：越高越饱和，越低越空</h4>
+  <div class="note">来源：中小机构（2026-03）、IPA / 经产省、日本综研（2026-01）。町村级生成 AI 导入率仅约 1 成，中小企业 AI 导入率仅 20.4%。</div>
+  <div class="chart-wrap tall"><canvas id="chartCoverage"></canvas></div>
+</div>
+
+<p>中小企业的障碍不是钱、不是工具，而是：<strong>"不知道具体用在哪"（35.6%）+ "没有推进的人"（32.0%）</strong>。</p>
+
+<blockquote>
+  <p><strong>这两个障碍加起来指向同一个产品形态：不需要客户自己想用法、不需要客户有推进人才的产品。也就是——不是卖工具，是卖"已经配置好的结果"。</strong></p>
+</blockquote>
+
+<h2>赛道地图：哪里挤爆了、哪里有主但未定、哪里还空</h2>
+
+<p>截至 2026 年 6 月，日本生成 AI 服务已扩到约 12 大类、约 130 个服务（多份混沌地图口径）。逐赛道判断如下。</p>
+
+<div class="track red">
+  <span class="tag">🔴 已挤爆，不要进（除非你有极强的分销渠道）</span>
+  <table>
+    <thead><tr><th>赛道</th><th>现状</th><th>为什么别进</th></tr></thead>
+    <tbody>
+      <tr><td><strong>会议记录 / 语音转写</strong></td><td>Notta（ARR $10M+）、Lightblue「Texta」、Teams Copilot / Zoom AI Companion 内嵌</td><td>巨头把它做成了免费附赠功能。除非切极窄场景（医疗问诊记录、建设现场安全会议）</td></tr>
+      <tr><td><strong>通用聊天机器人 / FAQ</strong></td><td>市场约 350 亿日元（2026 预估），2022 年就被定性「レッドオーシャン化」</td><td>RAG 普及导致门槛消失，人人都能做</td></tr>
+      <tr><td><strong>通用 AI 写作助手</strong></td><td>文賢、Shodo、Just Right!、Typoless 等日语校对工具已占位</td><td>日语校对是真细分，但属"窄而深的 B2B 工具型"，不是大众消费机会</td></tr>
+      <tr><td><strong>基础模型 / 日语 LLM</strong></td><td>Sakana AI、ELYZA（KDDI 旗下）、政府 1 兆日元 44 社联合体</td><td>国家队入场，创业公司没有位置</td></tr>
+      <tr><td><strong>通用 AI 导入咨询</strong></td><td>OpenAI 新咨询公司（40 亿美元级）、NTT Data、埃森哲、Deloitte</td><td>咨询是人力生意，你打不过五大</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="track yellow">
+  <span class="tag">🟡 有主但格局未定，可以挑侧翼进</span>
+  <table>
+    <thead><tr><th>赛道</th><th>在位者</th><th>侧翼在哪</th></tr></thead>
+    <tbody>
+      <tr><td><strong>法务 AI</strong></td><td>LegalOn（8,500+ 付费企业）</td><td>LegalOn 主打合同审查。<strong>契约以外的法务工作</strong>（股东大会文件、内部举报处理、下请法/景表法合规检查）仍空</td></tr>
+      <tr><td><strong>经理财务 AI</strong></td><td>LayerX「バクラク」、Sansan「Bill One」、freee、Money Forward</td><td>大企业已被覆盖。<strong>员工 20 人以下、还在用纸和 Excel 的那一层</strong>没人认真做</td></tr>
+      <tr><td><strong>营业支援 AI</strong></td><td>RevComm「MiiTel」、Algomatic「アポドリ」</td><td>通话解析已成熟。<strong>营业以外的对客工作</strong>（提案书生成、续约风险预警）竞争弱</td></tr>
+      <tr><td><strong>招聘 HR AI</strong></td><td>Algomatic「リクルタAI」</td><td>Algomatic 2026 年 6 月重组为 3 家公司、CEO 更替，组织处于变动期——这是一个窗口</td></tr>
+      <tr><td><strong>文档 / OCR AI</strong></td><td>AI inside「DX Suite」、Cinnamon AI</td><td>通用 OCR 已商品化。<strong>特定格式的深度处理</strong>（建设图纸、医疗诊断书、保险理赔单）仍有空间</td></tr>
+      <tr><td><strong>AI 研修 / 人才培育</strong></td><td>市场约 1.35 兆日元、同比 +18%</td><td><strong>注意政策风险</strong>：2026-08-03 起泛用型 AI 研修被移出助成金对象，只有业务嵌入型研修还能拿补助（中小企业 75%，至 2027 年 3 月末）</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>🟢 真正的空白——就是下一章的十个机会，也是这篇文章我最想让你读的部分。</p>
+
+<h2>十个具体机会（附判断依据、切入方式、验证方法）</h2>
+
+<p>排序依据：<strong>空位大小 × 付费意愿 × 外部团队可进入性</strong>。先上一张总览卡，点击卡片可跳到对应详解：</p>
+
+<div class="opp-grid" id="oppGrid">
+  <div class="opp" data-target="opp1"><div class="rank">机会 1</div><div class="name">介护记录与照护计划自动化 <span class="star">★★★★★</span></div><div class="why">法规驱动的刚性文书痛，大厂看不上，做进去极难被替代</div></div>
+  <div class="opp" data-target="opp2"><div class="rank">机会 2</div><div class="name">中小企业「不用自己想用法」的 AI <span class="star">★★★★★</span></div><div class="why">20.4% 导入率的洼地，卖配置好的结果，不卖工具</div></div>
+  <div class="opp" data-target="opp3"><div class="rank">机会 3</div><div class="name">町村级自治体的生成 AI <span class="star">★★★★☆</span></div><div class="why">约 900 个町村、导入率约 1 成，共同利用型一次签 20-50 个</div></div>
+  <div class="opp" data-target="opp4"><div class="rank">机会 4</div><div class="name">「AI 效果可视化」层 <span class="star">★★★★☆</span></div><div class="why">9% 满意度的直接商业化，买家是想向 CEO 交差的 DX 室长</div></div>
+  <div class="opp" data-target="opp5"><div class="rank">机会 5</div><div class="name">士业事务所的业务自动化 <span class="star">★★★★☆</span></div><div class="why">利用率已达 66%，需求被验证但工具很烂</div></div>
+  <div class="opp" data-target="opp6"><div class="rank">机会 6</div><div class="name">现场作业行业的「后装式」AI <span class="star">★★★★☆</span></div><div class="why">永远不要求客户换系统，"不用整合"本身就是卖点</div></div>
+  <div class="opp" data-target="opp7"><div class="rank">机会 7</div><div class="name">日本国产 / 数据主权作为产品属性 <span class="star">★★★☆☆</span></div><div class="why">1 兆日元正在把"国产"变成采购规格，对海外团队是必答题</div></div>
+  <div class="opp" data-target="opp8"><div class="rank">机会 8</div><div class="name">「课长层」的 AI 落地工具 <span class="star">★★★☆☆</span></div><div class="why">课长是工具在部门内能否活下来的决定者，可 PLG</div></div>
+  <div class="opp" data-target="opp9"><div class="rank">机会 9</div><div class="name">业务嵌入型 AI 研修 <span class="star">★★★☆☆</span></div><div class="why">助成金窗口至 2027 年 3 月末，赚快钱，要做就现在做</div></div>
+  <div class="opp" data-target="opp10"><div class="rank">机会 10</div><div class="name">从日本切入的亚洲跳板型产品 <span class="star">★★☆☆☆</span></div><div class="why">日本验证 + 东南亚扩规模，顺序不能反</div></div>
+</div>
+
+<details id="opp1" open>
+  <summary>机会 1｜介护记录与照护计划自动化 <span class="star">★★★★★</span></summary>
+  <div class="inner">
+    <p><strong>为什么</strong>：日经报道，介护现场用 AI 已实现"照护计划（ケアプラン）制作代替、文书整理减少 9 成"。介护是日本人手不足最严重的行业，且<strong>照护报酬制度要求大量法定文书</strong>——这是刚性的、法规驱动的、每天都要做的痛。NTT Docomo 已投资 Exawizards 布局高龄者服务 × AI。</p>
+    <p><strong>在位者稀薄</strong>：大厂不愿做（客单价低、客户分散、销售成本高），但正因为如此，做进去之后极难被替代。</p>
+    <p><strong>切入方式</strong>：不要做"介护版 ChatGPT"。做<strong>一件事</strong>：护理员用语音说完当班情况 → 自动生成符合介护保险法定格式的记录 + 自动填入既有介护软件（与カイポケ、ほのぼの等既存系统对接）。</p>
+    <p><strong>验证方法（30 天）</strong>：找 3 家 50 床以下的介护老人保健设施，测量护理员每天写记录的分钟数。单人每天 &lt; 20 分钟，放弃；&gt; 40 分钟，继续。</p>
+    <p><strong>风险</strong>：介护报酬制度每 3 年改定一次（下次 2027 年 4 月），法定格式会变，你必须跟着改。<strong>这既是负担也是护城河。</strong></p>
+  </div>
+</details>
+
+<details id="opp2">
+  <summary>机会 2｜中小企业的「不用自己想用法」的 AI <span class="star">★★★★★</span></summary>
+  <div class="inner">
+    <p><strong>为什么</strong>：中小企业 AI 导入率仅 20.4%，最大障碍是"不知道具体用在哪"（35.6%）和"没有推进的人"（32.0%）。<strong>这两条明确否定了"卖工具"的模式。</strong></p>
+    <p><strong>切入方式</strong>：卖<strong>行业模板包 + 代配置服务</strong>，不卖平台。例如：面向员工 30 人以下的建设公司，直接交付「见积书生成 + 现场照片整理 + 请求书发行」三件套，开箱即用，月额 3-5 万日元。</p>
+    <p><strong>为什么外部团队能做</strong>：门槛是"懂某个行业的具体表单和流程"，不是技术。雇一个该行业干过十年的人来定义产品，比雇 AI 工程师重要。</p>
+    <p><strong>验证方法（45 天）</strong>：选一个细分行业（如"关东地区的内装工事业者"），打 20 通电话问"你上个月最讨厌的重复文书工作是什么"。20 人里 12 个以上说同一件事，就做那件事。</p>
+    <p><strong>分销是关键</strong>：中小企业不看广告、不搜索。走<strong>税理士事务所、商工会议所、地方银行</strong>的渠道。日本中小企业最信任的是他们的税理士。</p>
+  </div>
+</details>
+
+<details id="opp3">
+  <summary>机会 3｜町村级自治体的生成 AI <span class="star">★★★★☆</span></summary>
+  <div class="inner">
+    <p><strong>为什么</strong>：都道府县·政令市生成 AI 导入率约 9 成，町村约 1 成。差距是<strong>预算和人才差距</strong>，不是需求差距。日本约有 900 个町村。</p>
+    <p><strong>切入方式</strong>：<strong>共同利用型</strong>——做一个多町村共用的平台，通过都道府县或广域联合体一次签约覆盖 20-50 个町村。核心功能锁定三件：住民问询应答、议会答辩草案生成、各种申请书的窗口引导。</p>
+    <p><strong>风险与门槛</strong>：公共采购需要 ISMAP 等资质，周期 12-18 个月。<strong>这对外国团队是硬门槛</strong>，建议与日本本土 SIer 合资或作为其分包切入。</p>
+    <p><strong>验证方法</strong>：先去看一个已导入的县的调达仕样書，判断你能不能满足条款。<strong>满足不了就别浪费时间。</strong></p>
+  </div>
+</details>
+
+<details id="opp4">
+  <summary>机会 4｜「AI 效果可视化」层 <span class="star">★★★★☆</span></summary>
+  <div class="inner">
+    <p><strong>为什么</strong>：这是 9% 满意度这个数字的直接商业化。日本企业已经买了一堆 AI 工具，但没人能回答"这些工具到底带来了什么"。而日本企业文化极度依赖<strong>能向上级出示的数字</strong>。</p>
+    <p><strong>切入方式</strong>：做一个横跨多个 AI 工具的使用与效果测量层——谁在用、用在哪个业务、节省了多少工时、产出质量如何、哪些部门在假装用。输出物是<strong>一张可以直接放进役员会资料的图</strong>。</p>
+    <p><strong>为什么现在做</strong>：<strong>这个产品的买家不是现场，是想向 CEO 证明自己没白花钱的信息系统部长和 DX 推进室长。</strong>有预算、有动机、且目前无人服务。</p>
+    <p><strong>验证方法</strong>：找 5 家已导入 3 个以上 AI 工具的企业（500-3000 人规模），问 DX 负责人"你们下次役员会怎么汇报 AI 的成果"。如果他们支支吾吾，你就找到市场了。</p>
+  </div>
+</details>
+
+<details id="opp5">
+  <summary>机会 5｜士业事务所的业务自动化 <span class="star">★★★★☆</span></summary>
+  <div class="inner">
+    <p><strong>为什么</strong>：士业（税理士、社労士、行政書士等）AI 业务利用率已达 66%——<strong>这不是空白市场，是已经被验证有需求但工具很烂的市场</strong>。他们不动手的三个原因：没有具体 prompt 例、看不到与保密义务的兼容方案、没有投资回报试算。已有玩家：社労士向「HRbase PRO」。</p>
+    <p><strong>切入方式</strong>：按<strong>士别</strong>做，不要做通用「士业 AI」。优先级：社労士 &gt; 行政書士 &gt; 税理士（竞争已较激烈）。</p>
+    <p><strong>关键设计</strong>：<strong>保密义务的兼容方案必须是产品的第一卖点，不是附加说明。</strong>数据不出日本、不用于训练、可出示的第三方审计——三条写在首页最上方。</p>
+    <p><strong>分销</strong>：各士会（都道府县单位的行业团体）的研修会。这是日本士业唯一集中出现的场合。</p>
+  </div>
+</details>
+
+<details id="opp6">
+  <summary>机会 6｜现场作业行业的「后装式」AI <span class="star">★★★★☆</span></summary>
+  <div class="inner">
+    <p><strong>为什么</strong>：制造业的主流做法是「レトロフィット」——在既有设备上后装 AI 单元和传感器，而非整体更换。这个思路可以横向搬到建设、物流、餐饮、零售。</p>
+    <p><strong>切入方式</strong>：<strong>永远不要求客户换掉现有系统。</strong>例如：餐饮连锁的既有 POS 不动，你只做一个读取 POS 导出 CSV + 天气 + 附近活动信息，每天早上给店长一条"今天备多少料"的 LINE 消息。</p>
+    <p><strong>为什么这个形态适合日本</strong>：日本中小企业的 IT 环境极度碎片化且陈旧，"整合"是不可能任务。<strong>"不用整合"本身就是卖点。</strong></p>
+  </div>
+</details>
+
+<details id="opp7">
+  <summary>机会 7｜日本国产 / 数据主权作为产品属性 <span class="star">★★★☆☆</span></summary>
+  <div class="inner">
+    <p><strong>为什么</strong>：政府 1 兆日元投入正在把"国产"变成采购规格。数字厅的「源内」项目、金融和医疗领域的境内数据要求都在强化这个趋势。</p>
+    <p><strong>注意，这不是让你去做国产大模型</strong>（那条路关闭了）。而是：<strong>做应用层产品时，把"日本法人 + 数据完全境内 + 可选国产模型"做成产品的正式规格，写进合同。</strong></p>
+    <p><strong>对中国团队的特别提示</strong>：日本客户对中国背景团队的顾虑，<strong>核心不是"中国"，是"无法验证"</strong>。日本法人、日本人代表者、数据境内、第三方审计报告——四件缺一不可，这是<strong>必答题</strong>不是加分项。</p>
+  </div>
+</details>
+
+<details id="opp8">
+  <summary>机会 8｜「课长层」的 AI 落地工具 <span class="star">★★★☆☆</span></summary>
+  <div class="inner">
+    <p><strong>为什么</strong>：用不好 AI 的人群里课长/组长级最多——<strong>不是现场不会用，是中间管理层不会带着团队用</strong>。而在日本企业里，课长是决定一个工具能不能在部门内活下来的人。</p>
+    <p><strong>切入方式</strong>：不是给课长一个 AI，而是给他"<strong>如何让我的 8 个下属用 AI 且我能管住</strong>"的能力：任务分配、使用状况可见化、输出质量抽检、月度成果汇总。</p>
+    <p><strong>和机会 4 的区别</strong>：机会 4 给全社 DX 部门，这个给单个部门课长。客单价低但决策链短（课长有几十万日元级的裁量预算），可以 PLG 方式做。</p>
+  </div>
+</details>
+
+<details id="opp9">
+  <summary>机会 9｜业务嵌入型 AI 研修（注意政策窗口） <span class="star">★★★☆☆</span></summary>
+  <div class="inner">
+    <p><strong>为什么</strong>：人材育成市场约 1.35 兆日元、同比 +18%。但 <strong>2026 年 8 月 3 日起，泛用型 AI 研修被移出人材开发支援助成金对象</strong>——通用 AI 培训的补助金红利结束了（说明它已经烂大街）。</p>
+    <p><strong>但</strong>："结合具体业务的 AI 研修"仍在补助范围，中小企业经费助成 75%，制度有效期至 2027 年 3 月末。</p>
+    <p><strong>切入方式</strong>：做"某行业某职种的 AI 实务研修"，且<strong>必须设计成能通过助成金申请的形式</strong>（计划届的写法本身就是你的专业能力）。窗口期约一年半，是个赚快钱的机会，不是长期生意。<strong>要做就现在做。</strong></p>
+  </div>
+</details>
+
+<details id="opp10">
+  <summary>机会 10｜从日本切入的亚洲跳板型产品 <span class="star">★★☆☆☆</span></summary>
+  <div class="inner">
+    <p><strong>为什么</strong>：日本市场客单价高、流失率低，但天花板明确。AnyMind Group（ASEAN × 营销 AI，已上市）证明了"日本 + 东南亚"的组合可行。</p>
+    <p><strong>切入方式</strong>：产品设计从第一天就多语言化，用日本客户的付费验证产品和现金流，用东南亚扩规模。<strong>不要反过来</strong>——在东南亚验证的产品拿到日本几乎必挂（对品质和支持的要求差一个量级）。</p>
+    <p><strong>风险</strong>：需要两套完全不同的销售组织，早期团队一般撑不住。<strong>只有在你已经有日本客户 30 家以上、且现金流为正之后再考虑。</strong></p>
+  </div>
+</details>
+
+<h2>五个坑（尤其对中国团队和外国团队）</h2>
+
+<p>日本市场的隐性门槛，比产品门槛高得多。</p>
+
+<div class="pit">
+  <div class="no">1</div>
+  <div class="body">
+    <h4>在留资格已经收紧了</h4>
+    <p>2025 年入管法修订后审查标准变严。「経営・管理」在留资格要求：设立办公室、雇用全职员工、<strong>资本金 300 万日元以上</strong>。</p>
+    <p class="fix"><b>对策</b>：先用<strong>创业签证（外国人起業活動促進事業）</strong>，最长 2 年创业准备期，无需初期大额出资，之后再转「経営・管理」。横滨市等自治体有专门项目。<strong>不要先来了再想签证。</strong></p>
+  </div>
+</div>
+
+<div class="pit">
+  <div class="no">2</div>
+  <div class="body">
+    <h4>以为技术领先就能卖</h4>
+    <p>日本 B2B 采购的决策逻辑不是"哪个最好"，而是"<strong>出事了谁负责</strong>"。第一个问题往往是"导入实绩有几家""同业有谁在用"。</p>
+    <p class="fix"><b>对策</b>：<strong>第一个客户不惜代价拿下并做成公开事例。</strong>前 3 个 logo 的价值远超前 30 个客户的收入。定价可以低到接近免费，但必须换到可以公开的社名和数字。</p>
+  </div>
+</div>
+
+<div class="pit">
+  <div class="no">3</div>
+  <div class="body">
+    <h4>低估「安全顾虑」的实际权重</h4>
+    <p>安全顾虑是日本企业推进 AI 的第一大障碍（33.5%）。它会体现为一份 200 项的安全检查表（セキュリティチェックシート），你要逐项书面回答。</p>
+    <p class="fix"><b>对策</b>：<strong>在有第一个客户之前就准备好这份文档。</strong>提前拿 ISMS（ISO 27001）认证——周期 6-9 个月，没有它大企业采购根本走不下去。<strong>现在就开始。</strong></p>
+  </div>
+</div>
+
+<div class="pit">
+  <div class="no">4</div>
+  <div class="body">
+    <h4>信息系统部门是隐形否决者</h4>
+    <p>22.4% 的企业把"信息系统部门不配合"列为障碍。日本企业的情シス是成本中心，KPI 是"不出事"，任何新工具对他们都是纯风险。</p>
+    <p class="fix"><b>对策</b>：<strong>产品设计上给信息系统部门一个"他们能控制"的东西</strong>——使用日志、权限管理、可随时切断的开关、数据导出。让他们从"被推着导入"变成"我在管理这个"。</p>
+  </div>
+</div>
+
+<div class="pit">
+  <div class="no">5</div>
+  <div class="body">
+    <h4>把「导入」当成了终点</h4>
+    <p>87% 导入率 vs 9% 满意度——<strong>日本市场最大的现象是买了不用</strong>。你的合同续约点在 12 个月后，那时候客户说不出效果，一定不续。</p>
+    <p class="fix"><b>对策</b>：把"证明有效"做进产品，不要做成客户成功团队的手工活。<strong>月度自动生成一份客户可以直接拿去内部汇报的成果报告</strong>——这一个功能对续约率的影响，大于任何 AI 能力升级。</p>
+  </div>
+</div>
+
+<h2>90 天验证清单（拿去直接用）</h2>
+
+<p>假设你今天决定做日本 AI 创业，接下来 90 天：</p>
+
+<div class="timeline">
+  <div class="tl-item">
+    <div class="when">DAY 1-14</div>
+    <div class="what">选赛道</div>
+    <ul>
+      <li>从十个机会中选 2 个候选，不要超过 2 个</li>
+      <li>对每个候选，找该行业 5 位从业者做 30 分钟访谈（日语，必须日语）</li>
+      <li>问题只有一个核心：「先月、いちばん面倒だった繰り返し作業は何ですか」</li>
+      <li>判定线：10 人中 6 人以上说同一件事 → 继续；否则换赛道</li>
+    </ul>
+  </div>
+  <div class="tl-item">
+    <div class="when">DAY 15-45</div>
+    <div class="what">验证付费意愿</div>
+    <ul>
+      <li>做一个能跑通那一件事的原型（不要做平台，只做那一件事）</li>
+      <li>找 3 家愿意付钱试用的公司，<strong>收费，哪怕只收 1 万日元/月</strong>。免费试用得到的所有反馈都是噪音</li>
+      <li>判定线：3 家里有 2 家在第二个月主动续费 → 继续</li>
+    </ul>
+  </div>
+  <div class="tl-item">
+    <div class="when">DAY 46-75</div>
+    <div class="what">建立日本可信度</div>
+    <ul>
+      <li>设立日本法人（合同会社即可起步，费用约 6-10 万日元）</li>
+      <li>启动 ISMS 认证流程（预算 100-200 万日元，周期 6-9 个月，<strong>现在启动才赶得上第一个大客户</strong>）</li>
+      <li>准备安全检查表标准答案文档（200 项，日语）</li>
+      <li>确认数据存储在日本境内（AWS 东京 / Azure Japan East）</li>
+    </ul>
+  </div>
+  <div class="tl-item">
+    <div class="when">DAY 76-90</div>
+    <div class="what">第一个公开事例</div>
+    <ul>
+      <li>从付费客户中选一家，<strong>用大幅折扣换取公开导入事例的许可</strong></li>
+      <li>事例必须包含具体数字（削减了多少小时、多少百分比）</li>
+      <li>同时准备该行业团体（业界团体、士会、商工会议所）的登壇提案</li>
+    </ul>
+  </div>
+</div>
+
+<div class="callout">
+  <div class="t">90 天后的及格线</div>
+  <p style="margin-bottom:0"><strong>1 个公开事例 + 3 家付费客户 + 日本法人 + ISMS 在申请中</strong>——你已经领先绝大多数尝试进入日本市场的团队。</p>
+</div>
+
+<h2>数据可信度说明（重要，请务必读）</h2>
+
+<table>
+  <thead><tr><th>级别</th><th>内容</th><th>可信度</th></tr></thead>
+  <tbody>
+    <tr><td><strong>① 一次资料 / 权威调查机构</strong></td><td>PwC、IDC Japan、总务省、中小机构、日本综研、经产省公开资料、日经报道</td><td>高。可直接引用</td></tr>
+    <tr><td><strong>② 二手汇总媒体</strong></td><td>各类"日本 AI 创业公司 20 选"、混沌地图、SaaS 排名文章</td><td>中。公司名和大致规模可信，<strong>具体融资额与估值常有出入</strong></td></tr>
+    <tr><td><strong>③ 报告的推论</strong></td><td>十个机会的判断、切入方式、90 天清单</td><td>这是判断，不是事实。请当作假设去验证，不是当作结论去执行</td></tr>
+  </tbody>
+</table>
+
+<p><strong>已知的数据冲突（未解决，如实标注）</strong>：</p>
+<ol>
+  <li>2026 上半年创业融资总额：3,779 亿日元（Speeda/INITIAL 系）vs 1,377 亿日元 / 132 件（Unicorn Farm）。<strong>口径不同，不可混用</strong></li>
+  <li>Sakana AI 估值：有"1,000 亿日元超"和"约 4,000 亿日元"两种说法，来源时点不同</li>
+  <li>日本生成 AI 导入率：PwC 说 87%，另有调查说"30% 台"——PwC 调查对象是大企业为主，另一调查含中小企业，<strong>这个差异本身就印证了"覆盖率洼地"的结论</strong></li>
+  <li>中小企业 AI 导入率 20.4%（中小机构）与部分媒体引用的 34% 存在差距，后者口径可能仅统计"有 IT 系统的中小企业"</li>
+</ol>
+
+<h2>日本市场专有说法速查表</h2>
+
+<table>
+  <thead><tr><th>说法</th><th>意思</th></tr></thead>
+  <tbody>
+    <tr><td><strong>導入率</strong></td><td>企业已经引入并使用某工具的比例</td></tr>
+    <tr><td><strong>PoC の壁</strong></td><td>试点做完了但推不到全公司的现象。日本 AI 项目最常见的死法</td></tr>
+    <tr><td><strong>レトロフィット</strong></td><td>后装。不换掉既有设备，只在旁边加装 AI 单元和传感器</td></tr>
+    <tr><td><strong>フィジカル AI</strong></td><td>控制机器人、工厂设备、自动驾驶等物理世界的 AI</td></tr>
+    <tr><td><strong>バーティカル SaaS</strong></td><td>垂直 SaaS。只服务一个特定行业的软件，如建设专用、药局专用</td></tr>
+    <tr><td><strong>士業（しぎょう）</strong></td><td>名称以「士」结尾的持照专业人士：税理士、社労士、行政書士、弁護士等</td></tr>
+    <tr><td><strong>ケアプラン</strong></td><td>照护计划。介护保险制度下法定必须制作的文书</td></tr>
+    <tr><td><strong>セキュリティチェックシート</strong></td><td>安全检查表。日本大企业采购软件时要求逐项书面回答的清单，常达 100-300 项</td></tr>
+    <tr><td><strong>ISMAP</strong></td><td>政府信息系统安全评估制度。向日本政府机关销售云服务的准入资质</td></tr>
+    <tr><td><strong>ISMS / ISO 27001</strong></td><td>信息安全管理体系认证。日本 B2B 采购的事实门槛</td></tr>
+    <tr><td><strong>人材開発支援助成金</strong></td><td>厚生劳动省的企业培训补助金制度。中小企业最高助成经费 75%</td></tr>
+    <tr><td><strong>経営・管理ビザ</strong></td><td>外国人在日本经营公司所需的在留资格</td></tr>
+    <tr><td><strong>スタートアップビザ</strong></td><td>正式名「外国人起業活動促進事業」。给外国创业者最长 2 年的创业准备期</td></tr>
+    <tr><td><strong>商工会議所</strong></td><td>日本各地方的企业互助团体，中小企业信息传播的核心节点</td></tr>
+    <tr><td><strong>調達仕様書</strong></td><td>采购规格书。日本公共部门招标时公开的技术与资质要求文件</td></tr>
+    <tr><td><strong>ARR</strong></td><td>年度经常性收入。SaaS 公司规模的标准衡量</td></tr>
+    <tr><td><strong>PLG</strong></td><td>产品驱动增长。靠产品本身获客而非销售团队</td></tr>
+  </tbody>
+</table>
+
+<h2>写在最后</h2>
+
+<p>说到底，日本 AI 市场 2026 年的故事就一句话：<strong>钱已经付过了，价值还没交付。</strong></p>
+
+<p>市场不缺 AI 能力，缺的是把 AI 接进三十年没变过的工作流、并且能拿出数字证明它有效的东西。巨头不愿意做这种脏活，Sakana 们吸走了资本和注意力，反而让应用层的竞争密度降了下来。</p>
+
+<p>脏活，就是你的机会。</p>
+
+<p>但记住那五个坑：签证先规划、第一个 logo 不惜代价、ISMS 现在就启动、给信息系统部门一个开关、把"证明有效"做进产品。<strong>日本市场奖励的不是最先进的技术，是最能被验证的信任。</strong></p>
+
+<h2>参考</h2>
+
+<p><strong>市场规模与调查</strong></p>
+<ul>
+  <li>PwC《生成AI実態調査2026 春》（6 国比较） — <a href="https://www.pwc.com/jp/ja/knowledge/thoughtleadership/2026/assets/pdf/generative-ai-survey2026.pdf">pwc.com</a></li>
+  <li>IDC《Worldwide AI and Generative AI Spending Guide 2026V1》 — <a href="https://my.idc.com/getdoc.jsp?containerId=prJPJ53362125">idc.com</a></li>
+  <li>IDC 国内生成 AI 市场 5 年 8,000 亿日元预测 — <a href="https://my.idc.com/getdoc.jsp?containerId=prJPJ52722724">idc.com</a></li>
+  <li>中小機構《中小企業のAI等の利活用に係る実態調査》（2026-03） — <a href="https://www.smrj.go.jp/research_case/questionnaire/fbrion0000002pjw-att/202603_AI_point.pdf">smrj.go.jp</a></li>
+  <li>日本総研《自治体DXシリーズ No.9》（2026-01） — <a href="https://www.jri.co.jp/file/report/researchfocus/pdf/16441.pdf">jri.co.jp</a></li>
+</ul>
+
+<p><strong>创业融资</strong></p>
+<ul>
+  <li>Speeda/INITIAL《2026年上半期スタートアップ資金調達動向》 — <a href="https://initial.inc/articles/japan-startup-finance-2026h1">initial.inc</a></li>
+  <li>Unicorn Farm《2026年上半期 資金調達レポート》 — <a href="https://portal.unicornfarm.jp/insights/58a7ed4c-c5e5-4928-addb-2efa7dbc496d">unicornfarm.jp</a></li>
+  <li>日经《AIスタートアップの資金調達、4〜6月期は4割減》 — <a href="https://www.nikkei.com/article/DGXZQOUC30A3R0Q6A730C2000000/">nikkei.com</a></li>
+  <li>日经《新興企業の資金調達、4月〜6月はフィジカルAIが最多》 — <a href="https://www.nikkei.com/article/DGXZQOUC282C90Y6A720C2000000/">nikkei.com</a></li>
+</ul>
+
+<p><strong>政策</strong></p>
+<ul>
+  <li>日经《国産AIに44社連合、国が1兆円支援》 — <a href="https://www.nikkei.com/article/DGXZQOUC165XL0W6A710C2000000/">nikkei.com</a></li>
+  <li>经产省《マルチモーダル基盤モデル開発事業》 — <a href="https://www.meti.go.jp/policy/policy_management/ebpm/kensyo_shinario/260413_multimodal.pdf">meti.go.jp</a></li>
+  <li>助成金改正解说（2026年8月改正） — <a href="https://catorce.jp/st/knowledge-training-subsidy-2026-revision.html">catorce.jp</a></li>
+</ul>
+
+<p><strong>行业与竞争格局</strong></p>
+<ul>
+  <li>One Capital《日本のAI SaaS、2026年の「現在地」とこれから》 — <a href="https://onecapital.jp/perspectives/AI-SaaS-Insights">onecapital.jp</a></li>
+  <li>compalyze《OpenAI・Anthropic の日本法人 ─ 登記で読む》 — <a href="https://compalyze.co.jp/journal/openai-anthropic-japan-entry-2026">compalyze.co.jp</a></li>
+  <li>日经《介護の人手不足、AIで打破》 — <a href="https://www.nikkei.com/article/DGXZQOUF095V00Z00C26A3000000/">nikkei.com</a></li>
+  <li>LegalOn Technologies 融资新闻稿 — <a href="https://enterprisezine.jp/news/detail/22421">enterprisezine.jp</a></li>
+  <li>Algomatic 3 社体制移行 — <a href="https://note.com/algomatic_oa/n/nba49307a1413">note.com</a></li>
+</ul>
+
+<p><strong>签证与法务</strong></p>
+<ul>
+  <li>横滨市《外国人起業活動促進事業（スタートアップビザ）》 — <a href="https://www.city.yokohama.lg.jp/business/keizai/sougyo/venture/yokohama_suvisa.html">city.yokohama.lg.jp</a></li>
+</ul>
+
+<p style="color:var(--text-muted);font-size:13px;margin-top:32px">调研底稿：《日本AI产品市场全景与创业机会（截至2026年6月底）》 · 数据截止 2026-06-30 · 调研日期 2026-08-16</p>
+
+</article>
+</main>
+</div>
+
+<script>
+/* ---------- 自动生成 TOC + 滚动高亮 ---------- */
+(function(){
+  const toc = document.getElementById('toc');
+  const heads = document.querySelectorAll('#content h2, #content h3');
+  const links = [];
+  heads.forEach((h,i)=>{
+    if(!h.id) h.id = 'sec-' + i;
+    const a = document.createElement('a');
+    a.href = '#' + h.id;
+    a.textContent = h.textContent;
+    if(h.tagName === 'H3') a.className = 'h3';
+    a.dataset.target = h.id;
+    toc.appendChild(a);
+    links.push(a);
+  });
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(l=>l.classList.toggle('active', l.dataset.target === e.target.id));
+      }
+    });
+  }, {rootMargin:'-10% 0px -75% 0px'});
+  heads.forEach(h=>obs.observe(h));
+
+  /* 移动端目录开合 */
+  const toggle = document.getElementById('tocToggle');
+  toggle.addEventListener('click', ()=> toc.classList.toggle('open'));
+  toc.addEventListener('click', e=>{ if(e.target.tagName==='A') toc.classList.remove('open'); });
+
+  /* 机会卡片点击跳转并展开 */
+  document.querySelectorAll('#oppGrid .opp').forEach(card=>{
+    card.addEventListener('click', ()=>{
+      const t = document.getElementById(card.dataset.target);
+      if(t){ t.open = true; t.scrollIntoView({behavior:'smooth', block:'start'}); }
+    });
+  });
+
+  /* 代码高亮（本页代码少，保底调用） */
+  if(window.hljs) hljs.highlightAll();
+})();
+
+/* ---------- 图表 ---------- */
+(function(){
+  if(!window.Chart) return;
+  Chart.defaults.font.family = "'Inter',-apple-system,'Hiragino Sans','Yu Gothic',sans-serif";
+  Chart.defaults.color = '#6E6E73';
+  const ACCENT='#0066CC', BLUE='#1A73E8', GREEN='#34A853', ORANGE='#FA7B17', RED='#EA4335', PURPLE='#A142F4', TEAL='#0097A7';
+
+  /* 图1：导入率 vs 满意度 */
+  new Chart(document.getElementById('chartGap'), {
+    type:'bar',
+    data:{
+      labels:['美国','英国','日本'],
+      datasets:[
+        {label:'生成 AI 导入率', data:[90,89,87], backgroundColor:[BLUE,BLUE,ACCENT], borderRadius:8, barPercentage:.55},
+        {label:'「效果大幅超出期待」比例', data:[38,32,9], backgroundColor:[GREEN,GREEN,RED], borderRadius:8, barPercentage:.55}
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom', labels:{boxWidth:12, boxHeight:12, borderRadius:6, useBorderRadius:true}},
+        tooltip:{callbacks:{label:c=>` ${c.dataset.label}：${c.parsed.y}%`}}},
+      scales:{y:{beginAtZero:true, max:100, ticks:{callback:v=>v+'%'}, grid:{color:'#E8E8ED'}}, x:{grid:{display:false}}}
+    }
+  });
+
+  /* 图2：生成 AI 市场增长 */
+  new Chart(document.getElementById('chartMarket'), {
+    type:'line',
+    data:{
+      labels:['2024','2025','2026','2027','2028'],
+      datasets:[{label:'日本生成 AI 市场规模（亿日元）',
+        data:[1016, 1873, 3454, 6369, 8028],
+        borderColor:ACCENT, backgroundColor:'rgba(0,102,204,.08)', fill:true,
+        tension:.35, borderWidth:2.5, pointRadius:4, pointBackgroundColor:ACCENT}]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:c=>` ${c.parsed.y.toLocaleString()} 亿日元`}}},
+      scales:{y:{beginAtZero:true, grid:{color:'#E8E8ED'}, ticks:{callback:v=>(v/1000)+'k'}}, x:{grid:{display:false}}}
+    }
+  });
+
+  /* 图3：融资件数 4-6 月 */
+  new Chart(document.getElementById('chartFunding'), {
+    type:'bar',
+    data:{
+      labels:['2026年4月','2026年5月','2026年6月'],
+      datasets:[{label:'AI 相关融资件数', data:[31,19,18],
+        backgroundColor:[BLUE,ORANGE,RED], borderRadius:8, barPercentage:.5}]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:c=>` ${c.parsed.y} 件`}}},
+      scales:{y:{beginAtZero:true, grid:{color:'#E8E8ED'}, ticks:{stepSize:10}}, x:{grid:{display:false}}}
+    }
+  });
+
+  /* 图4：覆盖率断层（横向） */
+  new Chart(document.getElementById('chartCoverage'), {
+    type:'bar',
+    data:{
+      labels:['1001人以上企业 DX 取组率','都道府县·政令市 生成AI导入率','地方自治体 AI 导入率（全体）','大企业 AI 导入率','100人以下企业 DX 取组率','中小企业 AI 导入率','町村级 生成AI导入率'],
+      datasets:[{data:[96.1, 90, 59.2, 56, 46.8, 20.4, 10],
+        backgroundColor:[GREEN,GREEN,BLUE,BLUE,ORANGE,RED,RED], borderRadius:8, barPercentage:.6}]
+    },
+    options:{
+      indexAxis:'y',
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:c=>` 约 ${c.parsed.x}%`}}},
+      scales:{x:{beginAtZero:true, max:100, ticks:{callback:v=>v+'%'}, grid:{color:'#E8E8ED'}}, y:{grid:{display:false}, ticks:{font:{size:12}}}}
+    }
+  });
+})();
+</script>
+</body>
+</html>

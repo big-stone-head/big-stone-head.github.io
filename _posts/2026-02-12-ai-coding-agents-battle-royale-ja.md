@@ -4,6 +4,7 @@ title: "3つのAIコーディングアシスタントに「合同診察」させ
 date: 2026-02-12
 lang: ja
 lang_pair: "/2026/02/12/ai-coding-agents-battle-royale/"
+description: "Tokenが尽きたのをきっかけに、3つのAIコーディングアシスタントに互いのコードを診てもらった記録。"
 ---
 ## 本文
 

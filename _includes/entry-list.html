@@ -1,0 +1,64 @@
+{%- comment -%}
+  统一文章列表：把两个来源合并后按日期倒序、再按年份分组。
+    来源 1 = _data/articles.yml（独立排版长文，HTML 原样发布在 /articles/ 下）
+    来源 2 = _posts/*.md（走 Jekyll 主题的文章）
+  两者结构不同，无法直接 concat，故先编码成 "日期~|~语言~|~链接~|~标题~|~摘要" 字符串再排序。
+  参数：lang —— 传 'zh' / 'ja' 只列该语言；不传则全列。
+{%- endcomment -%}
+
+{%- assign flang = include.lang | default: '' -%}
+{%- assign rows = '' | split: ',' -%}
+
+{%- for a in site.data.articles -%}
+  {%- if flang == '' or flang == a.lang -%}
+    {%- capture row -%}{{ a.date }}~|~{{ a.lang }}~|~{{ a.url }}~|~{{ a.title }}~|~{{ a.summary }}{%- endcapture -%}
+    {%- assign one = row | split: '~~NOSPLIT~~' -%}
+    {%- assign rows = rows | concat: one -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- for p in site.posts -%}
+  {%- if flang == '' or flang == p.lang -%}
+    {%- capture row -%}{{ p.date | date: '%Y-%m-%d' }}~|~{{ p.lang }}~|~{{ p.url }}~|~{{ p.title }}~|~{{ p.description }}{%- endcapture -%}
+    {%- assign one = row | split: '~~NOSPLIT~~' -%}
+    {%- assign rows = rows | concat: one -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- assign rows = rows | sort | reverse -%}
+{%- assign current_year = '' -%}
+
+{%- for row in rows -%}
+  {%- assign f = row | split: '~|~' -%}
+  {%- assign year = f[0] | slice: 0, 4 -%}
+  {%- assign md = f[0] | slice: 5, 5 | replace: '-', '.' -%}
+
+  {%- if year != current_year -%}
+    {%- unless forloop.first -%}
+    </ul>
+  </section>
+    {%- endunless -%}
+  <section class="year-group">
+    <div class="year-label">{{ year }}</div>
+    <ul class="entry-list">
+    {%- assign current_year = year -%}
+  {%- endif -%}
+
+      <li class="entry">
+        <div class="entry-date">{{ md }}</div>
+        <h2 class="entry-title"><a href="{{ f[2] | relative_url }}">{{ f[3] }}</a></h2>
+        {%- if f[4] != blank %}
+        <p class="entry-summary">{{ f[4] }}</p>
+        {%- endif %}
+        {%- if flang == '' %}
+        <div class="entry-tags">
+          <span class="tag tag-{{ f[1] }}">{% if f[1] == 'ja' %}日本語{% else %}中文{% endif %}</span>
+        </div>
+        {%- endif %}
+      </li>
+
+  {%- if forloop.last -%}
+    </ul>
+  </section>
+  {%- endif -%}
+{%- endfor -%}

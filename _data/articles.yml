@@ -1,0 +1,26 @@
+# 独立排版长文（不走 Jekyll 主题，HTML 原样发布在 /articles/ 下）
+# 新增一篇：把 HTML 放进 articles/，在这里补一条，首页与语言页会自动列出
+# summary 是列表页显示的一句话摘要，可留空
+- date: "2026-08-16"
+  lang: zh
+  title: "如果你想在日本市场做 AI 创业，这份报告你可以好好读一读"
+  summary: "日本企业买了 AI，却没真正用起来。差距不在技术，在导入之后的那一段。"
+  url: /articles/2026-08-16-japan-ai-bought-not-used.html
+
+- date: "2026-08-16"
+  lang: zh
+  title: "想成为、或者想搭一支 AI 产品经理 / FDE 团队，这篇总结应该能帮到你"
+  summary: "从 2008 年做搜索产品经理算起快 20 年，行业又轮回了一遍——「评估」重新回到了产品经理的日常。"
+  url: /articles/2026-08-16-ai-pm-fde-six-stages.html
+
+- date: "2026-08-15"
+  lang: zh
+  title: "让日本渠道愿意开第二次会，和让它敢签字——出海日本是两道关"
+  summary: "两道关卡要的东西完全不同，用同一套材料去闯，两关都过不了。"
+  url: /articles/2026-08-15-japan-market-two-gates-two-decks.html
+
+- date: "2026-08-14"
+  lang: zh
+  title: "当 Agent 也能「攒机」了"
+  summary: "几个月前搭一套 Agent 还要选框架、写一堆代码，现在一行命令就拿到了——变的不是模型，是基础设施。"
+  url: /articles/2026-08-14-agent-pc-building-era.html

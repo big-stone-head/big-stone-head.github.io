@@ -3,6 +3,7 @@ layout: post
 title: "Claude Code Token 节省与高效使用完全指南：从原理到实操的 16 个维度"
 date: 2026-04-01
 lang: zh
+description: "从原理到实操的 16 个维度，系统性地把 Claude Code 的 Token 开销压下来。"
 ---
 
 # Claude Code Token 节省与高效使用完全指南

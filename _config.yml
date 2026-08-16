@@ -1,9 +1,17 @@
 title: big-stone-head
-description: 思考与记录
+description: 思考与记录 — AI 落地、日本市场、产品与组织
 url: "https://big-stone-head.github.io"
 baseurl: ""
 
 author: big-stone-head
+
+# 首页身份区（改这三行即可改首页自我介绍）
+author_name: 景岩 / Leo
+role: Ptmind 合伙人
+bio: >-
+  在百度、微软、字节跳动、阿里巴巴做过产品与海外市场，2016 年在日本创业，
+  现在是 Ptmind 合伙人。这里记录 AI 在企业里真实落地的过程、日本市场的实际做法，
+  以及产品与组织的方法论——写的都是自己踩过的，不谈概念。
 
 # 构建配置
 markdown: kramdown

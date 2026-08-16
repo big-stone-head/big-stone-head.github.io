@@ -4,6 +4,7 @@ title: "春节宅家\"养龙虾\"：我把游戏掌机变成了AI员工"
 date: 2026-02-16
 lang: zh
 lang_pair: "/2026/02/16/openclaw-lobster-farming-guide-ja/"
+description: "把游戏掌机改造成常驻的 AI 员工——春节宅在家里养了一只「龙虾」的全过程。"
 ---
 ## 正文
 

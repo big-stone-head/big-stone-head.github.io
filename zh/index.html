@@ -1,18 +1,11 @@
 ---
 layout: default
 lang: zh
-title: 中文文章
+title: 中文
 ---
-<h1 class="page-title">中文文章</h1>
+<section class="page-head">
+  <h1>中文文章</h1>
+  <p>关于 AI 在企业里的真实落地、日本市场，以及产品与组织的方法论。</p>
+</section>
 
-<ul class="post-list">
-  {% assign posts = site.posts | sort: 'date' | reverse %}
-  {% for post in posts %}
-    {% if post.lang == 'zh' %}
-    <li>
-      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
-      <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-    </li>
-    {% endif %}
-  {% endfor %}
-</ul>
+{% include entry-list.html lang="zh" %}

@@ -4,6 +4,7 @@ title: "旧正月は自宅で「AIロブスター」を育てる：ゲーミン�
 date: 2026-02-16
 lang: ja
 lang_pair: "/2026/02/16/openclaw-lobster-farming-guide/"
+description: "ゲーミングハンドヘルドPCを常駐のAI従業員に転用した、旧正月の自宅実験の全記録。"
 ---
 ## 本文
 
