@@ -264,22 +264,17 @@ a:hover { color: var(--accent-ink); }
   border-radius: 4px;
 }
 
-/* 副标题：说清这个站写什么，接在大标题下方 */
-.hero-tagline {
-  margin-top: 1.15rem;
-  font-size: 1.25rem;
-  font-weight: 600;
-  line-height: 1.5;
-  letter-spacing: -.015em;
-  color: var(--ink);
-}
-
-.hero-bio {
-  margin-top: 1.15rem;
-  font-size: 1.05rem;
-  line-height: 1.75;
+/* 导语：整段的站点自述，接在大标题下方 */
+.hero-lede {
+  margin-top: 1.35rem;
+  font-size: 1.12rem;
+  line-height: 1.85;
   color: var(--ink-muted);
-  max-width: 34rem;
+  max-width: 38rem;
+}
+.hero-lede strong {
+  color: var(--ink);
+  font-weight: 700;
 }
 
 .hero-tags {
@@ -301,6 +296,54 @@ a:hover { color: var(--accent-ink); }
 .chip.b2 { background: var(--c-sage);  border-color: transparent; }
 .chip.b3 { background: var(--c-lime); border-color: transparent; }
 .chip.b4 { background: var(--c-sand); border-color: transparent; }
+
+/* --------------------------------------------------------------------------
+   关于作者
+   -------------------------------------------------------------------------- */
+.about {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  margin-top: 2.25rem;
+  padding: 1.5rem 1.65rem;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow);
+}
+/* 用品牌 monogram 当作者头像位——底色固定，两套主题里都是这一块绿 */
+.about-avatar {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: #C8F050;
+  color: #101C1F;
+  display: grid;
+  place-items: center;
+}
+.about-avatar .monogram { width: 26px; height: auto; display: block; }
+
+.about-body h2 {
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  margin-bottom: .45rem;
+}
+.about-body p {
+  font-size: .95rem;
+  line-height: 1.8;
+  color: var(--ink-muted);
+}
+.about-body a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 2.5px;
+  text-decoration-color: color-mix(in srgb, var(--accent) 35%, transparent);
+}
+.about-body a:hover { text-decoration-color: var(--accent); }
 
 /* 语言页页首 */
 .page-head { padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(2rem, 4vw, 3rem); }
@@ -688,8 +731,16 @@ a:hover { color: var(--accent-ink); }
   .site-nav a { padding: .4rem .6rem; font-size: .82rem; }
 
   .hero h1 { letter-spacing: -.03em; }
-  .hero-tagline { margin-top: .9rem; font-size: 1.08rem; }
-  .hero-bio { margin-top: .9rem; font-size: 1rem; }
+  .hero-lede { margin-top: 1rem; font-size: 1.02rem; }
+
+  .about {
+    gap: 1rem;
+    padding: 1.25rem 1.3rem;
+    margin-top: 1.75rem;
+  }
+  .about-avatar { width: 44px; height: 44px; border-radius: 12px; }
+  .about-avatar .monogram { width: 22px; }
+  .about-body p { font-size: .92rem; }
 
   .entry {
     grid-template-columns: 1fr;

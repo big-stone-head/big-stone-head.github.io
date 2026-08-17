@@ -2,15 +2,23 @@
 layout: default
 ---
 <section class="hero">
-  <p class="eyebrow">{{ site.author_name }} · {{ site.role }}</p>
   <h1>多半个<span class="mark">想法</span></h1>
-  <p class="hero-tagline">一个产品人的 AI 落地现场笔记</p>
-  <p class="hero-bio">{{ site.bio }}</p>
+  <p class="hero-lede">
+    分享思考的过程，不是标准答案。商业观察、产品思考、文化洞见，以及那些还没想透但值得玩味的<strong>半成品</strong>。如果你相信真正的思考始于“我不太确定”，欢迎来看这些多半个想法。
+  </p>
   <div class="hero-tags">
     <span class="chip b1">AI 落地</span>
     <span class="chip b2">日本市场</span>
     <span class="chip b3">产品与组织</span>
     <span class="chip b4">中文 / 日本語</span>
+  </div>
+</section>
+
+<section class="about">
+  <div class="about-avatar">{% include monogram.html %}</div>
+  <div class="about-body">
+    <h2>关于作者 — {{ site.author_name }}</h2>
+    <p>在百度、微软、字节跳动、阿里巴巴做过产品与海外市场，2016 年与 2020 年分别自己在日本创业。现任职于 <a href="https://www.ptmind.com" target="_blank" rel="noopener">Ptmind</a>。这里记录 AI 在企业里真实落地的过程、日本市场的实际做法，以及产品与组织的方法论——写的都是自己踩过的，不谈概念。</p>
   </div>
 </section>
 
