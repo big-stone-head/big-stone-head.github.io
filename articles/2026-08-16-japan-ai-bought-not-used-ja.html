@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日本でAIスタートアップを始めるなら、まずこのレポートを読んでほしい</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --font-sans:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,'Hiragino Sans','Yu Gothic',sans-serif;
+  --text-primary:#1D1D1F; --text-secondary:#6E6E73; --text-muted:#86868B;
+  --bg:#FFFFFF; --bg-subtle:#F5F5F7; --bg-card:#FFFFFF;
+  --border:#D2D2D7; --border-subtle:#E8E8ED;
+  --positive:#16A34A; --warning:#EA580C; --negative:#DC2626;
+  --accent:#0066CC;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-sans);color:var(--text-primary);background:var(--bg);line-height:1.75;font-size:16px}
+
+/* ---------- Hero ---------- */
+.hero{background:linear-gradient(135deg,#0a4d99 0%,#0066CC 55%,#3b8de3 100%);color:#fff;padding:72px 24px 64px}
+.hero-inner{max-width:760px;margin:0 auto}
+.hero h1{font-size:32px;line-height:1.35;font-weight:700;letter-spacing:.01em}
+.hero .sub{margin-top:18px;font-size:16px;opacity:.92;line-height:1.8}
+.hero .meta{margin-top:28px;display:flex;gap:20px;flex-wrap:wrap;font-size:13.5px;opacity:.85}
+.hero .meta span{display:inline-flex;align-items:center;gap:6px}
+.hero .meta i{font-style:normal;background:rgba(255,255,255,.18);border-radius:999px;padding:3px 12px}
+
+/* ---------- Layout ---------- */
+.layout{display:flex;max-width:1120px;margin:0 auto;align-items:flex-start}
+.toc{position:sticky;top:0;width:256px;flex-shrink:0;height:100vh;overflow-y:auto;padding:32px 20px 60px;border-right:1px solid var(--border-subtle);background:var(--bg)}
+.toc-title{font-size:12px;font-weight:600;color:var(--text-muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px}
+.toc a{display:block;color:var(--text-secondary);text-decoration:none;font-size:13.5px;line-height:1.5;padding:6px 10px 6px 14px;border-left:2px solid transparent;border-radius:0 8px 8px 0;margin-bottom:2px}
+.toc a.h3{padding-left:28px;font-size:12.5px;color:var(--text-muted)}
+.toc a:hover{color:var(--accent);background:var(--bg-subtle)}
+.toc a.active{color:var(--accent);border-left-color:var(--accent);background:rgba(0,102,204,.07);font-weight:600}
+main{flex:1;min-width:0;padding:56px 40px 80px}
+article{max-width:760px;margin:0 auto}
+
+/* ---------- Typography ---------- */
+h2{font-size:24px;font-weight:700;margin:64px 0 22px;padding-top:12px;line-height:1.4}
+h2::before{content:'';display:block;width:36px;height:3px;background:var(--accent);border-radius:2px;margin-bottom:14px}
+h3{font-size:18px;font-weight:600;margin:40px 0 14px;color:var(--text-primary)}
+h3 .star{color:var(--warning);font-size:15px;letter-spacing:1px}
+p{margin-bottom:1.1em;color:var(--text-primary)}
+strong{font-weight:600}
+em{color:var(--text-secondary)}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+hr{border:none;border-top:1px solid var(--border-subtle);margin:44px 0}
+ol,ul{margin:0 0 1.1em 1.4em}
+li{margin-bottom:.35em}
+
+blockquote{background:rgba(0,102,204,.06);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:16px 20px;margin:26px 0;color:var(--text-primary)}
+blockquote p{margin-bottom:.4em}
+blockquote p:last-child{margin-bottom:0}
+
+table{width:100%;border-collapse:collapse;font-size:14px;margin:22px 0;background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:12px;overflow:hidden;display:block;overflow-x:auto}
+thead,tbody{display:table;width:100%;table-layout:auto}
+th{background:var(--bg-subtle);font-weight:600;text-align:left;padding:10px 14px;border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:10px 14px;border-bottom:1px solid var(--border-subtle);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td em{color:var(--text-secondary)}
+
+/* ---------- Components ---------- */
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:28px 0}
+.stat{background:var(--bg-subtle);border:1px solid var(--border-subtle);border-radius:14px;padding:18px 18px 16px}
+.stat .num{font-size:30px;font-weight:700;line-height:1.2;color:var(--accent)}
+.stat .num.red{color:var(--negative)}
+.stat .num.green{color:var(--positive)}
+.stat .lbl{font-size:12.5px;color:var(--text-secondary);margin-top:6px;line-height:1.5}
+
+.chart-card{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:14px;padding:24px;margin:28px 0}
+.chart-card h4{font-size:14.5px;font-weight:600;margin-bottom:4px}
+.chart-card .note{font-size:12px;color:var(--text-muted);margin-bottom:14px}
+.chart-wrap{position:relative;height:280px}
+.chart-wrap.tall{height:320px}
+
+.opp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:28px 0}
+.opp{background:var(--bg-subtle);border:1px solid var(--border-subtle);border-radius:14px;padding:18px;cursor:pointer;transition:border-color .15s}
+.opp:hover{border-color:var(--accent)}
+.opp .rank{font-size:12px;color:var(--text-muted);font-weight:600;letter-spacing:.06em}
+.opp .name{font-size:15.5px;font-weight:600;margin:4px 0 6px}
+.opp .star{color:var(--warning);font-size:13px}
+.opp .why{font-size:13px;color:var(--text-secondary);margin-top:8px;line-height:1.6}
+@media(max-width:640px){.opp-grid{grid-template-columns:1fr}}
+
+.pit{display:flex;gap:16px;margin:22px 0;background:var(--bg-subtle);border:1px solid var(--border-subtle);border-radius:14px;padding:18px 20px}
+.pit .no{flex-shrink:0;width:36px;height:36px;border-radius:50%;background:var(--negative);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:16px}
+.pit .body h4{font-size:15.5px;font-weight:600;margin-bottom:4px}
+.pit .body p{font-size:14px;color:var(--text-secondary);margin-bottom:.4em}
+.pit .body p:last-child{margin-bottom:0}
+.pit .fix{color:var(--text-primary)}
+.pit .fix b{color:var(--positive)}
+
+.timeline{margin:32px 0}
+.tl-item{position:relative;padding:0 0 26px 34px;border-left:2px solid var(--border-subtle);margin-left:10px}
+.tl-item:last-child{border-left-color:transparent;padding-bottom:4px}
+.tl-item::before{content:'';position:absolute;left:-8px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(0,102,204,.12)}
+.tl-item .when{font-size:12.5px;font-weight:700;color:var(--accent);letter-spacing:.04em}
+.tl-item .what{font-size:15.5px;font-weight:600;margin:2px 0 8px}
+.tl-item ul{font-size:14px;color:var(--text-secondary);margin-bottom:0}
+.tl-item li{margin-bottom:.25em}
+
+.track{border-radius:14px;padding:20px 22px;margin:22px 0;border:1px solid var(--border-subtle)}
+.track.red{background:rgba(220,38,38,.05);border-left:3px solid var(--negative)}
+.track.yellow{background:rgba(234,88,12,.05);border-left:3px solid var(--warning)}
+.track .tag{display:inline-block;font-size:12px;font-weight:700;padding:2px 10px;border-radius:999px;margin-bottom:10px}
+.track.red .tag{background:rgba(220,38,38,.12);color:var(--negative)}
+.track.yellow .tag{background:rgba(234,88,12,.12);color:var(--warning)}
+
+details{border:1px solid var(--border-subtle);border-radius:12px;padding:14px 18px;margin:14px 0;background:var(--bg-card)}
+details[open]{background:var(--bg-subtle)}
+summary{cursor:pointer;font-weight:600;font-size:14.5px;list-style:none;display:flex;align-items:center;gap:8px}
+summary::before{content:'▸';color:var(--accent);transition:transform .15s}
+details[open] summary::before{transform:rotate(90deg)}
+details .inner{margin-top:12px;font-size:14px;color:var(--text-secondary)}
+details .inner p{font-size:14px;color:var(--text-secondary)}
+
+.callout{background:rgba(0,102,204,.06);border-radius:14px;padding:20px 22px;margin:28px 0;border:1px solid rgba(0,102,204,.15)}
+.callout .t{font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.05em;margin-bottom:6px}
+
+.badge{display:inline-block;font-size:12px;font-weight:600;border-radius:999px;padding:2px 10px;margin-left:6px;vertical-align:middle}
+.badge.g{background:rgba(22,163,74,.12);color:var(--positive)}
+.badge.y{background:rgba(234,88,12,.12);color:var(--warning)}
+
+/* ---------- TOC toggle (mobile) ---------- */
+.toc-toggle{display:none;position:fixed;top:14px;left:14px;z-index:60;width:42px;height:42px;border-radius:12px;border:1px solid var(--border);background:var(--bg-card);font-size:18px;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+@media(max-width:860px){
+  .toc{position:fixed;left:0;top:0;z-index:50;transform:translateX(-100%);transition:transform .2s ease;box-shadow:2px 0 16px rgba(0,0,0,.08)}
+  .toc.open{transform:translateX(0)}
+  .toc-toggle{display:block}
+  main{padding:64px 20px 60px}
+  .hero h1{font-size:25px}
+  h2{font-size:21px}
+}
+</style>
+</head>
+<body>
+<a href="/" style="position:fixed;top:12px;left:12px;z-index:9999;font:500 13px/1 -apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;color:#101C1F;background:#C8F050;border:1px solid transparent;border-radius:100px;padding:8px 14px;font-weight:700;text-decoration:none;box-shadow:0 1px 3px rgba(0,0,0,.08);">← BIGROCK</a>
+
+
+<button class="toc-toggle" id="tocToggle" aria-label="目次">☰</button>
+
+<header class="hero">
+  <div class="hero-inner">
+    <h1>日本でAIスタートアップを始めるなら、まずこのレポートを読んでほしい</h1>
+    <p class="sub">2026年6月末時点の日本AI市場データを片っ端から並べてみて見えてきたのは、極めて珍しいねじれだった。そしてこのねじれこそが、すべてのチャンスの源泉になっている。</p>
+    <div class="meta">
+      <span><i>2026-08-16</i></span>
+      <span><i>読了目安 約45分</i></span>
+      <span><i>データ基準日 2026-06-30</i></span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="toc" id="toc">
+  <div class="toc-title">目次</div>
+  <!-- TOC 由 JS 自动生成 -->
+</nav>
+
+<main>
+<article id="content">
+
+<h2>思わず見入ってしまった数字</h2>
+
+<p>まず数字を見てほしい。PwCが今年の春に実施した、生成AIに関する6か国横断の実態調査からの数字だ。</p>
+
+<div class="chart-card">
+  <h4>生成AI導入率 vs「期待を大幅に上回った」と回答した割合（米・英・日）</h4>
+  <div class="note">出典：PwC「生成AI実態調査2026 春」6か国比較。導入率はほぼ横並びなのに、満足度には4倍以上の差がある。</div>
+  <div class="chart-wrap"><canvas id="chartGap"></canvas></div>
+</div>
+
+<div class="stat-row">
+  <div class="stat"><div class="num">87%</div><div class="lbl">日本の生成AI導入率（前年比+11pt）。米国90%、英国89%とほぼ横並び</div></div>
+  <div class="stat"><div class="num red">9%</div><div class="lbl">日本企業で「効果が期待を大幅に上回った」と答えた割合──世界最低水準</div></div>
+  <div class="stat"><div class="num green">38%</div><div class="lbl">同じ設問での米国の割合。日本の4倍以上</div></div>
+</div>
+
+<p>平たく言えばこういうことだ。日本企業はすでにお金を払っている。「AIを使わなければならない」ということもすでに認めている。それなのに、買ったもののほとんどが価値を生んでいない。</p>
+
+<p>この数字をしばらく眺めていて、これは新規事業を仕掛けるうえで最高の市場状態のひとつだと感じるようになった。新しい市場に参入するとき一番コストがかかるのは「市場を教育する」工程だからだ。まず「これは役に立つ」と客に信じてもらい、それから買ってもらう。ところが日本では、この最初のステップをChatGPTと政府がすでに肩代わりしてくれている。<strong>あなたが証明しなければならないのは、ただ一点。「うちの製品は本当に役に立つ」ということだけだ。</strong></p>
+
+<p>市場教育のコストは、すでに誰かが払い終えている。</p>
+
+<p>では、なぜ買っても使いこなせていないのか。PwCは構造的な要因を3つ挙げている。</p>
+
+<ol>
+  <li><strong>単純作業の置き換えに留まっている</strong>：「メール文面のたたき台作成」のような局所最適に終始し、業務プロセスそのものを設計し直していない</li>
+  <li><strong>システム統合への投資を避けている</strong>：セキュリティ懸念とレガシーシステムを理由に、「AIを既存システムに組み込む」投資に踏み切れない</li>
+  <li><strong>経営層のコミットメントが不足している</strong>：成功事例の6割超はCEO主導だが、日本では現場に丸投げになりがち</li>
+</ol>
+
+<p>別の調査では、日本企業がAI導入で直面する障壁の上位3つは、セキュリティへの懸念（33.5%）、具体的な用途が思い浮かばない（26.0%）、情報システム部門の非協力（22.4%）だった。もうひとつ痛いところを突く事実がある。<strong>AIをうまく使いこなせていない層でもっとも多いのは「課長・組長クラス」だ。現場が使えないのではなく、中間管理職がついていけていない。</strong></p>
+
+<blockquote>
+  <p><strong>この隙間こそが、そのままプロダクトの機会になる。</strong>課長クラスの管理者が月曜の朝に「先週このツールでチームが何時間節約できたか、ミスをいくつ減らせたか」を一目で確認できるプロダクトは、より賢いモデルよりもよほど価値がある。日本企業に足りていないのはAIの能力ではない。<strong>AIの能力を既存の業務フローに組み込み、しかもその効果を証明できるもの</strong>が足りていないのだ。</p>
+</blockquote>
+
+<h2>まず市場の「規模」を整理する──3つの数字が矛盾しているので惑わされないように</h2>
+
+<p>日本のAI市場規模については、まったく異なる3つの尺度が同時に流通している。これらを混同すると重大な判断ミスにつながる。ひとつずつ分解しよう。</p>
+
+<table>
+  <thead><tr><th>尺度</th><th>数字</th><th>出典</th><th>何を含むか</th></tr></thead>
+  <tbody>
+    <tr><td><strong>AI市場全体の支出</strong></td><td>2025年2.37兆円 → 2029年6.89兆円（CAGR 36.0%）</td><td>IDC 2026V1</td><td>ハードウェア・ソフトウェア・サービスを全部含む。<strong>データセンターやGPU調達も大量に含まれる</strong></td></tr>
+    <tr><td><strong>AIシステム市場（別の切り口）</strong></td><td>2024年1.34兆円 → 2029年4.19兆円</td><td>IDC Japan、2025年5月</td><td>もう少し狭い定義。インフラの一部を除外</td></tr>
+    <tr><td><strong>生成AI単独</strong></td><td>2024年1,016億円 → 2028年8,028億円（CAGR 84.4%）</td><td>IDC Japan、2024年8月</td><td><strong>生成AI関連の支出だけを算出</strong></td></tr>
+  </tbody>
+</table>
+
+<p><strong>起業家はどれを見るべきか。</strong>3番目の数字を使い、しかもそこからさらに割り引くべきだ。1番目の数字（2.37兆円）の大部分は、ソフトバンクやNTTのような会社がGPUを買ってデータセンターを建てる話であり、あなたには関係がない。<strong>あなたが実際に手を伸ばせるのは「生成AIのソフトウェアとサービス」という層で、2026年で2,000〜3,000億円規模、2028年でも8,000億円程度だ。</strong></p>
+
+<div class="chart-card">
+  <h4>起業家が本当に手の届く市場：日本の生成AI市場（億円、CAGR 84.4%で推移）</h4>
+  <div class="note">出典：IDC Japan。2024年1,016億円 → 2028年8,028億円。市場規模は米ドル換算で20億ドル程度と大きくはないが、客単価が高くチャーンが低い。</div>
+  <div class="chart-wrap"><canvas id="chartMarket"></canvas></div>
+</div>
+
+<blockquote>
+  <p><strong>日本でAI事業をやるなら、「日本市場の規模」だけで大企業を狙うのは無理がある。</strong>この市場の価値は、客単価が高く、解約率が低く、米国ほど競合が密集していない点にある。ARR 3〜30億円クラスの高収益ビジネス、あるいはアジア展開の足がかりとして向いている市場だ。ユニコーンや百億ドル規模の企業を狙うなら、米国に行くべきだろう。</p>
+</blockquote>
+
+<h3>資金調達の集計も食い違っている（要注意）</h3>
+
+<p>調査中、2026年上半期の数字に2種類の出所があることに気づいた。</p>
+
+<ul>
+  <li><strong>Speeda/INITIAL系</strong>：総額約3,779億円、前年同期比+12%</li>
+  <li><strong>Unicorn Farm系</strong>：132件、1,377億円。AIの横断タグが付いた案件は31件で全体の23%</li>
+</ul>
+
+<p>差が出るのは、データベースの収録基準や「何をAI案件とみなすか」の判定が異なるためだ。<strong>数字を引用するときは必ず出所を明記し、混ぜて使わないこと。</strong>ただし方向性は両方とも一致している。金額は上位案件への集中が進んでいる。日経の報道によれば、4〜6月期のAIスタートアップ資金調達額は前年同期比で4割減少し、その減少幅の約9割は1億ドル以上の超大型ラウンドに集中している。</p>
+
+<div class="chart-card">
+  <h4>2026年上半期・日本のAIスタートアップ資金調達件数：4月をピークに減少が続く</h4>
+  <div class="note">出典：Speeda/INITIAL。「AIのアイデアがあれば3億円調達できる」という時期は4月以降に終わった。</div>
+  <div class="chart-wrap"><canvas id="chartFunding"></canvas></div>
+</div>
+
+<h2>2026年上半期に起きた4つの大きな出来事（競争環境を変えた）</h2>
+
+<h3>出来事その1：Sakana AI一社が市場の伸びしろを吸い取った</h3>
+<p>単一ラウンドで約310億円（累計300億円超）を調達し、評価額は約4,000億円（一部報道では「1,000億円超」という表現もあり、時点と算定基準が一致していない）。日本の非上場スタートアップとしては最高水準の評価額だ。<strong>この存在が投資家の心理的な基準点を変えてしまった。</strong>今、日本のVCは基盤モデル関連の案件を見るとき、真っ先に「Sakanaと比べてどこが優れているのか」と聞く。この道は事実上、閉ざされたと見ていい。</p>
+
+<h3>出来事その2：政府が国産AIに1兆円を投じ、44社連合が発足</h3>
+<p>経済産業省が主導し、ホンダ、ソニーなど44社が出資。ソフトバンクやPreferred Networksなどが新会社の構想を進め、1兆パラメータ級の国産大規模言語モデルを目標に掲げる。2026年度予算にはGX経済移行債を財源とする約3,000億円が計上された。計算資源への投資も大がかりで、NVIDIA Rubinを約27,500基調達、2028年には堺市にAI計算センターを稼働させる計画だ。デジタル庁も国産LLMの実証プロジェクト「源内（Gennai）」を並行して立ち上げている。</p>
+<p><strong>スタートアップへの実際の影響は2つある。</strong></p>
+<ol>
+  <li><strong>マイナス面</strong>：優秀な人材が吸い上げられ、トップクラスのAIエンジニアの給与水準が押し上げられる</li>
+  <li><strong>プラス面（こちらのほうが重要）</strong>：「国産である／データが日本国内に留まる／日本の法規制に準拠している」ことが、金融・医療・公共分野を中心にB2B調達での正式な加点要素になりつつある。<strong>あなたのプロダクトが本当にデータを国外に出さず、日本法人として運営できるなら、技術力に頼らない参入障壁がひとつ手に入る。</strong></li>
+</ol>
+<p>この1兆円自体はアプリケーション層のスタートアップに直接落ちてくるわけではないが、そこから波及する恩恵は十分に取り込める。</p>
+
+<h3>出来事その3：OpenAIもAnthropicも日本を本気の戦場と位置づけた</h3>
+
+<table>
+  <thead><tr><th></th><th>OpenAI Japan</th><th>Anthropic Japan</th></tr></thead>
+  <tbody>
+    <tr><td><strong>設立</strong></td><td>約2年10か月、オフィス移転3回</td><td>約1年</td></tr>
+    <tr><td><strong>人員規模</strong></td><td>約80人</td><td>比較的少数精鋭</td></tr>
+    <tr><td><strong>代表</strong></td><td>—</td><td>前Snowflake Japan社長</td></tr>
+    <tr><td><strong>拠点</strong></td><td>東京</td><td>丸の内</td></tr>
+    <tr><td><strong>販売チャネル</strong></td><td>NTTデータと国内初の代理店契約、ソフトバンクとの合弁SB OAI Japan</td><td>NEC、アクセンチュア日本法人、デロイト トーマツなどのパートナー経由</td></tr>
+    <tr><td><strong>顧客</strong></td><td>法人市場に重点投資</td><td>楽天、LINEヤフー、メルカリなどがClaudeを導入済み</td></tr>
+  </tbody>
+</table>
+
+<p>OpenAIは同時に、リソースを法人市場とコーディング用途に集中させ、コンシューマー向けプロダクトの優先度を下げる方針を発表。ゴールドマン・サックスなど19社と組んでAI導入支援のコンサルティング新会社を設立した（初期投資は40億ドル超）。</p>
+
+<blockquote>
+  <p><strong>汎用型のAIアシスタントやチャットボットという路線は、もう完全に塞がれている。</strong>この2社とその日本代理店ネットワークが、大企業顧客をすでに押さえてしまっているからだ。<strong>だが裏を返せば</strong>、こうした巨大プレイヤーはみな「能力を売る」ことに専念していて、誰も泥臭い仕事──AIをある業界の30年変わっていない業務フローに落とし込む作業──をやりたがらない。<strong>その泥臭い仕事こそがあなたのチャンスだ。</strong></p>
+</blockquote>
+
+<h3>出来事その4：フィジカルAIが4〜6月期最大の資金調達領域に</h3>
+<p>日経の報道によれば、2026年4〜6月期のスタートアップ資金調達でもっとも件数が多かったのはフィジカルAI領域だった。経済産業省とNEDOは6月、AIロボット・フィジカルAIのマルチモーダル基盤モデル開発事業を始動。Noetraと産業技術総合研究所が採択され、開発期間は2030年度までとされている。製造現場の主流は<strong>「レトロフィット」（既存設備にAIユニットやセンサーを後付けする方式）</strong>であり、設備を丸ごと入れ替える発想ではない。</p>
+<p><strong>スタートアップへの実際の影響</strong>：ハードウェアやロボティクスのバックグラウンドがあるなら、2026年下半期の日本でもっとも資金が集まっている領域だ。純粋なソフトウェアチームなら、ここは避けたほうがいい。資本の密度も技術的なハードルも高すぎる。</p>
+
+<h2>構造的な事実は3つ（すべての機会の源泉）</h2>
+
+<h3>事実その1：導入率87% vs 満足度9%</h3>
+<p>すでに述べた内容なので繰り返さない。一点だけ強調しておく。<strong>これがこのレポート全体の核であり、「買った」ことと「役に立っている」ことのあいだにあるこの大きな溝そのものが、プロダクトの機会だ。</strong></p>
+
+<h3>事実その2：資金が集中する＝上流は閉じ、下流が開く</h3>
+<p>50億円以上のラウンドは倍増した一方、50億円未満はわずかに減少している。資金は基盤モデル、半導体、フィジカルAIに流れ込んでいる。<strong>つまりアプリケーション層の競争密度はむしろ下がっている。</strong>目利きの資金は大型案件を追いかけて出て行ってしまったので、「介護記録の自動化」のような地味なビジネスをやる場合、競合はむしろ少なくなっている。</p>
+<p>そして日本のSaaSの歴史は、この手のビジネスが十分に大きく育つことを証明している。</p>
+
+<div class="stat-row">
+  <div class="stat"><div class="num">156,000</div><div class="lbl">ANDPAD（建設）の導入企業数。累計調達額は約209億円</div></div>
+  <div class="stat"><div class="num">8,500+</div><div class="lbl">LegalOn（法務）の有料契約企業数。累計調達額は約286億円。2026年に71.4億円のE ラウンドを実施し、OpenAIと戦略提携</div></div>
+  <div class="stat"><div class="num">60,000</div><div class="lbl">カケハシ（薬局）がカバーしうる薬局数。累計調達額は約289億円</div></div>
+</div>
+
+<h3>事実その3：導入率には3つの窪地がある</h3>
+
+<div class="chart-card">
+  <h4>AI・DX導入率の断層：上位ほど飽和し、下位ほどがら空き</h4>
+  <div class="note">出典：中小企業基盤整備機構（2026年3月）、IPA・経済産業省、日本総研（2026年1月）。町村レベルの生成AI導入率は約1割、中小企業のAI導入率は20.4%に留まる。</div>
+  <div class="chart-wrap tall"><canvas id="chartCoverage"></canvas></div>
+</div>
+
+<p>中小企業にとっての障壁はお金でもツールでもなく、<strong>「具体的にどこで使えばいいかわからない」（35.6%）と「推進できる人がいない」（32.0%）</strong>だ。</p>
+
+<blockquote>
+  <p><strong>この2つの障壁は、同じひとつのプロダクトの形を指し示している。顧客自身に使い方を考えさせない、顧客側に推進人材を必要としないプロダクトだ。つまり──ツールを売るのではなく、「すでに設定済みの結果」を売るということだ。</strong></p>
+</blockquote>
+
+<h2>領域マップ：どこがすでに埋まっていて、どこに主がいてまだ決着がついていなくて、どこがまだ空いているか</h2>
+
+<p>2026年6月時点で、日本の生成AIサービスはおよそ12の大分類、約130サービスにまで広がっている（複数のカオスマップによる集計で数値は幅がある）。領域ごとに見ていこう。</p>
+
+<div class="track red">
+  <span class="tag">🔴 すでに飽和。参入しない（強力な販売チャネルがない限り）</span>
+  <table>
+    <thead><tr><th>領域</th><th>現状</th><th>参入すべきでない理由</th></tr></thead>
+    <tbody>
+      <tr><td><strong>議事録・音声文字起こし</strong></td><td>Notta（ARR 1,000万ドル超）、LightblueのTexta、Teams CopilotやZoom AI Companionへの組み込み</td><td>巨大プレイヤーが無料の付帯機能にしてしまった。ごく狭いユースケース（医療の問診記録、建設現場の安全会議など）に絞らない限り勝ち目はない</td></tr>
+      <tr><td><strong>汎用チャットボット・FAQ</strong></td><td>市場規模は約350億円（2026年予測）。2022年時点ですでに「レッドオーシャン化」と評されていた</td><td>RAGが一般化したことで参入障壁が消え、誰でも作れるようになった</td></tr>
+      <tr><td><strong>汎用AI文章作成支援</strong></td><td>文賢、Shodo、Just Right!、Typolessなどの日本語校正ツールがすでに定着</td><td>日本語校正は確かに独自性のある領域だが、「狭くて深いB2Bツール」の性格が強く、マス向けの大きな機会ではない</td></tr>
+      <tr><td><strong>基盤モデル・日本語LLM</strong></td><td>Sakana AI、ELYZA（KDDI傘下）、政府主導の1兆円44社連合</td><td>国家プロジェクトが参入した以上、スタートアップの居場所はない</td></tr>
+      <tr><td><strong>汎用AI導入コンサルティング</strong></td><td>OpenAIの新設コンサル会社（投資規模40億ドル級）、NTTデータ、アクセンチュア、デロイト トーマツ</td><td>コンサルティングは人月商売。大手5社には勝てない</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="track yellow">
+  <span class="tag">🟡 主はいるが決着はついていない。側面から攻める余地あり</span>
+  <table>
+    <thead><tr><th>領域</th><th>先行プレイヤー</th><th>攻め筋</th></tr></thead>
+    <tbody>
+      <tr><td><strong>法務AI</strong></td><td>LegalOn（有料企業8,500社超）</td><td>LegalOnの主戦場は契約書レビュー。<strong>契約書以外の法務業務</strong>（株主総会資料、内部通報対応、下請法・景品表示法のコンプライアンスチェックなど）はまだ空いている</td></tr>
+      <tr><td><strong>経理財務AI</strong></td><td>LayerXの「バクラク」、Sansanの「Bill One」、freee、マネーフォワード</td><td>大企業層はすでに押さえられている。<strong>従業員20人以下で、いまだに紙とExcelを使っている層</strong>には本気で取り組んでいるプレイヤーがいない</td></tr>
+      <tr><td><strong>営業支援AI</strong></td><td>RevCommの「MiiTel」、Algomaticの「アポドリ」</td><td>通話解析はすでに成熟。<strong>営業以外の顧客対応業務</strong>（提案書の自動生成、更新リスクの予兆検知）は競合が薄い</td></tr>
+      <tr><td><strong>採用・HR AI</strong></td><td>Algomaticの「リクルタAI」</td><td>Algomaticは2026年6月に3社体制へ再編、CEOも交代し組織が流動的──ここが狙い目の窓になっている</td></tr>
+      <tr><td><strong>文書・OCR AI</strong></td><td>AI insideの「DX Suite」、Cinnamon AI</td><td>汎用OCRはすでにコモディティ化。<strong>特定フォーマットの深い読み取り</strong>（建設図面、診断書、保険金請求書など）にはまだ余地がある</td></tr>
+      <tr><td><strong>AI研修・人材育成</strong></td><td>市場規模は約1.35兆円、前年比+18%</td><td><strong>政策リスクに注意</strong>：2026年8月3日から汎用型AI研修は助成金の対象から外れた。業務に組み込んだ形の研修だけが助成対象として残っている（中小企業は経費の75%、2027年3月末まで）</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>🟢 本当に空いている領域──それが次の章で紹介する10の機会であり、この記事でいちばん読んでほしい部分でもある。</p>
+
+<h2>10の具体的な機会（判断根拠・攻め方・検証方法つき）</h2>
+
+<p>並び順の基準：<strong>空白の大きさ × 支払い意欲 × 外部チームの参入しやすさ</strong>。まず一覧カードを示す。カードをクリックすると各詳細にジャンプできる。</p>
+
+<div class="opp-grid" id="oppGrid">
+  <div class="opp" data-target="opp1"><div class="rank">機会1</div><div class="name">介護記録・ケアプラン作成の自動化 <span class="star">★★★★★</span></div><div class="why">制度に縛られた硬直的な書類業務。大手は手を出さず、一度食い込めば替えが利かない</div></div>
+  <div class="opp" data-target="opp2"><div class="rank">機会2</div><div class="name">中小企業向け「使い方を自分で考えなくていい」AI <span class="star">★★★★★</span></div><div class="why">導入率20.4%という窪地。ツールではなく「設定済みの結果」を売る</div></div>
+  <div class="opp" data-target="opp3"><div class="rank">機会3</div><div class="name">町村レベルの自治体向け生成AI <span class="star">★★★★☆</span></div><div class="why">約900の町村で導入率は約1割。共同利用型なら一度に20〜50自治体を獲得できる</div></div>
+  <div class="opp" data-target="opp4"><div class="rank">機会4</div><div class="name">「AI効果の可視化」レイヤー <span class="star">★★★★☆</span></div><div class="why">満足度9%という数字そのものをビジネス化。買い手はCEOに成果を報告したいDX室長</div></div>
+  <div class="opp" data-target="opp5"><div class="rank">機会5</div><div class="name">士業事務所の業務自動化 <span class="star">★★★★☆</span></div><div class="why">利用率はすでに66%。需要は実証済みだが既存ツールの質が低い</div></div>
+  <div class="opp" data-target="opp6"><div class="rank">機会6</div><div class="name">現場作業系業界向け「後付け型」AI <span class="star">★★★★☆</span></div><div class="why">既存システムの入れ替えを一切求めない。「統合不要」自体がセールスポイント</div></div>
+  <div class="opp" data-target="opp7"><div class="rank">機会7</div><div class="name">「国産・データ主権」をプロダクトの仕様にする <span class="star">★★★☆☆</span></div><div class="why">1兆円の政府投資が「国産」を調達要件に変えつつある。海外チームには避けて通れない論点</div></div>
+  <div class="opp" data-target="opp8"><div class="rank">機会8</div><div class="name">「課長層」向けのAI定着支援ツール <span class="star">★★★☆☆</span></div><div class="why">課長がツールの部門内での生死を決める。PLGで攻められる</div></div>
+  <div class="opp" data-target="opp9"><div class="rank">機会9</div><div class="name">業務組み込み型のAI研修 <span class="star">★★★☆☆</span></div><div class="why">助成金の窓口は2027年3月末まで。稼げるうちに稼ぐタイプの機会</div></div>
+  <div class="opp" data-target="opp10"><div class="rank">機会10</div><div class="name">日本を起点にしたアジア展開型プロダクト <span class="star">★★☆☆☆</span></div><div class="why">日本で検証し、東南アジアで規模を取る。この順番は逆にできない</div></div>
+</div>
+
+<details id="opp1" open>
+  <summary>機会1｜介護記録・ケアプラン作成の自動化 <span class="star">★★★★★</span></summary>
+  <div class="inner">
+    <p><strong>なぜか</strong>：日経の報道によれば、介護現場でのAI活用によって「ケアプラン作成の代行、書類整理業務を9割削減」した事例がすでに出ている。介護は日本でもっとも人手不足が深刻な業界であり、<strong>介護報酬制度が大量の法定書類を要求する</strong>。これは制度に縛られた、毎日発生する硬直的な痛みだ。NTTドコモはすでにExawizardsに出資し、高齢者向けサービス×AIに布石を打っている。</p>
+    <p><strong>先行プレイヤーが手薄</strong>：大手は手を出したがらない（客単価が低く、顧客が分散し、営業コストがかさむため）。だからこそ、一度食い込めば極めて替えが利きにくくなる。</p>
+    <p><strong>攻め方</strong>：「介護版ChatGPT」を作ってはいけない。やることは<strong>ひとつだけ</strong>。介護職員が勤務中の状況を音声で話す → 介護保険の法定様式に沿った記録を自動生成 → 既存の介護ソフト（カイポケ、ほのぼの等）に自動入力する。</p>
+    <p><strong>検証方法（30日）</strong>：50床以下の介護老人保健施設を3件見つけ、職員が記録作成に費やしている時間を1日あたりで測る。ひとりあたり1日20分未満なら撤退。40分を超えるなら続行。</p>
+    <p><strong>リスク</strong>：介護報酬制度は3年ごとに改定される（次回は2027年4月）。法定様式が変わるたびに追随する必要がある。<strong>これは負担であると同時に、参入障壁にもなる。</strong></p>
+  </div>
+</details>
+
+<details id="opp2">
+  <summary>機会2｜中小企業向け「使い方を自分で考えなくていい」AI <span class="star">★★★★★</span></summary>
+  <div class="inner">
+    <p><strong>なぜか</strong>：中小企業のAI導入率はわずか20.4%。最大の障壁は「具体的な用途がわからない」（35.6%）と「推進できる人がいない」（32.0%）だ。<strong>この2つは、「ツールを売る」というモデル自体を明確に否定している。</strong></p>
+    <p><strong>攻め方</strong>：<strong>業界別テンプレートパッケージ＋代行設定サービス</strong>を売る。プラットフォームを売るのではない。たとえば従業員30人以下の建設会社向けに、「見積書作成＋現場写真の整理＋請求書発行」の3点セットをそのまま使える形で提供し、月額3〜5万円で導入する。</p>
+    <p><strong>なぜ外部チームでもできるのか</strong>：ハードルは「特定業界の帳票と業務フローを理解していること」であって、技術力ではない。AIエンジニアより先に、その業界で10年働いた人を採用してプロダクトの仕様を決めさせるほうが重要だ。</p>
+    <p><strong>検証方法（45日）</strong>：業界をひとつ絞り（たとえば「関東地方の内装工事業者」）、20社に電話をかけて「先月いちばん面倒だった繰り返し作業は何ですか」と聞く。20人中12人以上が同じことを挙げたら、それをプロダクトにする。</p>
+    <p><strong>販路が鍵になる</strong>：中小企業は広告を見ないし、検索もしない。<strong>税理士事務所、商工会議所、地方銀行</strong>のチャネルを使う。日本の中小企業がもっとも信頼しているのは自分の税理士だ。</p>
+  </div>
+</details>
+
+<details id="opp3">
+  <summary>機会3｜町村レベルの自治体向け生成AI <span class="star">★★★★☆</span></summary>
+  <div class="inner">
+    <p><strong>なぜか</strong>：都道府県・政令市の生成AI導入率は約9割に対し、町村は約1割。この差は<strong>予算と人材の差</strong>であり、需要の差ではない。日本には約900の町村がある。</p>
+    <p><strong>攻め方</strong>：<strong>共同利用型</strong>で攻める。複数の町村が共用できるプラットフォームを構築し、都道府県または広域連合を通じて一度に20〜50町村をまとめて契約する。機能は3つに絞る。住民問い合わせ対応、議会答弁の草案作成、各種申請窓口の案内だ。</p>
+    <p><strong>リスクとハードル</strong>：公共調達にはISMAPなどの認証が必要で、取得には12〜18か月かかる。<strong>これは海外チームにとって高いハードルになる。</strong>日本の地場SIerと合弁を組むか、その下請けとして参入するのが現実的だ。</p>
+    <p><strong>検証方法</strong>：すでに導入済みの県の調達仕様書を一件見て、その条件を満たせるかどうかを確認する。<strong>満たせないなら時間を無駄にしないほうがいい。</strong></p>
+  </div>
+</details>
+
+<details id="opp4">
+  <summary>機会4｜「AI効果の可視化」レイヤー <span class="star">★★★★☆</span></summary>
+  <div class="inner">
+    <p><strong>なぜか</strong>：これは満足度9%という数字をそのままビジネス化したものだ。日本企業はすでに複数のAIツールを導入しているが、「結局これらのツールが何をもたらしたのか」に答えられる人がいない。そして日本企業の文化は<strong>上司に提示できる数字</strong>への依存度が極めて高い。</p>
+    <p><strong>攻め方</strong>：複数のAIツールを横断して利用状況と効果を測定するレイヤーを作る。誰が、どの業務で、どれだけ工数を削減し、アウトプットの質はどうで、どの部署が「使っているふり」をしているか。成果物は<strong>役員会の資料にそのまま貼れる1枚のグラフ</strong>だ。</p>
+    <p><strong>なぜ今なのか</strong>：<strong>このプロダクトの買い手は現場ではなく、CEOに「無駄金ではなかった」と証明したい情報システム部長やDX推進室長だ。</strong>予算もあり、動機もあり、しかも今のところ誰もサービスを提供していない。</p>
+    <p><strong>検証方法</strong>：AIツールを3つ以上導入済みの企業（従業員500〜3,000人規模）を5社見つけ、DX担当者に「次の役員会でAIの成果をどう報告するつもりですか」と聞く。言葉に詰まるようなら、そこに市場がある。</p>
+  </div>
+</details>
+
+<details id="opp5">
+  <summary>機会5｜士業事務所の業務自動化 <span class="star">★★★★☆</span></summary>
+  <div class="inner">
+    <p><strong>なぜか</strong>：士業（税理士、社労士、行政書士など）のAI業務活用率はすでに66%に達している。<strong>これは空白市場ではなく、需要は実証済みなのにツールの質が伴っていない市場だ。</strong>彼らが踏み出せない理由は3つ。具体的なプロンプト例がない、守秘義務との両立方法が見えない、投資回収の試算がない。すでに社労士向け「HRbase PRO」というプレイヤーが存在する。</p>
+    <p><strong>攻め方</strong>：<strong>士業の種類ごと</strong>に作る。汎用的な「士業向けAI」は作らない。優先順位は社労士 &gt; 行政書士 &gt; 税理士（税理士向けはすでに競争が激しい）。</p>
+    <p><strong>設計の要点</strong>：<strong>守秘義務との両立方法は、プロダクトの一番の訴求点にすべきであって、注釈として添えるものではない。</strong>データを日本国外に出さない、学習に使わない、第三者による監査結果を提示できる──この3点をトップページの一番上に書く。</p>
+    <p><strong>販路</strong>：各都道府県単位の士業団体（士会）が開く研修会。士業の人々が集まる場は日本ではここしかない。</p>
+  </div>
+</details>
+
+<details id="opp6">
+  <summary>機会6｜現場作業系業界向け「後付け型」AI <span class="star">★★★★☆</span></summary>
+  <div class="inner">
+    <p><strong>なぜか</strong>：製造業の主流のやり方は「レトロフィット」──既存設備を丸ごと入れ替えず、AIユニットやセンサーを後から取り付ける方式だ。この発想は建設、物流、飲食、小売にも横展開できる。</p>
+    <p><strong>攻め方</strong>：<strong>顧客の既存システムの入れ替えを絶対に求めないこと。</strong>たとえば飲食チェーンなら、既存のPOSレジはそのままに、POSから出力されるCSVデータと天気予報、近隣のイベント情報を組み合わせて、「今日は材料をどれだけ仕込めばいいか」を毎朝店長にLINEで一通送るだけでいい。</p>
+    <p><strong>なぜこの形が日本に合うのか</strong>：日本の中小企業のIT環境は極めて断片化していて古い。「統合する」こと自体がほぼ不可能に近い。<strong>だからこそ「統合不要」であることが、それ自体セールスポイントになる。</strong></p>
+  </div>
+</details>
+
+<details id="opp7">
+  <summary>機会7｜「国産・データ主権」をプロダクトの仕様にする <span class="star">★★★☆☆</span></summary>
+  <div class="inner">
+    <p><strong>なぜか</strong>：政府による1兆円の投資は、「国産であること」を調達要件へと変えつつある。デジタル庁の「源内」プロジェクトや、金融・医療分野での国内データ保持要件が、この流れを後押ししている。</p>
+    <p><strong>誤解しないでほしいのは、国産の大規模言語モデルを作れという話ではない</strong>（その道はすでに閉ざされている）ということだ。そうではなく、<strong>アプリケーション層のプロダクトを作るときに「日本法人であること・データが完全に国内に留まること・国産モデルを選択できること」を正式な仕様として契約書に書き込む</strong>、という意味だ。</p>
+    <p><strong>中国系チームへの特別な注意</strong>：日本の顧客が中国出身のチームに対して抱く懸念の<strong>本質は「中国だから」ではなく「検証できないから」</strong>だ。日本法人であること、日本人の代表者がいること、データが国内に留まること、第三者による監査報告書があること──この4点はどれも欠けてはならない。これは<strong>加点要素ではなく必須要件</strong>だと考えるべきだ。</p>
+  </div>
+</details>
+
+<details id="opp8">
+  <summary>機会8｜「課長層」向けのAI定着支援ツール <span class="star">★★★☆☆</span></summary>
+  <div class="inner">
+    <p><strong>なぜか</strong>：AIをうまく使いこなせていない層でもっとも多いのは課長・組長クラスだ。<strong>現場が使えないのではなく、中間管理職がチームを率いてAIを活用できていない。</strong>そして日本企業では、あるツールが部署内に定着するかどうかを決めるのは課長だ。</p>
+    <p><strong>攻め方</strong>：課長個人にAIを与えるのではなく、「<strong>部下8人にAIを使わせつつ、自分がその状況を管理下に置ける</strong>」能力を与える。タスク配分、利用状況の可視化、成果物の抜き取りチェック、月次の成果集計といった機能だ。</p>
+    <p><strong>機会4との違い</strong>：機会4は全社のDX部門向け、こちらは個々の部署の課長向けだ。客単価は低いが意思決定は速い（課長は数十万円規模の裁量予算を持っている）。PLGで攻められる。</p>
+  </div>
+</details>
+
+<details id="opp9">
+  <summary>機会9｜業務組み込み型のAI研修（政策の窓口期間に注意） <span class="star">★★★☆☆</span></summary>
+  <div class="inner">
+    <p><strong>なぜか</strong>：人材育成市場は約1.35兆円、前年比+18%で成長している。ただし<strong>2026年8月3日以降、汎用型のAI研修は人材開発支援助成金の対象から外れた</strong>。汎用的なAI研修に対する助成金の恩恵はすでに終わっている(=市場としてはすでに飽和した証拠でもある)。</p>
+    <p><strong>ただし</strong>、「具体的な業務に組み込んだAI研修」は引き続き助成対象で、中小企業は経費の75%が助成され、制度は2027年3月末まで有効だ。</p>
+    <p><strong>攻め方</strong>：「特定業界・特定職種向けの実務AI研修」を作り、<strong>助成金の申請が通る形式に設計することが必須</strong>になる（計画届の書き方自体があなたの専門性そのものになる）。窓口期間は1年半ほどで、短期で稼ぐタイプの機会であり、長期事業ではない。<strong>やるなら今すぐやるべきだ。</strong></p>
+  </div>
+</details>
+
+<details id="opp10">
+  <summary>機会10｜日本を起点にしたアジア展開型プロダクト <span class="star">★★☆☆☆</span></summary>
+  <div class="inner">
+    <p><strong>なぜか</strong>：日本市場は客単価が高く解約率も低いが、天井は明確だ。AnyMind Group（ASEAN×マーケティングAI、上場済み）が「日本＋東南アジア」の組み合わせが成立することを証明している。</p>
+    <p><strong>攻め方</strong>：プロダクトは最初から多言語対応を前提に設計し、日本の顧客からの課金でプロダクトとキャッシュフローを検証し、東南アジアで規模を取りにいく。<strong>この順番を逆にしてはいけない。</strong>東南アジアで検証したプロダクトをそのまま日本に持ち込むと、まず失敗する（品質とサポートに対する要求水準が一段違う）。</p>
+    <p><strong>リスク</strong>：まったく異なる2つの営業組織が必要になり、初期チームでは体力が持たないことが多い。<strong>日本で顧客が30社を超え、かつキャッシュフローがプラスになってから初めて検討すべきだ。</strong></p>
+  </div>
+</details>
+
+<h2>5つの落とし穴（とくに中国チーム・外国チーム向け）</h2>
+
+<p>日本市場では、目に見えないハードルのほうがプロダクトそのもののハードルより高いことが多い。</p>
+
+<div class="pit">
+  <div class="no">1</div>
+  <div class="body">
+    <h4>在留資格の審査はすでに厳しくなっている</h4>
+    <p>2025年の入管法改正後、審査基準は厳格化した。「経営・管理」の在留資格を得るには、オフィスの設立、常勤従業員の雇用、<strong>資本金300万円以上</strong>が求められる。</p>
+    <p class="fix"><b>対策</b>：まず<strong>スタートアップビザ（外国人起業活動促進事業）</strong>を活用する。最長2年間の創業準備期間が得られ、初期段階でまとまった出資を用意する必要がない。その後に「経営・管理」ビザへ切り替える。横浜市などの自治体には専用の支援プログラムがある。<strong>「まず来日してから考える」というやり方はやめたほうがいい。</strong></p>
+  </div>
+</div>
+
+<div class="pit">
+  <div class="no">2</div>
+  <div class="body">
+    <h4>技術力が高ければ売れると思い込む</h4>
+    <p>日本のB2B購買の判断ロジックは「どれが一番優れているか」ではなく、「<strong>何かあったとき誰が責任を取るのか</strong>」だ。最初に聞かれる質問はたいてい「導入実績は何件ありますか」「同業他社ではどこが使っていますか」だ。</p>
+    <p class="fix"><b>対策</b>：<strong>最初の1社は何を犠牲にしてでも獲得し、公開できる事例に仕上げる。</strong>最初の3社のロゴの価値は、その後の30社分の売上より大きい。価格はほぼ無料に近い水準まで下げてもいい。その代わり、公開できる社名と数字を必ず手に入れる。</p>
+  </div>
+</div>
+
+<div class="pit">
+  <div class="no">3</div>
+  <div class="body">
+    <h4>「セキュリティへの懸念」の実際の重みを甘く見る</h4>
+    <p>セキュリティへの懸念は、日本企業がAI導入を進めるうえで最大の障壁だ（33.5%）。実務上は200項目に及ぶセキュリティチェックシートとして現れ、そのすべてに書面で回答する必要がある。</p>
+    <p class="fix"><b>対策</b>：<strong>最初の顧客ができる前から、この書類を準備しておく。</strong>ISMS（ISO 27001）認証を早めに取得すること。取得には6〜9か月かかり、これがなければ大企業の調達プロセスはそもそも進まない。<strong>今すぐ着手すべきだ。</strong></p>
+  </div>
+</div>
+
+<div class="pit">
+  <div class="no">4</div>
+  <div class="body">
+    <h4>情報システム部門は見えない拒否権を持っている</h4>
+    <p>企業の22.4%が「情報システム部門の非協力」を障壁として挙げている。日本企業の情シスはコストセンターであり、KPIは「事故を起こさないこと」。彼らにとって新しいツールはすべて純粋なリスクでしかない。</p>
+    <p class="fix"><b>対策</b>：<strong>プロダクト設計に、情報システム部門が「自分でコントロールできる」要素を組み込む。</strong>利用ログ、権限管理、いつでも止められるスイッチ、データのエクスポート機能などだ。「押し切られて導入させられた」立場から「自分たちが管理している」立場に変えてあげる。</p>
+  </div>
+</div>
+
+<div class="pit">
+  <div class="no">5</div>
+  <div class="body">
+    <h4>「導入」をゴールだと思ってしまう</h4>
+    <p>導入率87%に対して満足度9%──<strong>日本市場最大の現象は「買ったのに使われない」ことだ。</strong>契約の更新判断は12か月後にやってくる。そのとき顧客が効果を説明できなければ、まず更新されない。</p>
+    <p class="fix"><b>対策</b>：「効果を証明すること」自体をプロダクトに組み込み、カスタマーサクセスチームの手作業に頼らないこと。<strong>社内報告にそのまま使える成果レポートを、毎月自動生成する機能</strong>。この一機能が更新率に与える影響は、どんなAI性能の向上よりも大きい。</p>
+  </div>
+</div>
+
+<h2>90日間の検証チェックリスト（そのまま使ってほしい）</h2>
+
+<p>今日、日本でAI事業を始めると決めたとして、次の90日間の動き方を示す。</p>
+
+<div class="timeline">
+  <div class="tl-item">
+    <div class="when">1〜14日目</div>
+    <div class="what">領域を選ぶ</div>
+    <ul>
+      <li>10の機会から候補を2つに絞る。2つを超えないこと</li>
+      <li>候補ごとに、その業界の実務者5人に30分ずつヒアリングする（日本語で。必ず日本語で行うこと）</li>
+      <li>核心となる質問はひとつだけ。「先月、いちばん面倒だった繰り返し作業は何ですか」</li>
+      <li>判定基準：10人中6人以上が同じことを挙げたら続行。そうでなければ領域を変える</li>
+    </ul>
+  </div>
+  <div class="tl-item">
+    <div class="when">15〜45日目</div>
+    <div class="what">支払い意欲を検証する</div>
+    <ul>
+      <li>その「ひとつのこと」だけを動かせるプロトタイプを作る（プラットフォームを作ってはいけない。その1機能だけに絞る）</li>
+      <li>お金を払ってでも試したいという企業を3社見つけ、<strong>実際に課金する。たとえ月額1万円でも構わない</strong>。無料トライアルから得られるフィードバックはすべてノイズだと思ったほうがいい</li>
+      <li>判定基準：3社中2社が2か月目も自発的に継続してくれたら続行</li>
+    </ul>
+  </div>
+  <div class="tl-item">
+    <div class="when">46〜75日目</div>
+    <div class="what">日本での信用を築く</div>
+    <ul>
+      <li>日本法人を設立する（合同会社で十分。設立費用は6〜10万円程度）</li>
+      <li>ISMS認証の取得プロセスを開始する（予算100〜200万円、期間6〜9か月。<strong>今始めなければ最初の大口顧客には間に合わない</strong>）</li>
+      <li>セキュリティチェックシート向けの想定問答集を用意する（200項目、日本語）</li>
+      <li>データの保管場所が日本国内にあることを確認する（AWS東京リージョン／Azure Japan Eastなど）</li>
+    </ul>
+  </div>
+  <div class="tl-item">
+    <div class="when">76〜90日目</div>
+    <div class="what">最初の公開事例をつくる</div>
+    <ul>
+      <li>有料顧客の中から1社を選び、<strong>大幅な値引きと引き換えに導入事例の公開許可をもらう</strong></li>
+      <li>事例には必ず具体的な数字を入れる（何時間削減できたか、何パーセント改善したか）</li>
+      <li>同時に、その業界団体（業界団体、士会、商工会議所など）への登壇提案も準備しておく</li>
+    </ul>
+  </div>
+</div>
+
+<div class="callout">
+  <div class="t">90日後の合格ライン</div>
+  <p style="margin-bottom:0"><strong>公開事例1件＋有料顧客3社＋日本法人＋ISMS申請中</strong>──ここまで来ていれば、日本市場に挑もうとしているチームの大多数より一歩リードしていると言える。</p>
+</div>
+
+<h2>データの信頼性について（重要。必ず読んでほしい）</h2>
+
+<table>
+  <thead><tr><th>レベル</th><th>内容</th><th>信頼度</th></tr></thead>
+  <tbody>
+    <tr><td><strong>①一次資料・権威ある調査機関</strong></td><td>PwC、IDC Japan、総務省、中小企業基盤整備機構、日本総研、経済産業省の公開資料、日経の報道</td><td>高い。そのまま引用してよい</td></tr>
+    <tr><td><strong>②二次情報・まとめメディア</strong></td><td>「日本のAIスタートアップ20選」的な記事、カオスマップ、SaaSランキング記事</td><td>中程度。企業名やおおよその規模は信頼できるが、<strong>具体的な調達額や評価額はしばしば数値がずれる</strong></td></tr>
+    <tr><td><strong>③レポート内の推論</strong></td><td>10の機会に関する判断、攻め方、90日間チェックリスト</td><td>これは事実ではなく判断だ。実行すべき結論としてではなく、検証すべき仮説として扱ってほしい</td></tr>
+  </tbody>
+</table>
+
+<p><strong>解消されていないデータの矛盾（隠さずそのまま記載する）</strong></p>
+<ol>
+  <li>2026年上半期のスタートアップ資金調達総額：3,779億円（Speeda/INITIAL系）vs 1,377億円・132件（Unicorn Farm系）。<strong>集計基準が異なるため混同しないこと</strong></li>
+  <li>Sakana AIの評価額：「1,000億円超」と「約4,000億円」という2つの説がある。情報の時点が異なる</li>
+  <li>日本の生成AI導入率：PwCは87%としているが、別の調査では「30%台」という数字もある。PwCの調査対象は大企業が中心で、もう一方は中小企業も含んでいる。<strong>この差自体が「導入率には窪地がある」という結論を裏付けている</strong></li>
+  <li>中小企業のAI導入率20.4%(中小企業基盤整備機構)と、一部メディアが引用する34%とのあいだにも差がある。後者は「すでにITシステムを持つ中小企業」だけを対象にしている可能性がある</li>
+</ol>
+
+<h2>日本市場特有の用語ミニ辞典</h2>
+
+<table>
+  <thead><tr><th>用語</th><th>意味</th></tr></thead>
+  <tbody>
+    <tr><td><strong>導入率</strong></td><td>企業がすでにあるツールを導入し使用している割合</td></tr>
+    <tr><td><strong>PoCの壁</strong></td><td>試験導入（PoC）までは進むものの、全社展開に至らない現象。日本のAIプロジェクトでもっともよくある失敗パターン</td></tr>
+    <tr><td><strong>レトロフィット</strong></td><td>既存の設備を入れ替えず、AIユニットやセンサーを後から追加する方式</td></tr>
+    <tr><td><strong>フィジカルAI</strong></td><td>ロボット、工場設備、自動運転など、物理世界を制御するAI</td></tr>
+    <tr><td><strong>バーティカルSaaS</strong></td><td>特定の業界に特化したソフトウェア。建設専用、薬局専用など</td></tr>
+    <tr><td><strong>士業（しぎょう）</strong></td><td>名称の末尾が「士」で終わる資格職の総称。税理士、社労士、行政書士、弁護士など</td></tr>
+    <tr><td><strong>ケアプラン</strong></td><td>介護保険制度において、法律で作成が義務づけられているケア計画書</td></tr>
+    <tr><td><strong>セキュリティチェックシート</strong></td><td>日本の大企業がソフトウェアを調達する際、項目ごとに書面回答を求めるチェックリスト。100〜300項目に及ぶことも多い</td></tr>
+    <tr><td><strong>ISMAP</strong></td><td>政府情報システムのためのセキュリティ評価制度。日本の政府機関にクラウドサービスを販売するための認証要件</td></tr>
+    <tr><td><strong>ISMS／ISO 27001</strong></td><td>情報セキュリティマネジメントシステムの認証。日本のB2B調達では事実上必須の要件になっている</td></tr>
+    <tr><td><strong>人材開発支援助成金</strong></td><td>厚生労働省が所管する企業研修向けの助成金制度。中小企業では経費の最大75%が助成対象になる</td></tr>
+    <tr><td><strong>経営・管理ビザ</strong></td><td>外国人が日本で会社を経営するために必要な在留資格</td></tr>
+    <tr><td><strong>スタートアップビザ</strong></td><td>正式名称は「外国人起業活動促進事業」。外国人起業家に最長2年間の創業準備期間を与える制度</td></tr>
+    <tr><td><strong>商工会議所</strong></td><td>日本各地にある企業間の相互扶助団体。中小企業への情報伝達の中心的な結節点</td></tr>
+    <tr><td><strong>調達仕様書</strong></td><td>公共部門の入札で公開される、技術要件や資格要件をまとめた文書</td></tr>
+    <tr><td><strong>ARR</strong></td><td>年間経常収益。SaaS企業の事業規模を測る標準的な指標</td></tr>
+    <tr><td><strong>PLG</strong></td><td>プロダクト・レッド・グロース。営業組織ではなくプロダクト自体の力で顧客を獲得する成長モデル</td></tr>
+  </tbody>
+</table>
+
+<h2>最後に</h2>
+
+<p>結局のところ、2026年の日本AI市場のストーリーは一文で言い表せる。<strong>お金はすでに支払われているのに、価値がまだ届いていない。</strong></p>
+
+<p>市場に足りていないのはAIの能力ではなく、AIを30年変わっていない業務フローに組み込み、しかもそれが効いていることを数字で証明できるものだ。巨大プレイヤーはこの泥臭い仕事をやりたがらず、Sakanaのような企業が資本と注目を吸い取っていったことで、かえってアプリケーション層の競争密度は下がった。</p>
+
+<p>その泥臭い仕事こそが、あなたのチャンスだ。</p>
+
+<p>ただし、5つの落とし穴は忘れないでほしい。ビザは先に計画する、最初のロゴは何を犠牲にしてでも獲得する、ISMSは今すぐ着手する、情報システム部門にはコントロールできるスイッチを渡す、「効果を証明すること」をプロダクトに組み込む。<strong>日本市場が評価するのは、もっとも先進的な技術ではなく、もっとも検証可能な信頼だ。</strong></p>
+
+<h2>参考文献</h2>
+
+<p><strong>市場規模と調査</strong></p>
+<ul>
+  <li>PwC「生成AI実態調査2026 春」（6か国比較） — <a href="https://www.pwc.com/jp/ja/knowledge/thoughtleadership/2026/assets/pdf/generative-ai-survey2026.pdf">pwc.com</a></li>
+  <li>IDC「Worldwide AI and Generative AI Spending Guide 2026V1」 — <a href="https://my.idc.com/getdoc.jsp?containerId=prJPJ53362125">idc.com</a></li>
+  <li>IDC 国内生成AI市場、今後5年で8,000億円規模へ — <a href="https://my.idc.com/getdoc.jsp?containerId=prJPJ52722724">idc.com</a></li>
+  <li>中小機構「中小企業のAI等の利活用に係る実態調査」（2026年3月） — <a href="https://www.smrj.go.jp/research_case/questionnaire/fbrion0000002pjw-att/202603_AI_point.pdf">smrj.go.jp</a></li>
+  <li>日本総研「自治体DXシリーズ No.9」（2026年1月） — <a href="https://www.jri.co.jp/file/report/researchfocus/pdf/16441.pdf">jri.co.jp</a></li>
+</ul>
+
+<p><strong>スタートアップ資金調達</strong></p>
+<ul>
+  <li>Speeda/INITIAL「2026年上半期スタートアップ資金調達動向」 — <a href="https://initial.inc/articles/japan-startup-finance-2026h1">initial.inc</a></li>
+  <li>Unicorn Farm「2026年上半期 資金調達レポート」 — <a href="https://portal.unicornfarm.jp/insights/58a7ed4c-c5e5-4928-addb-2efa7dbc496d">unicornfarm.jp</a></li>
+  <li>日経「AIスタートアップの資金調達、4〜6月期は4割減」 — <a href="https://www.nikkei.com/article/DGXZQOUC30A3R0Q6A730C2000000/">nikkei.com</a></li>
+  <li>日経「新興企業の資金調達、4月〜6月はフィジカルAIが最多」 — <a href="https://www.nikkei.com/article/DGXZQOUC282C90Y6A720C2000000/">nikkei.com</a></li>
+</ul>
+
+<p><strong>政策</strong></p>
+<ul>
+  <li>日経「国産AIに44社連合、国が1兆円支援」 — <a href="https://www.nikkei.com/article/DGXZQOUC165XL0W6A710C2000000/">nikkei.com</a></li>
+  <li>経済産業省「マルチモーダル基盤モデル開発事業」 — <a href="https://www.meti.go.jp/policy/policy_management/ebpm/kensyo_shinario/260413_multimodal.pdf">meti.go.jp</a></li>
+  <li>助成金改正解説（2026年8月改正） — <a href="https://catorce.jp/st/knowledge-training-subsidy-2026-revision.html">catorce.jp</a></li>
+</ul>
+
+<p><strong>業界と競争環境</strong></p>
+<ul>
+  <li>One Capital「日本のAI SaaS、2026年の『現在地』とこれから」 — <a href="https://onecapital.jp/perspectives/AI-SaaS-Insights">onecapital.jp</a></li>
+  <li>compalyze「OpenAI・Anthropicの日本法人 ─ 登記で読む」 — <a href="https://compalyze.co.jp/journal/openai-anthropic-japan-entry-2026">compalyze.co.jp</a></li>
+  <li>日経「介護の人手不足、AIで打破」 — <a href="https://www.nikkei.com/article/DGXZQOUF095V00Z00C26A3000000/">nikkei.com</a></li>
+  <li>LegalOn Technologies 資金調達に関するニュースリリース — <a href="https://enterprisezine.jp/news/detail/22421">enterprisezine.jp</a></li>
+  <li>Algomatic 3社体制への移行 — <a href="https://note.com/algomatic_oa/n/nba49307a1413">note.com</a></li>
+</ul>
+
+<p><strong>ビザと法務</strong></p>
+<ul>
+  <li>横浜市「外国人起業活動促進事業（スタートアップビザ）」 — <a href="https://www.city.yokohama.lg.jp/business/keizai/sougyo/venture/yokohama_suvisa.html">city.yokohama.lg.jp</a></li>
+</ul>
+
+<p style="color:var(--text-muted);font-size:13px;margin-top:32px">調査原稿：『日本AIプロダクト市場の全体像と起業機会（2026年6月末時点）』 ・ データ基準日 2026-06-30 ・ 調査日 2026-08-16</p>
+
+</article>
+</main>
+</div>
+
+<script>
+/* ---------- 自动生成 TOC + 滚动高亮 ---------- */
+(function(){
+  const toc = document.getElementById('toc');
+  const heads = document.querySelectorAll('#content h2, #content h3');
+  const links = [];
+  heads.forEach((h,i)=>{
+    if(!h.id) h.id = 'sec-' + i;
+    const a = document.createElement('a');
+    a.href = '#' + h.id;
+    a.textContent = h.textContent;
+    if(h.tagName === 'H3') a.className = 'h3';
+    a.dataset.target = h.id;
+    toc.appendChild(a);
+    links.push(a);
+  });
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(l=>l.classList.toggle('active', l.dataset.target === e.target.id));
+      }
+    });
+  }, {rootMargin:'-10% 0px -75% 0px'});
+  heads.forEach(h=>obs.observe(h));
+
+  /* 移动端目录开合 */
+  const toggle = document.getElementById('tocToggle');
+  toggle.addEventListener('click', ()=> toc.classList.toggle('open'));
+  toc.addEventListener('click', e=>{ if(e.target.tagName==='A') toc.classList.remove('open'); });
+
+  /* 机会卡片点击跳转并展开 */
+  document.querySelectorAll('#oppGrid .opp').forEach(card=>{
+    card.addEventListener('click', ()=>{
+      const t = document.getElementById(card.dataset.target);
+      if(t){ t.open = true; t.scrollIntoView({behavior:'smooth', block:'start'}); }
+    });
+  });
+
+  /* 代码高亮（本页代码少，保底调用） */
+  if(window.hljs) hljs.highlightAll();
+})();
+
+/* ---------- 图表 ---------- */
+(function(){
+  if(!window.Chart) return;
+  Chart.defaults.font.family = "'Inter',-apple-system,'Hiragino Sans','Yu Gothic',sans-serif";
+  Chart.defaults.color = '#6E6E73';
+  const ACCENT='#0066CC', BLUE='#1A73E8', GREEN='#34A853', ORANGE='#FA7B17', RED='#EA4335', PURPLE='#A142F4', TEAL='#0097A7';
+
+  /* 图1：导入率 vs 满意度 */
+  new Chart(document.getElementById('chartGap'), {
+    type:'bar',
+    data:{
+      labels:['米国','英国','日本'],
+      datasets:[
+        {label:'生成AI導入率', data:[90,89,87], backgroundColor:[BLUE,BLUE,ACCENT], borderRadius:8, barPercentage:.55},
+        {label:'「期待を大幅に上回った」比率', data:[38,32,9], backgroundColor:[GREEN,GREEN,RED], borderRadius:8, barPercentage:.55}
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom', labels:{boxWidth:12, boxHeight:12, borderRadius:6, useBorderRadius:true}},
+        tooltip:{callbacks:{label:c=>` ${c.dataset.label}：${c.parsed.y}%`}}},
+      scales:{y:{beginAtZero:true, max:100, ticks:{callback:v=>v+'%'}, grid:{color:'#E8E8ED'}}, x:{grid:{display:false}}}
+    }
+  });
+
+  /* 图2：生成 AI 市场增长 */
+  new Chart(document.getElementById('chartMarket'), {
+    type:'line',
+    data:{
+      labels:['2024','2025','2026','2027','2028'],
+      datasets:[{label:'日本の生成AI市場規模（億円）',
+        data:[1016, 1873, 3454, 6369, 8028],
+        borderColor:ACCENT, backgroundColor:'rgba(0,102,204,.08)', fill:true,
+        tension:.35, borderWidth:2.5, pointRadius:4, pointBackgroundColor:ACCENT}]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:c=>` ${c.parsed.y.toLocaleString()} 億円`}}},
+      scales:{y:{beginAtZero:true, grid:{color:'#E8E8ED'}, ticks:{callback:v=>(v/1000)+'k'}}, x:{grid:{display:false}}}
+    }
+  });
+
+  /* 图3：融资件数 4-6 月 */
+  new Chart(document.getElementById('chartFunding'), {
+    type:'bar',
+    data:{
+      labels:['2026年4月','2026年5月','2026年6月'],
+      datasets:[{label:'AI関連の資金調達件数', data:[31,19,18],
+        backgroundColor:[BLUE,ORANGE,RED], borderRadius:8, barPercentage:.5}]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:c=>` ${c.parsed.y} 件`}}},
+      scales:{y:{beginAtZero:true, grid:{color:'#E8E8ED'}, ticks:{stepSize:10}}, x:{grid:{display:false}}}
+    }
+  });
+
+  /* 图4：覆盖率断层（横向） */
+  new Chart(document.getElementById('chartCoverage'), {
+    type:'bar',
+    data:{
+      labels:['従業員1001人以上企業 DX取組率','都道府県・政令市 生成AI導入率','地方自治体 AI導入率（全体）','大企業 AI導入率','従業員100人以下企業 DX取組率','中小企業 AI導入率','町村 生成AI導入率'],
+      datasets:[{data:[96.1, 90, 59.2, 56, 46.8, 20.4, 10],
+        backgroundColor:[GREEN,GREEN,BLUE,BLUE,ORANGE,RED,RED], borderRadius:8, barPercentage:.6}]
+    },
+    options:{
+      indexAxis:'y',
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:c=>` 約 ${c.parsed.x}%`}}},
+      scales:{x:{beginAtZero:true, max:100, ticks:{callback:v=>v+'%'}, grid:{color:'#E8E8ED'}}, y:{grid:{display:false}, ticks:{font:{size:12}}}}
+    }
+  });
+})();
+</script>
+</body>
+</html>

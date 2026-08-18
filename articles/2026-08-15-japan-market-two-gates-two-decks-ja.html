@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日本進出は二つの関門——「もう一度話したい」と「契約していい」は別の資料が要る</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --font-sans: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  --text-primary:   #1D1D1F;
+  --text-secondary: #6E6E73;
+  --text-muted:     #86868B;
+  --bg: #FFFFFF;
+  --bg-subtle: #F5F5F7;
+  --bg-card: #FFFFFF;
+  --border: #D2D2D7;
+  --border-subtle: #E8E8ED;
+  --color-positive: #0F766E;
+  --color-warning: #B45309;
+  --color-negative: #DC2626;
+  --accent: #1A3A5C;
+  --accent-light: rgba(26, 58, 92, 0.08);
+  --accent-border: rgba(26, 58, 92, 0.3);
+  /* Gate-specific palettes */
+  --gate-a: #B45309;          /* Gate A: 兴趣 — 暖琥珀 */
+  --gate-a-light: rgba(180, 83, 9, 0.07);
+  --gate-a-border: rgba(180, 83, 9, 0.22);
+  --gate-b: #0F766E;          /* Gate B: 签约 — 深青 */
+  --gate-b-light: rgba(15, 118, 110, 0.07);
+  --gate-b-border: rgba(15, 118, 110, 0.22);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-sans);
+  line-height: 1.75;
+  color: var(--text-primary);
+  background: var(--bg);
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== Layout ===== */
+.layout { display: flex; min-height: 100vh; }
+
+/* ===== TOC Sidebar ===== */
+.toc {
+  width: 256px;
+  position: fixed;
+  top: 0; left: 0;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 48px 24px 48px 32px;
+  background: var(--bg-subtle);
+  border-right: 1px solid var(--border-subtle);
+  z-index: 100;
+  transition: transform 0.3s ease;
+}
+.toc-brand {
+  font-size: 13px; font-weight: 600; color: var(--accent);
+  text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;
+}
+.toc-date { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
+.toc-list { list-style: none; }
+.toc-list li { margin-bottom: 2px; }
+.toc-list a {
+  display: block; padding: 6px 12px; font-size: 13px;
+  color: var(--text-secondary); text-decoration: none;
+  border-left: 2px solid transparent; border-radius: 0 6px 6px 0;
+  transition: all 0.15s ease; line-height: 1.5;
+}
+.toc-list a:hover { color: var(--text-primary); background: rgba(0,0,0,0.03); }
+.toc-list a.active { color: var(--accent); border-left-color: var(--accent); background: var(--accent-light); font-weight: 500; }
+.toc-list .toc-sub a { padding-left: 28px; font-size: 12px; }
+
+/* ===== Main Content ===== */
+.content { margin-left: 256px; width: calc(100% - 256px); padding: 0 32px; }
+.article-wrap { max-width: 760px; margin: 0 auto; padding: 64px 0 120px; }
+
+/* ===== Hero ===== */
+.hero {
+  margin-bottom: 56px; padding: 48px 40px;
+  background: linear-gradient(135deg, #1A3A5C 0%, #0F2440 100%);
+  border-radius: 14px; color: #fff;
+}
+.hero h1 { font-size: 30px; font-weight: 700; line-height: 1.35; margin-bottom: 12px; }
+.hero .subtitle { font-size: 16px; opacity: 0.82; font-style: italic; line-height: 1.6; }
+.hero .meta { display: flex; gap: 20px; margin-top: 20px; font-size: 13px; opacity: 0.75; flex-wrap: wrap; }
+.hero .meta span { display: flex; align-items: center; gap: 6px; }
+
+/* ===== Article Body ===== */
+.article-body h2 {
+  font-size: 23px; font-weight: 700; margin-top: 56px; margin-bottom: 20px;
+  padding-bottom: 12px; border-bottom: 2px solid var(--border-subtle); scroll-margin-top: 24px;
+}
+.article-body h2:first-of-type { margin-top: 0; }
+.article-body h3 { font-size: 18px; font-weight: 600; margin-top: 36px; margin-bottom: 16px; scroll-margin-top: 24px; }
+.article-body p { margin-bottom: 1.1em; font-size: 16px; line-height: 1.85; }
+.article-body strong { font-weight: 600; color: var(--text-primary); }
+.article-body a { color: var(--accent); text-decoration: none; }
+.article-body a:hover { text-decoration: underline; }
+.article-body ul, .article-body ol { margin-bottom: 1.1em; padding-left: 1.5em; }
+.article-body li { margin-bottom: 0.5em; line-height: 1.85; }
+.article-body code {
+  font-family: 'SF Mono', Monaco, Consolas, 'Courier New', monospace;
+  font-size: 0.88em; background: var(--bg-subtle); padding: 2px 6px; border-radius: 4px;
+}
+.article-body blockquote {
+  margin: 1.5em 0; padding: 16px 24px;
+  background: var(--accent-light); border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0; color: var(--text-primary); font-size: 15px;
+}
+.article-body blockquote p { margin-bottom: 0.6em; }
+.article-body blockquote p:last-child { margin-bottom: 0; }
+.article-body hr { border: none; border-top: 1px solid var(--border-subtle); margin: 40px 0; }
+
+/* Table */
+.article-body table { width: 100%; border-collapse: collapse; margin-bottom: 1.5em; font-size: 14px; }
+.article-body th, .article-body td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border-subtle); vertical-align: top; }
+.article-body th { font-weight: 600; background: var(--bg-subtle); color: var(--text-secondary); font-size: 13px; }
+.article-body td { color: var(--text-primary); }
+
+/* ===== Priority markers (🔴🟡⚪) ===== */
+.pri { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin-right: 6px; vertical-align: middle; flex-shrink: 0; }
+.pri-r { background: var(--color-negative); box-shadow: 0 0 0 2px rgba(220,38,38,0.15); }
+.pri-y { background: var(--color-warning); box-shadow: 0 0 0 2px rgba(180,83,9,0.15); }
+.pri-w { background: var(--border); box-shadow: 0 0 0 2px rgba(210,210,215,0.3); }
+.pri-item { display: flex; align-items: flex-start; gap: 0; margin-bottom: 0.6em; line-height: 1.8; }
+.pri-item .pri { margin-top: 9px; }
+.pri-item .pri-text { flex: 1; }
+
+/* Priority legend */
+.pri-legend {
+  display: flex; gap: 20px; flex-wrap: wrap; margin: 20px 0 28px;
+  padding: 14px 20px; background: var(--bg-subtle); border-radius: 10px;
+  font-size: 13px; color: var(--text-secondary);
+}
+.pri-legend > div { display: flex; align-items: center; gap: 8px; }
+
+/* ===== Visualization: Stat Cards ===== */
+.stat-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 32px 0 40px;
+}
+.stat-card {
+  background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 14px;
+  padding: 24px 16px; text-align: center; transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.stat-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.stat-number { font-size: 32px; font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 8px; }
+.stat-label { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+.stat-sub { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+/* ===== Visualization: Trust Chain (AND relationship) ===== */
+.trust-chain { margin: 32px 0 40px; }
+.trust-chain-title { font-size: 13px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; }
+.trust-chain-rows { display: flex; flex-direction: column; gap: 0; }
+.trust-row {
+  display: flex; align-items: stretch; gap: 0;
+  border: 1px solid var(--border-subtle); border-radius: 10px; overflow: hidden; margin-bottom: 0;
+}
+.trust-row + .trust-row { border-top: none; border-radius: 0; }
+.trust-row + .trust-row { border-radius: 0 0 10px 10px; }
+.trust-row:first-child { border-radius: 10px 10px 0 0; }
+.trust-num {
+  display: flex; align-items: center; justify-content: center;
+  width: 44px; background: var(--accent-light); color: var(--accent);
+  font-size: 16px; font-weight: 700; flex-shrink: 0;
+}
+.trust-body { padding: 14px 18px; flex: 1; }
+.trust-label { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.trust-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+.trust-and {
+  display: flex; align-items: center; justify-content: center; padding: 6px 0;
+  background: var(--bg-subtle); font-size: 11px; font-weight: 600; color: var(--text-muted);
+  letter-spacing: 1px;
+}
+.trust-foot {
+  margin-top: 12px; padding: 12px 16px; border-radius: 8px;
+  background: rgba(220,38,38,0.06); border: 1px solid rgba(220,38,38,0.15);
+  font-size: 13px; color: var(--color-negative); font-weight: 500; text-align: center;
+}
+
+/* ===== Visualization: Two Gates Comparison ===== */
+.gates { margin: 32px 0 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.gate {
+  border-radius: 14px; padding: 28px 24px; position: relative; overflow: hidden;
+}
+.gate-a { background: var(--gate-a-light); border: 1px solid var(--gate-a-border); }
+.gate-b { background: var(--gate-b-light); border: 1px solid var(--gate-b-border); }
+.gate-tag {
+  display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.5px; padding: 4px 10px; border-radius: 20px; margin-bottom: 14px;
+}
+.gate-a .gate-tag { background: var(--gate-a); color: #fff; }
+.gate-b .gate-tag { background: var(--gate-b); color: #fff; }
+.gate h3 { font-size: 17px; font-weight: 700; margin: 0 0 8px; }
+.gate-a h3 { color: var(--gate-a); }
+.gate-b h3 { color: var(--gate-b); }
+.gate-goal { font-size: 14px; font-weight: 600; margin-bottom: 14px; color: var(--text-primary); }
+.gate-list { list-style: none; padding: 0; }
+.gate-list li { font-size: 13px; color: var(--text-secondary); padding: 5px 0; line-height: 1.55; position: relative; padding-left: 16px; }
+.gate-list li::before { content: '▸'; position: absolute; left: 0; }
+.gate-a .gate-list li::before { color: var(--gate-a); }
+.gate-b .gate-list li::before { color: var(--gate-b); }
+
+/* ===== Visualization: Price Multiplier Bar ===== */
+.price-bar { margin: 32px 0 40px; }
+.price-bar-title { font-size: 13px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; }
+.price-track {
+  display: flex; height: 44px; border-radius: 8px; overflow: hidden;
+  border: 1px solid var(--border-subtle); margin-bottom: 10px;
+}
+.price-seg { display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #fff; }
+.price-seg.foa { background: var(--accent); }
+.price-seg.log { background: #4A6B8A; }
+.price-seg.tax { background: #6B8AAA; }
+.price-seg.mgn { background: var(--gate-a); }
+.price-seg.mkt { background: var(--gate-b); }
+.price-seg.rtn { background: #9457A0; }
+.price-labels { display: flex; font-size: 11px; color: var(--text-muted); }
+.price-labels span { text-align: center; }
+.price-caption {
+  margin-top: 14px; padding: 12px 16px; border-radius: 8px;
+  background: var(--accent-light); font-size: 13px; color: var(--accent); font-weight: 500; text-align: center;
+}
+
+/* ===== Gate Section Styling (A / B) ===== */
+.gate-section {
+  border-radius: 14px; padding: 32px 28px; margin: 40px 0;
+}
+.gate-section.a { background: var(--gate-a-light); border-left: 4px solid var(--gate-a); }
+.gate-section.b { background: var(--gate-b-light); border-left: 4px solid var(--gate-b); }
+.gate-section .gate-header { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+.gate-section .gate-badge {
+  font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; color: #fff;
+}
+.gate-section.a .gate-badge { background: var(--gate-a); }
+.gate-section.b .gate-badge { background: var(--gate-b); }
+.gate-section h2 { border-bottom: none; margin-top: 0; padding-bottom: 0; }
+.gate-section.a h2 { color: var(--gate-a); }
+.gate-section.b h2 { color: var(--gate-b); }
+.gate-section .gate-purpose { font-size: 14px; color: var(--text-secondary); margin-bottom: 4px; }
+.gate-section .gate-judge {
+  font-size: 14px; font-weight: 600; color: var(--text-primary);
+  background: rgba(255,255,255,0.6); padding: 10px 14px; border-radius: 8px; margin: 16px 0 24px;
+}
+.gate-sub-h3 { font-size: 16px; font-weight: 600; margin-top: 28px; margin-bottom: 12px; }
+
+/* ===== First-Three callout ===== */
+.first-three {
+  margin: 32px 0 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+}
+.ft-card {
+  background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px;
+  padding: 20px 16px; text-align: center; position: relative;
+}
+.ft-card .pri { margin: 0 auto 10px; width: 14px; height: 14px; display: block; }
+.ft-num { position: absolute; top: 10px; left: 12px; font-size: 11px; font-weight: 700; color: var(--text-muted); }
+.ft-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+.ft-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+.first-three-cap {
+  margin-top: 16px; padding: 14px 18px; border-radius: 8px;
+  background: var(--accent-light); font-size: 14px; color: var(--accent); font-weight: 500; text-align: center;
+}
+
+/* ===== Takeaway block ===== */
+.takeaways {
+  margin: 40px 0; padding: 32px 28px; border-radius: 14px;
+  background: linear-gradient(135deg, rgba(26,58,92,0.05), rgba(15,118,110,0.05));
+  border: 1px solid var(--border-subtle);
+}
+.takeaways h3 { margin-top: 0; }
+.takeaway-item { display: flex; gap: 14px; margin-bottom: 18px; }
+.takeaway-item:last-child { margin-bottom: 0; }
+.takeaway-num {
+  flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+  background: var(--accent); color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.takeaway-text { font-size: 15px; line-height: 1.7; color: var(--text-primary); }
+.takeaway-text strong { color: var(--accent); }
+
+/* ===== Closing note ===== */
+.closing-note {
+  margin-top: 40px; padding: 24px 28px; border-radius: 12px;
+  background: var(--bg-subtle); border: 1px solid var(--border-subtle);
+  font-size: 14px; color: var(--text-secondary); line-height: 1.8; font-style: italic;
+}
+
+/* ===== Mobile ===== */
+.toc-toggle {
+  display: none; position: fixed; top: 16px; left: 16px; z-index: 200;
+  background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+  width: 44px; height: 44px; font-size: 20px; cursor: pointer;
+  align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+@media (max-width: 860px) {
+  .toc { transform: translateX(-100%); box-shadow: 2px 0 24px rgba(0,0,0,0.12); }
+  .toc.open { transform: translateX(0); }
+  .toc-toggle { display: flex; }
+  .content { margin-left: 0; width: 100%; padding: 0 20px; }
+  .article-wrap { padding-top: 72px; }
+  .hero { padding: 32px 24px; }
+  .hero h1 { font-size: 23px; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .gates { grid-template-columns: 1fr; }
+  .first-three { grid-template-columns: 1fr; }
+  .price-track { height: auto; flex-direction: column; }
+  .price-seg { padding: 10px; }
+  .price-labels { display: none; }
+}
+</style>
+</head>
+<body>
+<a href="/" style="position:fixed;top:12px;left:12px;z-index:9999;font:500 13px/1 -apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;color:#101C1F;background:#C8F050;border:1px solid transparent;border-radius:100px;padding:8px 14px;font-weight:700;text-decoration:none;box-shadow:0 1px 3px rgba(0,0,0,.08);">← BIGROCK</a>
+
+
+<button class="toc-toggle" onclick="document.querySelector('.toc').classList.toggle('open')">☰</button>
+
+<div class="layout">
+
+  <!-- ===== TOC ===== -->
+  <nav class="toc" id="toc">
+    <div class="toc-brand">LEO ARTICLES</div>
+    <div class="toc-date">2026年8月15日・所要時間 約18分</div>
+    <ul class="toc-list" id="toc-list"></ul>
+  </nav>
+
+  <!-- ===== Content ===== -->
+  <div class="content">
+    <div class="article-wrap">
+
+      <!-- Hero -->
+      <div class="hero">
+        <h1>日本の販路に「もう一度会いたい」と思わせる資料と、「契約していい」と踏み切らせる資料は別物——日本進出には二つの関門があり、資料も二枚必要だ</h1>
+        <div class="subtitle">日本進出の成功例・失敗例を十数件調べ、あるブランドの販路開拓（BD）準備をひととおり整理し終えて気づいたのは、多くの中国企業が負けているのは製品の質ではなく、「製品が良ければ市場に入れる」という思い込みだった、ということだ。</div>
+        <div class="meta">
+          <span>📅 2026-08-15</span>
+          <span>⏱️ 所要時間 約18分</span>
+          <span>🏷️ 海外進出・日本市場・BD・販路開拓</span>
+        </div>
+      </div>
+
+      <!-- Article Body -->
+      <div class="article-body" id="article-body">
+
+        <!-- =================== SEC 1 =================== -->
+        <h2 id="sec-1">直感に反する出発点——中国企業が日本で苦戦する理由の多くは、製品の質ではない</h2>
+
+        <p>まず、見落とされがちな事実から始めたい。</p>
+
+        <p>日経ビジネスが2025年5月に読者628人を対象に行った調査では、中国ブランドの自動車や家電を買うことに「抵抗がある」と答えた人が約8割に上った。ただし、その抵抗の理由を分解すると、集中しているのは<strong>安全性とアフターサポート</strong>であって、「中国製」というラベルそのものではない。</p>
+
+        <p>同じ時期にもう一つの事実がある。日本の家電量販店には中国の工場で作られた商品が大量に並んでおり、量販店のプライベートブランドも例外ではない。ハイセンスが東芝のテレビ事業を買収した後、TVS REGZAを含むハイセンス系のテレビは日本国内シェアで首位に立ち、約4割を占めている。ハイアール傘下のAQUA、美的（Midea）傘下の東芝ライフスタイルも、普通に事業を続けている。</p>
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-number">8割</div>
+            <div class="stat-label">日本の回答者が中国ブランドに抵抗感</div>
+            <div class="stat-sub">理由は安全性とアフターサービス、「中国製」ラベルではない</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">約4割</div>
+            <div class="stat-label">ハイセンス系テレビの日本シェア</div>
+            <div class="stat-sub">TVS REGZAを含み首位</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">628</div>
+            <div class="stat-label">日経調査のサンプル数</div>
+            <div class="stat-sub">2025年5月</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">約1.7%</div>
+            <div class="stat-label">日本のEV普及率</div>
+            <div class="stat-sub">同時期、深圳は充電スタンド42万基超</div>
+          </div>
+        </div>
+
+        <blockquote><p><strong>日本の消費者が拒んでいるのは「中国」ではなく、「確かめようがないもの」だ。</strong></p>
+        <p>中国製であっても、REGZAやAQUAの看板を掲げ、ヤマダ電機に修理拠点があり、説明書が完全な日本語で用意されている製品なら、彼らは迷わず購入する。</p></blockquote>
+
+        <p>この一言が、この先のほぼすべてを説明する。「確かめようがない」という四文字が、日本市場が見知らぬブランドをどう検証するかを決めており、そのプロセスは中国市場とほぼ正反対だからだ——</p>
+
+        <ul>
+          <li>中国は「まず売ってから、後で信用を積み増す」</li>
+          <li>日本は「信用を先に揃えきってから、初めて販売が許される」</li>
+        </ul>
+
+        <p>他の国で通用してきたアプローチ（低価格で数を稼ぐ→高評価を積み上げる→規模を拡大する）は、日本では最初の一歩で止められてしまう。日本の消費者と販路は、あなたが「売り始める」前の段階で、ひとそろいの証拠資料を求めてくるからだ。</p>
+
+        <p>そして、この「証明資料」という次元には、もう一つ見落とされがちな分水嶺が隠れている。それは一枚のリストではなく、実は<strong>二枚のリスト</strong>なのだ。</p>
+
+        <hr>
+
+        <!-- =================== SEC 2 =================== -->
+        <h2 id="sec-2">根底にある仕組み——日本の信頼は「間接証明型」であり、かつ「かつ」の関係で積み上がる</h2>
+
+        <p>なぜ資料を二枚に分ける必要があるのか。それを理解するには、まず日本での信頼がどう築かれるのかを見ておく必要がある。</p>
+
+        <p>中国の消費者が信頼を築く主な経路は、プラットフォーム（天猫・京東の公式旗艦店）＋価格の目安＋インフルエンサーの発信＋販売実績の数字だ。一本の鎖の中で、いくつかの結節点が互いに補い合えばそれで足りる。</p>
+
+        <p>一方、日本の消費者が通る経路は<strong>複数の主体による裏付けが連なった鎖</strong>であり、しかも4つの条件は「または」ではなく「かつ」の関係にある。</p>
+
+        <div class="trust-chain">
+          <div class="trust-chain-title">日本の消費者の信頼の連鎖・4つの「かつ」の関係</div>
+          <div class="trust-chain-rows">
+            <div class="trust-row">
+              <div class="trust-num">①</div>
+              <div class="trust-body">
+                <div class="trust-label">販路による裏付け</div>
+                <div class="trust-desc">ヤマダ電機、ビックカメラ、LOFT、東急ハンズの棚に並んでいること自体が、審査を通過した証明になる</div>
+              </div>
+            </div>
+            <div class="trust-and">AND</div>
+            <div class="trust-row">
+              <div class="trust-num">②</div>
+              <div class="trust-body">
+                <div class="trust-label">第三者メディアによる裏付け</div>
+                <div class="trust-desc">価格.comのランキングやレビュー、『家電批評』『MONOQLO』などの評価誌</div>
+              </div>
+            </div>
+            <div class="trust-and">AND</div>
+            <div class="trust-row">
+              <div class="trust-num">③</div>
+              <div class="trust-body">
+                <div class="trust-label">ユーザーの口コミによる裏付け</div>
+                <div class="trust-desc">Amazonのレビュー、X（旧Twitter）での実際の使用感を伝える投稿、noteやブログの長文レビュー</div>
+              </div>
+            </div>
+            <div class="trust-and">AND</div>
+            <div class="trust-row">
+              <div class="trust-num">④</div>
+              <div class="trust-body">
+                <div class="trust-label">法人としての裏付け</div>
+                <div class="trust-desc">日本法人があるか、つながるカスタマーサポートの電話窓口があるか、保証対応を誰が引き受けるか</div>
+              </div>
+            </div>
+          </div>
+          <div class="trust-foot">どれか一つでも欠けると、購入は最後の一歩で離脱する</div>
+        </div>
+
+        <p>これは、製品力の高い中国ブランドが「広告を打った、流入も増えた、なのに注文が入らない」となる理由も説明する。流入が解決するのは①以外の「知ってもらう」問題であり、消費者が立ち止まっているのは「壊れたら誰に頼ればいいのか」という点だからだ。</p>
+
+        <p>B2B側はさらに厳しい。日本企業の購買は<strong>稟議</strong>（何層にもわたる書面での承認プロセス）を通るため、意思決定者は一人ではなく連鎖状になっており、どこか一段階でも「この会社は信用できるのか」という疑義が出れば、案件はそこで止まる。新規取引の前には<strong>与信調査</strong>（帝国データバンクや東京商工リサーチなどによる信用調査）も行われるが、外国企業はこうしたデータベースに記録が見つからないことが多い——審査に落ちるのではなく、<strong>そもそも照会できる記録が存在しない</strong>のだ。その結果、購買側はリスクを避けて見送る。</p>
+
+        <p>この仕組みをBD（事業開発）の言葉に置き換えるとこうなる。</p>
+
+        <blockquote><p><strong>日本の販路担当者は、初回の商談の場ですでに頭の中で二つの審査を同時に走らせている。一つは「このブランドは面白いか、日本で売れそうか」、もう一つは「この会社は信用できるか、契約して問題が起きないか」だ。</strong></p>
+        <p>この二つの審査は求める証拠がまったく異なり、必要になるタイミングも異なる。これらを一枚の資料にまとめようとするのが、日本進出のBDにおいて最もよくある構造的な誤りだ。</p></blockquote>
+
+        <hr>
+
+        <!-- =================== SEC 3 =================== -->
+        <h2 id="sec-3">中核となる枠組み——二つの関門、二枚の資料、二つの判定基準</h2>
+
+        <p>しばらく調査と実務を重ねた末に、次のような結論に至った。</p>
+
+        <p><strong>日本の販路向けに用意する資料は、一枚ではなく二枚に分けて作るべきだ。目的も、判定基準も、盛り込むべき素材の重心も、まったく異なるからだ。</strong></p>
+
+        <div class="gates">
+          <div class="gate gate-a">
+            <span class="gate-tag">リストA・第一関門</span>
+            <h3>「もう一度会いたい」と思わせる</h3>
+            <div class="gate-goal">判定基準：相手が「どんなブランドで、何を売っていて、なぜその値段の価値があり、なぜ日本で売るべきなのか」を言葉にできること</div>
+            <ul class="gate-list">
+              <li>成果物：15ページ以内の紹介用PPT</li>
+              <li>重心：ブランド、主力商品、ビジュアル、日本での需要の裏付け</li>
+              <li>相手の心の中：「このブランドは面白い、日本でも売れそうだ」</li>
+              <li>タイミング：初回接触・提案の場</li>
+            </ul>
+          </div>
+          <div class="gate gate-b">
+            <span class="gate-tag">リストB・第二関門</span>
+            <h3>「契約していい」と踏み切らせる</h3>
+            <div class="gate-goal">判定基準：「合法であり、条件面で有利であり、持続可能であること」</div>
+            <ul class="gate-list">
+              <li>成果物：社内向けFAQ＋条件一覧表（PPTにはしない）</li>
+              <li>重心：法令順守、商取引条件、アフターサービス、商品供給の継続性</li>
+              <li>相手の心の中：「この会社は法令順守がしっかりしていて、契約条件も健全で、長く付き合える」</li>
+              <li>タイミング：商談が実質段階に入った後。質問されたその場で即答できること</li>
+            </ul>
+          </div>
+        </div>
+
+        <p>分ける理由はシンプルだ——一枚目に必要なのは「このブランドは面白い、日本でも売れそうだ」という感触だけであり、二枚目で初めて「合法・有利・持続可能」を証明する必要がある。</p>
+
+        <p>以下の二節で、それぞれの資料に何を入れるべきかを分解する。優先度は実際のBD現場で使っている表示方式で示す。</p>
+
+        <div class="pri-legend">
+          <div><span class="pri pri-r"></span>🔴 これがないと話にならない・その場で不採用</div>
+          <div><span class="pri pri-y"></span>🟡 説得力を左右する・交渉が壊れやすい</div>
+          <div><span class="pri pri-w"></span>⚪ あれば加点</div>
+        </div>
+
+        <hr>
+
+        <!-- =================== SEC 4: GATE A =================== -->
+        <div class="gate-section a">
+          <div class="gate-header">
+            <span class="gate-badge">リストA</span>
+          </div>
+          <h2 id="sec-4">「もう一度会いたい」と思わせるための紹介資料</h2>
+          <div class="gate-purpose">用途：初回接触用のブランド紹介＋主力商品紹介。15ページ以内に収める。主力1〜3機種に絞り、全SKUを並べない。</div>
+          <div class="gate-judge">判定基準：読み終えた相手が「どんなブランドで、何を売っていて、なぜその値段の価値があり、なぜ日本で売るべきなのか」を言えること</div>
+
+          <h3 class="gate-sub-h3" id="sec-4-1">A1. ブランドは何者か</h3>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text">正式な法人名、所在地、設立年、従業員規模</span></div>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text">ブランドと親会社・関連ブランドとの関係——誰が誰なのかを一言で示せること。<strong>日本側は「ブランドの帰属が不明確」であることに極めて敏感で、このページが曖昧だとその先の話が一切進まない</strong></span></div>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text">ブランドポジションを一言で。誰に向けた、何を売りにした商品で、量産系の競合とどう一線を画すのか</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">ブランドストーリー、創業者の経歴、なぜこの事業を始めたのか</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">デザイン哲学、開発チームの構成、工場の形態（自社生産ラインを持つのは明確な加点材料）</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">既存の海外展開一覧——どの国でどんな形態で販売しているか。数字は不要で、地図があれば十分</span></div>
+          <div class="pri-item"><span class="pri pri-w"></span><span class="pri-text">ブランドのビジュアルトーンが分かる素材（公式サイトのスクリーンショット、SNSのビジュアル、店頭展開のイメージ）</span></div>
+
+          <blockquote><p>ここで重要な注意点がある。ブランドストーリーでは「中国という出自をどう扱うか」を明確にしておく必要がある。成功しているパターンは大きく三つある——正面から認めて技術で語る（Anker、SwitchBot）、既存の日本ブランドを買収する（ハイセンスにとってのREGZA、ハイアールにとってのAQUA）、IPの力で国籍を意識させない（POP MARTのLabubu）。<strong>最も危険なのは四つ目のパターン、すなわち「日本のブランドを装う」ことだ。</strong> 名創優品（MINISO）は創業初期、「日本風」の生活雑貨チェーンとして世界展開を進めたが、日本本国ではかえって定着できず、2021年前後に全店舗を閉鎖。その後「脱・日本イメージ」に転じ、2025年9月になってようやくTOP TOYとして日本に再進出した。<strong>日本で日本を装うと即座に見抜かれ、最も修復しづらい種類のマイナス評価——「不誠実」に転化する。</strong></p></blockquote>
+
+          <h3 class="gate-sub-h3" id="sec-4-2">A2. どれだけの人に認められているか</h3>
+          <p>このセクションは「興味」を生む主な材料であり、<strong>スペック以上に重要だ</strong>。</p>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text">世界累計または年間の販売台数の規模感（幅のある数字で構わない。「年間数万台」といった表現でもよい）</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">海外メディアの報道・レビュー・受賞歴の一覧（リンクとロゴ付き）</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">代表的なインフルエンサーによるレビュー（YouTubeが中心。キーボードなどのカテゴリでは動画を見る層が多い）</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">公式サイトやECサイトでのユーザー評価スコアとレビュー件数</span></div>
+          <div class="pri-item"><span class="pri pri-w"></span><span class="pri-text">質の高いUGC、コミュニティの規模、SNSのフォロワー数</span></div>
+
+          <h3 class="gate-sub-h3" id="sec-4-3">A3. 主力商品</h3>
+          <p>初版では主力1〜3機種のみを扱う。</p>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text">主力機種の選定——ブランド自身が「これが最もブランドを体現している」と考える機種はどれか</span></div>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text">技術仕様表（そのまま翻訳して使える形式で）</span></div>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text">訴求ポイントの優先順位——構造、音質チューニング、素材、接続性、ソフトウェアなどの中から<strong>三つに絞る。十個も並べない</strong></span></div>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text">各市場での現行の小売価格（日本の店頭価格の妥当性を導き出すために使う）</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">競合比較——ブランド自身が競合と見なす相手は誰で、何をもって勝てると考えているか</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">カラーバリエーションとレイアウト（配列）のラインアップ一覧</span></div>
+          <div class="pri-item"><span class="pri pri-w"></span><span class="pri-text">分解図、構造断面図（目利きのバイヤーはこうした図に心を動かされる）</span></div>
+
+          <h3 class="gate-sub-h3" id="sec-4-4">A4. ビジュアル・音声素材</h3>
+          <p>この部分がPPT全体の質感を決めるが、<strong>最も準備が遅れがちな項目でもある</strong>。</p>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text">高解像度の製品写真——白背景の切り抜き画像、使用シーン、ディテールのクローズアップ</span></div>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text">ロゴ・VIレギュレーション、ブランドカラー、フォント</span></div>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text">素材の使用許諾範囲（対外提案に使えるか、二次加工していいか、日本語コピーを添えていいか）</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">タイピング音の音声・動画——<strong>キーボードのBDにおいてこの説得力は著しく過小評価されている。商談の場で10秒流すほうが、資料3ページ分より効く</strong></span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">製品紹介動画、パッケージデザイン画像、開封時の写真</span></div>
+          <div class="pri-item"><span class="pri pri-w"></span><span class="pri-text">店頭陳列の参考画像（他国での実際の陳列写真）</span></div>
+
+          <h3 class="gate-sub-h3" id="sec-4-5">A5. なぜ日本なのか——この一節が「相手が食いついてくるか」を決める</h3>
+          <p><strong>資料全体の中で唯一、相手を「理解した」から「話を聞きたい」に変える部分だ。</strong></p>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text">日本にすでに存在する需要の証拠（いずれか一つあれば十分）：</span></div>
+          <ul>
+            <li>公式サイトから日本への直送分の売上高または注文件数</li>
+            <li>公式サイトのアクセスに占める日本からの訪問者の比率</li>
+            <li>Amazon.co.jpでの並行輸入品（いわゆる水貨）の販売状況</li>
+            <li>日本のユーザーによるコミュニティ投稿・レビュー・SNS投稿の件数</li>
+          </ul>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">ブランド側の日本市場への期待と投資意欲（マーケティング予算の有無、展示会への出展意向）</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">JIS配列への対応方針——確約は不要だが、スタンスは示しておく</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">日本限定カラーの実現可能性（「交渉の余地がある」程度でもよい）</span></div>
+          <div class="pri-item"><span class="pri pri-w"></span><span class="pri-text">ブランドが他市場で行ったローカライズの実例（こうした対応をした実績があることの証明）</span></div>
+
+          <blockquote><p>このページは資料全体の中で最も説得力を持つ一枚だ——「需要はすでに存在している、まだ誰も刈り取っていないだけだ」ということを示せるからだ。Ankerはかつてアマゾン単体からスタートし、リソースを製品改良とカスタマーサポートに集中させ、年商が百億円を超えた時点でもチームは50人に満たなかった。彼らは「日本で売ろうと決めた」のではなく、「日本にすでに需要があることに気づき、それを刈り取りに行った」のだ。あなたの手元に同様の証拠があれば、交渉の立場はまったく違うものになる。</p></blockquote>
+
+          <h3 class="gate-sub-h3" id="sec-4-6">A6. こちら側の立場を示す書類</h3>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text">委任状・授権書——どのような立場で接触しているか、有効期間、対象地域</span></div>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text">NDAのひな形（ブランド側フォーマット）</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">初回商談時にブランド側本人が（オンラインでも）顔を出せるかどうか</span></div>
+        </div>
+
+        <hr>
+
+        <!-- =================== SEC 5: GATE B =================== -->
+        <div class="gate-section b">
+          <div class="gate-header">
+            <span class="gate-badge">リストB</span>
+          </div>
+          <h2 id="sec-5">商談が実質段階に入って初めて必要になる「契約していい」ための資料</h2>
+          <div class="gate-purpose">用途：PPTにはせず、社内向けのFAQと条件一覧表として整理する。相手から聞かれたその場で答えられるかどうかで、交渉のテンポがまったく変わる。項目の多くは「ブランド側から資料をもらう」ものではなく「自分たちの側で先に詰めておくべきこと」だ。</div>
+          <div class="gate-judge">判定基準：合法であり、条件面で有利であり、持続可能であること</div>
+
+          <h3 class="gate-sub-h3" id="sec-5-1">B1. 法令順守と権利関係——最初に聞かれ、その場で不採用にもなりやすい</h3>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text"><strong>技適（総務省の技術基準適合証明）</strong>：有無、認証番号、証明書。技適がなければ、無線キーボードは日本国内で合法に販売できず、量販店のバイヤーはたいてい真っ先にこれを聞いてくる。未取得の場合はブランド側が取得に応じるか、費用負担は誰か、期間はどれくらいか</span></div>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text"><strong>日本国内での商標</strong>：ブランド名とロゴの第9類における登録番号または出願受理番号。未登録の場合、代理店はマーケティング費用の投下をためらう——いつ第三者に先に商標を押さえられ、身動きが取れなくなるか分からないからだ</span></div>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text"><strong>リチウム電池</strong>：UN38.3試験レポート、MSDS（輸送や保税倉庫の扱いに影響する）</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">PSE（ACアダプターが付属する場合）</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">PL保険（生産物賠償責任保険）の加入状況と補償額</span></div>
+          <div class="pri-item"><span class="pri pri-w"></span><span class="pri-text">RoHS・CE・FCC</span></div>
+
+          <blockquote>
+            <p>この項目は関門そのものだ。日本の販路担当者はここで即座に不採用を決めることがあるため、最優先で扱う。</p>
+            <p>ここには最も致命的な認識のズレが二つある。一つは、認証を「出荷直前の最後の手続き」だと捉えてしまうことだ。認証は<strong>製品定義の段階</strong>から組み込む必要がある。電池セルの調達先、無線モジュールの型番、筐体の難燃グレードといった部材選定を逆算して決めるからだ。金型が完成してからPSE対応を始めると、設計をやり直す羽目になることが多い。もう一つは、モデルチェンジ時に認証を取り直さないことだ。電池セルの調達先やWi-Fiモジュールを変更すると、日本の法規上は新型番扱いになる場合があり、中国企業が慣れている「小さな仕様変更は新製品扱いにしない」という感覚はここでは通用しない。</p>
+            <p>商標登録は、このリストの中で<strong>最も安く、かつ最も省いてはいけない</strong>項目だ。出願で3,400円+8,600円×区分数、登録で32,900円×区分数（10年分）。これは、<strong>いかなる宣伝活動よりも先に</strong>済ませておく必要がある。</p>
+          </blockquote>
+
+          <h3 class="gate-sub-h3" id="sec-5-2">B2. 商取引条件——事前に固めておくべきこと</h3>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text">FOBまたはEXWの価格表（数量に応じた段階付き）</span></div>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text">MOQ（最低発注数量、初回・追加発注それぞれ）</span></div>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text">日本での希望小売価格（税込）と、ブランド側が許容できる下限</span></div>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text">独占契約か非独占契約かの方針。独占の場合は年間最低仕入額</span></div>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text"><strong>オンライン販売権の帰属</strong>：Amazon.co.jp、楽天、Yahoo!ショッピングを代理店に任せるのか、ブランド直営とするのか——ここは最も交渉が決裂しやすい論点であり、事前に必ず固めておく必要がある</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">契約期間、対象地域、解約条件</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">納期、在庫・再発注の方針</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">支払条件（T/T送金、掛け払い、L/C信用状など）</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">並行輸入（水貨）への対応意向——ブランド側が代理店のために抑制に協力する意思があるか</span></div>
+
+          <div class="price-bar">
+            <div class="price-bar-title">FOB価格から店頭価格までの倍率の内訳（自分で一度計算しておくべき）</div>
+            <div class="price-track">
+              <div class="price-seg foa" style="flex: 1;">FOB到着価格</div>
+              <div class="price-seg log" style="flex: 0.5;">物流・関税</div>
+              <div class="price-seg mgn" style="flex: 0.9;">量販店粗利 25-35%</div>
+              <div class="price-seg mkt" style="flex: 0.5;">代理店 15-25%+市場費</div>
+              <div class="price-seg rtn" style="flex: 0.3;">返品ロス</div>
+            </div>
+            <div class="price-labels">
+              <span style="flex: 1;">FOB</span>
+              <span style="flex: 0.5;"></span>
+              <span style="flex: 0.9;"></span>
+              <span style="flex: 0.5;"></span>
+              <span style="flex: 0.3;"></span>
+            </div>
+            <div class="price-caption">FOBから店頭価格までの倍率は通常2.2〜3倍に収まる — 健全な店頭価格が算出できないなら、このBDは始めるべきではない</div>
+          </div>
+
+          <blockquote><p><strong>価格構造については自分の中であらかじめ相場観を持っておく必要がある</strong>。量販店は通常25〜35%の粗利を求め、代理店自身もさらに15〜25%を求める。そこに物流費、関税、マーケティング費、返品ロスが加わり——FOBから店頭価格までの倍率はおおむね2.2〜3倍になる。<strong>まず自分で一度計算してみて、健全な店頭価格が算出できないなら、このBDは始めるべきではない。</strong></p></blockquote>
+
+          <h3 class="gate-sub-h3" id="sec-5-3">B3. アフターサービスと保証——日本の販路が本当に厳しく見る部分</h3>
+          <p>ブランド側が最も見落としがちだが、<strong>実際の交渉では焦点になりやすい</strong>。</p>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text">保証期間、保証範囲、既存の故障率データ</span></div>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text">日本国内での保証対応を誰が引き受けるか——返送料の負担者、新品交換の可否、交換部品の供給体制</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">説明書の日本語化を誰が担当し、費用をどう分担するか</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">ソフトウェアの日本語対応——設定用ソフト、公式サイトの日本語ページ</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">テクニカルサポート窓口と対応時間（SLA）</span></div>
+          <div class="pri-item"><span class="pri pri-w"></span><span class="pri-text">FAQ、トラブルシューティングマニュアル</span></div>
+
+          <blockquote>
+            <p>日本では、アフターサービスはコストセンターではなく、<strong>最も効率のよいブランド構築の経路</strong>だ。直感に反するが、これは非常に価値がある。</p>
+            <p>Ankerは2025年10月、モバイルバッテリーなど4製品のリコールを行い、そのうちPowerCore 10000だけで41万台が対象になった。経済産業省はこれを受けて行政指導を行い、リチウム電池製品全般の点検と品質管理改善報告の提出を求めた。しかし多くの日本のユーザーがネット上に書き込んだのは「回収の対応がきちんとしていて、むしろ信頼が増した」という声だった。経済産業省も2026年1月、その後の改善について前向きな評価を示している。</p>
+            <p><strong>同じリコールでも、対応の仕方次第でブランドの終わりにも、ブランドの資産にもなる。</strong></p>
+            <p>対照的な例がBYDだ。日本で苦戦している要因の一つは、トヨタやホンダと比べてアフターサービスと修理網が明らかに手薄なことにある。日本の消費者は自動車を買う際、「安心してアフターサービスを受けられるか」を極めて重視する。「壊れたら中国に送り返さなければならない」という一言だけで、家電ブランドは致命傷を負いかねない。</p>
+          </blockquote>
+
+          <h3 class="gate-sub-h3" id="sec-5-4">B4. 商品供給の継続性——代理店が契約するのは「未来」そのものだ</h3>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text">今後12〜18か月の新製品ロードマップ（NDAのもとで開示）</span></div>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text">全SKU一覧と各SKUの実売ランキング（バイヤーはこれをもとに仕入れ構成を逆算する）</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">JIS配列対応の実現可能性とスケジュール——日本の代理店の9割が尋ねてくる項目。明確な答え（たとえ「一定の発注数量が確約されれば金型を起こす」という条件付きでも）を用意できているかどうかで、交渉の立場はまったく変わる</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">日本限定カラー：MOQ、金型費用、開発期間</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">代理店が商品企画に関与できるか、要望をブランド側に伝えられるか</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">生産終了（EOL）方針と交換部品の供給保証年数</span></div>
+
+          <h3 class="gate-sub-h3" id="sec-5-5">B5. ブランド側の組織と意向——最も交渉が壊れやすい部類</h3>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text"><strong>意思決定の系統</strong>：価格を決められるのは誰か、独占契約を決められるのは誰か、意思決定にかかる期間。日本側が最も恐れるのは「3か月話を進めた末に、相手の経営陣がこの話を知らなかった」という事態だ</span></div>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text">すでに他の日本企業が接触しているか、既存の排他条項があるか。ここを確認しないと、他社のために無償で市場教育をしているだけということになりかねない</span></div>
+          <div class="pri-item"><span class="pri pri-r"></span><span class="pri-text">既存の海外代理店の実例——国、契約形態、協業年数（成功事例があれば相手はかなり安心する）</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">日本市場向けのマーケティング予算の目安、展示会への出展意向</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">中長期目標——3年後に日本でどの程度の規模を目指すか</span></div>
+          <div class="pri-item"><span class="pri pri-y"></span><span class="pri-text">あなた自身への報酬体系とスケジュール</span></div>
+        </div>
+
+        <hr>
+
+        <!-- =================== SEC 6 =================== -->
+        <h2 id="sec-6">なぜ一緒くたにしてはいけないのか——一枚のPPTで二つの相手を狙う失敗パターン</h2>
+
+        <p>リストAとリストBを一枚にまとめて使うのは、この種のBDで最もよくある失敗の仕方だ。失敗のパターンは具体的だ。</p>
+
+        <p><strong>代理店向けの資料</strong>は、本来なら法令順守、会社としての信頼性、商取引条件、アフターサービスの責任分担に重心を置き、商品紹介は3〜4ページで十分なはずだ。それを全SKUを丸ごと詰め込んでしまうと、代理店が本当に知りたいことには一切触れられず、「この会社はまだ準備ができていない」と受け取られてしまう。</p>
+
+        <p><strong>実店舗やセレクトショップ向けの資料</strong>は、本来なら商品の魅力、店頭での見え方、想定する客層、限定カラーのストーリーに重心を置き、商取引条件は1ページで十分なはずだ。それをFOB価格表やMOQ、PL保険まで詰め込んでしまうと、バイヤーは「この商品を棚に置いたときに映えるか、語れるストーリーがあるか」しか知りたくないため、法令関連の条項の羅列は読み飛ばされてしまう。</p>
+
+        <blockquote><p><strong>同じ一枚の資料で二種類の相手を狙うと、どちらの側にも「知りたいことに触れていない」と思われてしまう。</strong></p></blockquote>
+
+        <p>もう一つ見落とされがちな実務上のポイントがある。<strong>最初に求めるのは三点だけにする、</strong>ということだ。</p>
+
+        <p>リストの全項目を一度に送りつけると、ブランド側はたいてい対応に詰まるか、半分しか返してこない。最初はこの三点だけに絞るとよい——<strong>技適の証明書、日本での商標状況、FOB価格表とMOQ</strong>だ。この三つに問題があれば、その先の作業はすべて空回りに終わる。逆にすべて健全であれば、次のバッチを求めればよい。</p>
+
+        <div class="first-three">
+          <div class="ft-card">
+            <span class="ft-num">①</span>
+            <span class="pri pri-r"></span>
+            <div class="ft-title">技適証明書</div>
+            <div class="ft-desc">法令順守の関門 — 技適がなければ無線製品は合法に販売できない</div>
+          </div>
+          <div class="ft-card">
+            <span class="ft-num">②</span>
+            <span class="pri pri-r"></span>
+            <div class="ft-title">日本での商標状況</div>
+            <div class="ft-desc">権利の関門 — 未登録では代理店がマーケティング費用を投下できない</div>
+          </div>
+          <div class="ft-card">
+            <span class="ft-num">③</span>
+            <span class="pri pri-r"></span>
+            <div class="ft-title">FOB価格表とMOQ</div>
+            <div class="ft-desc">採算性の関門 — 健全な店頭価格が算出できないなら着手すべきではない</div>
+          </div>
+        </div>
+        <div class="first-three-cap">この三つはそれぞれ、法令順守・権利関係・商業的な採算性という三つの「拒否権」を持つ観点を表している — どれか一つでも健全でなければ、そのBDはそれ以上進めるべきではない</div>
+
+        <hr>
+
+        <!-- =================== SEC 7 =================== -->
+        <h2 id="sec-7">見落とされがちだが、最も影響が大きい三つのポイント</h2>
+
+        <p>一連の調査とリストを振り返ってみると、著しく過小評価されていると感じる点が三つある。</p>
+
+        <h3 id="sec-7-1">一つ目、タイピング音・音声素材</h3>
+        <p>キーボードというカテゴリでは、商談の場で10秒のタイピング音を流すほうが、資料3ページ分より効果がある。日本には「打鍵音」を愛でる文化が根強くあり、YouTube上のキーボード音レビュー専門動画は再生数が非常に高い。にもかかわらず、ブランド側がBD資料を用意する際、音声素材を自主的に用意することはほとんどない。<strong>コストゼロで説得力の高いこの手段が、当然のように省かれてしまっている。</strong></p>
+
+        <h3 id="sec-7-2">二つ目、日本にすでに存在する需要の証拠</h3>
+        <p>これはリストAの第5節にある🔴の項目であり、資料全体の中で最も説得力のある一枚でもある。公式サイトから日本への直送売上、公式サイトのアクセスに占める日本からの訪問者比率、Amazon.co.jpでの並行輸入品の販売状況——このいずれか一つがあれば十分だ。</p>
+        <p>理屈は単純だ。日本の代理店は「ブランドのために市場教育をしてあげたら、教育し終えた頃にブランド自身が乗り込んできた」という経験を何度も味わっている。「需要はすでに存在している、まだ誰も刈り取っていないだけだ」という証拠を示せば、相手のリスク評価は一段階変わる。</p>
+
+        <h3 id="sec-7-3">三つ目、アフターサービスという実質的な交渉の焦点</h3>
+        <p>リストBの第3節にあたる。ブランド側が最も見落としがちな項目（コストだと考えてしまうため）だが、実際の交渉では焦点になりやすい。日本の消費者が抱く返品・交換への期待値は欧米よりはるかに高く、初期不良は無条件で新品交換、返送料は販売側負担というのが業界の慣例になっている。この水準より条件を厳しくすれば転換率は目に見えて落ち、逆にこれより緩くすれば代理店側が引き受けをためらう。</p>
+        <blockquote><p><strong>「保証期間を18〜24か月に延長する」ことをコストではなくマーケティングの武器と捉える——それは日本市場において、即座に差別化された信頼を築ける数少ない手段の一つだ。</strong></p></blockquote>
+
+        <hr>
+
+        <!-- =================== SEC 8: Takeaways =================== -->
+        <h2 id="sec-8">全体のロジックを数行にまとめると</h2>
+
+        <p>この記事から三つだけ持ち帰ってもらうとしたら、次の三点にしたい。</p>
+
+        <div class="takeaways">
+          <div class="takeaway-item">
+            <div class="takeaway-num">1</div>
+            <div class="takeaway-text"><strong>日本市場における中国ブランドへの信頼の検証プロセスは逆向きだ——信頼を先に揃えきって初めて、販売が許される。</strong></div>
+          </div>
+          <div class="takeaway-item">
+            <div class="takeaway-num">2</div>
+            <div class="takeaway-text"><strong>この信頼検証のプロセスは、BDの現場では二つの関門にぶつかる。相手に「もう一度会いたい」と思わせる関門（リストA）と、「契約していい」と踏み切らせる関門（リストB）だ。両者は目的も判定基準も盛り込む素材の重心もまったく異なり、一緒くたにしてはいけない。</strong></div>
+          </div>
+          <div class="takeaway-item">
+            <div class="takeaway-num">3</div>
+            <div class="takeaway-text"><strong>日本進出向けの資料の良し悪しを判定するのは、厚さではない。一枚目には「興味を引く証拠」だけを、二枚目には「信頼を裏付ける証拠」だけを入れているか、そして両者の間に明確な境界線が引けているかどうかだ。</strong></div>
+          </div>
+        </div>
+
+        <p>さらに根底にある注意点として、あの調査の核心的な結論を挙げておきたい。</p>
+
+        <blockquote><p><strong>日本の消費者が拒んでいるのは「中国」ではなく、「確かめようがないもの」だ。</strong> 中国製であっても、REGZAやAQUAの看板を掲げ、ヤマダ電機に修理拠点があり、説明書が完全な日本語で用意されている製品なら、彼らは迷わず購入する。</p></blockquote>
+
+        <p>この言葉をBDに置き換えると、こうなる——用意する資料はすべて、本質的には「どうすれば自分たちを『確かめられる存在』にできるか」への答えだ。リストAは相手に「このブランドは面白い、日本でも売れそうだ」と確かめさせるためのものであり、リストBは「この会社は合法で、条件面で有利で、持続可能だ」と確かめさせるためのものだ。</p>
+
+        <p>二つの関門、二枚の資料、二種類の証拠。これらを分けて用意できるかどうかが、このBDがうまく回るかどうかを決める最初の分水嶺になる。</p>
+
+        <div class="closing-note">
+          このリストはキーボードというカテゴリのBD実務をもとに整理したものだが、その枠組み（二つの関門、二枚の資料、優先度の表示方式）は、多くの実物消費財の日本進出に共通して当てはまる。合規の関門（技適・商標・電池）、商取引条件（FOBからの倍率・オンライン販売権）、アフターサービスという焦点——この三種類の課題の構造は業種を問わず共通している。ソフトウェアやSaaSの場合は、リストBのB1・B2がセキュリティチェックリストやISMS/SOC2、データのローカライズ要件に置き換わるが、「二つの関門」という枠組み自体は変わらない。
+        </div>
+
+      </div><!-- /article-body -->
+    </div><!-- /article-wrap -->
+  </div><!-- /content -->
+</div><!-- /layout -->
+
+<script>
+// ===== TOC Auto-Generation =====
+(function() {
+  const tocList = document.getElementById('toc-list');
+  const headings = document.querySelectorAll('#article-body h2, #article-body h3');
+
+  headings.forEach(function(h) {
+    const id = h.id;
+    if (!id) return;
+
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = '#' + id;
+    a.textContent = h.textContent.replace(/^#+\s*/, '');
+    a.setAttribute('data-target', id);
+
+    if (h.tagName === 'H3') {
+      li.className = 'toc-sub';
+    }
+
+    li.appendChild(a);
+    tocList.appendChild(li);
+  });
+})();
+
+// ===== IntersectionObserver for TOC Highlight =====
+(function() {
+  const tocLinks = document.querySelectorAll('.toc-list a');
+  if (!tocLinks.length) return;
+
+  const headings = [];
+  tocLinks.forEach(function(link) {
+    const target = document.getElementById(link.getAttribute('data-target'));
+    if (target) headings.push({ link: link, el: target });
+  });
+
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      const link = document.querySelector('.toc-list a[data-target="' + entry.target.id + '"]');
+      if (!link) return;
+
+      if (entry.isIntersecting) {
+        tocLinks.forEach(function(l) { l.classList.remove('active'); });
+        link.classList.add('active');
+      }
+    });
+  }, {
+    rootMargin: '-80px 0px -70% 0px',
+    threshold: 0
+  });
+
+  headings.forEach(function(h) { observer.observe(h.el); });
+})();
+
+// ===== Close TOC on nav click (mobile) =====
+document.querySelectorAll('.toc-list a').forEach(function(a) {
+  a.addEventListener('click', function() {
+    if (window.innerWidth <= 860) {
+      document.querySelector('.toc').classList.remove('open');
+    }
+  });
+});
+</script>
+
+</body>
+</html>

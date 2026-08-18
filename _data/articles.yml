@@ -24,3 +24,27 @@
   title: "当 Agent 也能「攒机」了"
   summary: "几个月前搭一套 Agent 还要选框架、写一堆代码，现在一行命令就拿到了——变的不是模型，是基础设施。"
   url: /articles/2026-08-14-agent-pc-building-era.html
+
+- date: "2026-08-16"
+  lang: ja
+  title: "日本でAIスタートアップを始めるなら、まずこのレポートを読んでほしい"
+  summary: "日本のAI市場は導入率87%なのに満足度9%——この溝こそが起業の好機であり、その理由と攻め方を検証する"
+  url: /articles/2026-08-16-japan-ai-bought-not-used-ja.html
+
+- date: "2026-08-16"
+  lang: ja
+  title: "AI プロダクトマネージャー／FDE を目指す人、チームを作る人へ"
+  summary: "2008年の検索評価の経験から導く、AIプロダクトマネージャー/FDEが現場入りから撤退までに踏むべき五段階の実践論"
+  url: /articles/2026-08-16-ai-pm-fde-six-stages-ja.html
+
+- date: "2026-08-15"
+  lang: ja
+  title: "日本進出は二つの関門——「もう一度話したい」と「契約していい」は別の資料が要る"
+  summary: "中国ブランドが日本で苦戦する本当の理由と、「もう一度会いたい」と「契約していい」を分けて用意すべき二枚の資料の作り方。"
+  url: /articles/2026-08-15-japan-market-two-gates-two-decks-ja.html
+
+- date: "2026-08-14"
+  lang: ja
+  title: "Agentも「自作PC」を組める時代になった"
+  summary: "Agentもオープンソースharnessで誰でも組める時代に。差はコンテキスト管理に移った。"
+  url: /articles/2026-08-14-agent-pc-building-era-ja.html

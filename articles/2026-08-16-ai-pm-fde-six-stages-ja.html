@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI プロダクトマネージャー／FDE を目指す人、チームを作る人へ</title>
+</head>
+<body style="margin:0;padding:24px 12px;background:#EDEDED;min-height:100vh;">
+<a href="/" style="position:fixed;top:12px;left:12px;z-index:9999;font:500 13px/1 -apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;color:#101C1F;background:#C8F050;border:1px solid transparent;border-radius:100px;padding:8px 14px;font-weight:700;text-decoration:none;box-shadow:0 1px 3px rgba(0,0,0,.08);">← BIGROCK</a>
+
+
+
+<section style="max-width:677px;margin:0 auto;padding:28px 22px 40px;background:#FFFFFF;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Helvetica Neue','Microsoft YaHei',sans-serif;font-size:16px;line-height:1.85;color:#1D1D1F;letter-spacing:0.3px;">
+
+  <!-- ========== 标题区 ========== -->
+  <section style="margin:0 0 34px;padding:26px 22px;background:#F4F7FB;border-top:4px solid #0066CC;">
+    <p style="margin:0 0 14px;font-size:12px;font-weight:700;color:#0066CC;letter-spacing:2px;">AI プロダクトマネージャー・FDE｜仕事のやり方まとめ</p>
+    <h1 style="margin:0 0 16px;font-size:25px;font-weight:700;line-height:1.5;color:#0A2540;letter-spacing:0.5px;">AI プロダクトマネージャー／FDE を目指す人、そういうチームを作りたい人に、このまとめがきっと役に立つ</h1>
+    <p style="margin:0;font-size:15px;line-height:1.8;color:#5A6472;">2008 年に検索エンジンのプロダクトマネージャーとして仕事を始めてから、もう20年近くになる。最近、この業界がもう一度「一周まわってきた」ことに気づいた。</p>
+  </section>
+
+  <!-- ========== 一 ========== -->
+  <section style="margin:44px 0 22px;padding:14px 16px;background:#F5F7FA;border-left:4px solid #0066CC;">
+    <span style="display:inline-block;width:26px;height:26px;background:#0066CC;border-radius:50%;color:#FFFFFF;font-size:14px;font-weight:700;text-align:center;line-height:26px;vertical-align:middle;margin-right:10px;">1</span><span style="font-size:20px;font-weight:700;line-height:1.5;color:#0A2540;vertical-align:middle;">入社1年目、毎日やっていたのは「評価」だった</span>
+  </section>
+
+  <p style="margin:0 0 18px;">2008年にこの業界に入った。担当は検索エンジンのプロダクトマネージャーだった。</p>
+
+  <p style="margin:0 0 18px;">当時の日常はどんなものだったか。プロトタイプを描くのでも、要件定義書を書くのでもなく、<strong style="color:#0A2540;">評価</strong>だった。</p>
+
+  <p style="margin:0 0 18px;">大量の検索クエリを前に、結果を1件ずつ見ていく。このキーワードの1位には何が来るべきか。この結果は関連ありと見るべきか、なしと見るべきか。「りんご」で検索してPCメーカーの結果が出てくるのはなぜか——ユーザーの意図の読み違いなのか、こちらの理解が間違っているのか。</p>
+
+  <p style="margin:0 0 18px;">まず「何をもって良しとするか」をきっちり定義し、誰がやっても同じ点数がつく評価基準を文章にする。それを大勢に配ってラベリングしてもらい、集計した数字をエンジニアにぶつけて議論する。議論の後に手直しして、また回して、数字が動いたかを見る。</p>
+
+  <p style="margin:0 0 18px;">あの数年間、いちばん多くやっていたのはこれだった。正直、当時は地味な仕事だと思っていたし、創造性がないとすら感じていた。</p>
+
+  <p style="margin:0 0 18px;">やがて検索の時代が終わり、モバイルインターネットの波が来た。プロダクトマネージャーという職種の重心は、丸ごと<strong style="color:#0A2540;">機能とUI/UX</strong>のほうへ移った——誰も思いつかなかった機能を発想できるか、登録フローを5ステップから2ステップに削れるか、ボタンは左に置くか右に置くか。</p>
+
+  <p style="margin:0 0 18px;">この移行が、十数年続いた。</p>
+
+  <p style="margin:0 0 18px;">その十数年で、「評価型」「戦略型」のプロダクトマネージャーという種族は、検索・レコメンド・広告といったアルゴリズムが色濃く残る一角にほぼ押し込められてしまった。多くのプロダクトマネージャーは、一生に一度も評価ガイドラインを書かないまま終わる。それが普通だった。</p>
+
+  <p style="margin:0 0 18px;">そこにAIがやって来た。</p>
+
+  <p style="margin:0 0 18px;">2008年に身につけたあの一式が、一つも無駄になっていない。</p>
+
+  <section style="margin:26px 0;padding:18px 20px;background:#EAF3FD;border-left:3px solid #0066CC;">
+    <p style="margin:0;font-size:16px;line-height:1.8;color:#0A2540;font-weight:600;">確率的に振る舞うシステムには、評価という名のハンドルがなければ舵を切れない。この一文は2008年に成立し、2026年の今、またそのまま成立する。しかも、当時よりずっと重要度が増している。</p>
+  </section>
+
+  <section style="margin:38px 0;height:1px;background:#E8E8ED;"></section>
+
+  <!-- ========== 二 ========== -->
+  <section style="margin:44px 0 22px;padding:14px 16px;background:#F5F7FA;border-left:4px solid #0066CC;">
+    <span style="display:inline-block;width:26px;height:26px;background:#0066CC;border-radius:50%;color:#FFFFFF;font-size:14px;font-weight:700;text-align:center;line-height:26px;vertical-align:middle;margin-right:10px;">2</span><span style="font-size:20px;font-weight:700;line-height:1.5;color:#0A2540;vertical-align:middle;">なぜこの文章を書くのか</span>
+  </section>
+
+  <p style="margin:0 0 18px;">理由は二つある。</p>
+
+  <p style="margin:0 0 18px;">一つ目は上で書いた通り。自分はもともと戦略型のプロダクトマネージャー出身で、ここ2年ほど久々にその感覚を掘り起こしてみたら、多くのことが今も通用すると気づいたからだ。</p>
+
+  <p style="margin:0 0 18px;">もう一つはもっと現実的な話——<strong style="color:#0A2540;">ここ最近、社内でAIプロダクトマネージャー／FDEのチームを作ろうとしているのだが、これがなかなか進まない。</strong></p>
+
+  <p style="margin:0 0 18px;">何が進まないのか。優秀な人が採れないわけではない。優秀な人材はいくらでもいる。進まないのは、「このポジションが何をすべきで、どういう順番でやるべきで、どこまでやれば合格なのか」について、社内で共通認識ができていないことにある。</p>
+
+  <p style="margin:0 0 18px;">プロンプトエンジニアだと思っている人もいれば、ソリューション営業のプリセールスだと思っている人もいる。単に「AI」という接頭辞がついた従来のプロダクトマネージャーだと思っている人もいる。それぞれが自分なりの理解で頑張った結果、プロジェクトごとにゼロからフローを発明し直し、しかもどのプロジェクトも同じ場所でつまずく。</p>
+
+  <p style="margin:0 0 18px;">そこで、自分が重要だと思うポイントを、<strong style="color:#0A2540;">現場に入ってから撤退するまでの一連の流れ</strong>に沿って、いくつかの段階に整理しなおしてみた。各段階では、次の3つに答えることを試みる。この段階で本当に解くべき問題は何か、失敗するとどんな見た目になるか、どんな条件が揃えば次の段階に進んでいいか。</p>
+
+  <p style="margin:0 0 18px;">まず結論から書いておく。</p>
+
+  <section style="margin:26px 0;padding:18px 20px;background:#EAF3FD;border-left:3px solid #0066CC;">
+    <p style="margin:0;font-size:16px;line-height:1.8;color:#0A2540;font-weight:600;">多くのAIプロジェクトは、モデルの性能が足りなくて死ぬのではない。最初に問いの立て方を間違え、最後に誰も引き継がないことで死ぬ。それなのに、ほとんどのチームは真ん中の部分にばかり力を注いでいる。</p>
+  </section>
+
+  <p style="margin:0 0 18px;">もう一つ、先に断っておきたいことがある。読み終えて「だまされた」と思わないために——<strong style="color:#0A2540;">以下で述べる内容の大半は、AIだから特別になったわけではない。</strong>本質的な考え方や仕事の進め方は、10年前とそう変わらない。変わったのは一つだけ、<strong style="color:#0A2540;">AIそのものを理解し、その不確実性を乗りこなす力が必要になった</strong>という点だ。</p>
+
+  <p style="margin:0 0 18px;">もし「AI時代のプロダクトマネージャーに必要な10の新スキル」のようなものを期待しているなら、この文章は向いていない。ここで語るのは古くからある職人技であり、その職人技が今また重要になっているというだけの話だ。</p>
+
+  <section style="margin:38px 0;height:1px;background:#E8E8ED;"></section>
+
+  <!-- ========== 阶段路线图 ========== -->
+  <section style="margin:30px 0 34px;padding:22px 20px;background:#0A2540;">
+    <p style="margin:0 0 16px;font-size:12px;font-weight:700;color:#7FB3EA;letter-spacing:2px;">全体の道筋・五つの段階</p>
+    <p style="margin:0 0 10px;font-size:15px;line-height:1.9;color:#FFFFFF;font-weight:600;">現場入り　→　問いの確定　→　道探し　→　本番投入　→　運用</p>
+    <p style="margin:0;font-size:13px;line-height:1.85;color:#A9BDD4;">誰が何に責任を負っているかを掴む　→　「みんなが欲しいと言う」を検証可能な事実に変える　→　機能を作る前に不確実性を潰す　→　「見せられる」から「頼られる」へ　→　フィードバックを本当にシステムへ戻す</p>
+  </section>
+
+  <!-- ========== 阶段 进场 ========== -->
+  <section style="margin:44px 0 22px;padding:14px 16px;background:#F5F7FA;border-left:4px solid #0066CC;">
+    <p style="margin:0 0 6px;font-size:12px;font-weight:700;color:#0066CC;letter-spacing:2px;">段階・現場入り</p>
+    <span style="font-size:20px;font-weight:700;line-height:1.5;color:#0A2540;">まずユーザーが本当は誰で、どういう毎日を送っているのかを掴む</span>
+  </section>
+
+  <p style="margin:0 0 18px;"><strong style="color:#0A2540;">この段階で本当に解くべき問題は「顧客が何を求めているか」ではなく、「誰が何の責任を負っていて、なぜ今この話が持ち上がったのか」だ。</strong></p>
+
+  <p style="margin:0 0 18px;color:#6E6E73;font-size:15px;">（BtoBのプロダクトでは、これが特に効いてくる）</p>
+
+  <section style="margin:22px 0;padding:16px 18px;background:#FFF7F0;border-left:3px solid #EA580C;">
+    <p style="margin:0 0 10px;font-size:13px;font-weight:700;color:#C2410C;letter-spacing:1.5px;">失敗するとこう見える</p>
+    <ul style="margin:0;padding-left:20px;">
+      <li style="margin:0 0 8px;font-size:15px;line-height:1.8;color:#3F3F46;">初回のミーティングからいきなり技術方式とスケジュールの話をしている</li>
+      <li style="margin:0 0 8px;font-size:15px;line-height:1.8;color:#3F3F46;">要件は復唱できるのに、<strong style="color:#0A2540;">誰の何の指標が問題になってこの話が出てきたのか</strong>を説明できない</li>
+      <li style="margin:0;font-size:15px;line-height:1.8;color:#3F3F46;">出席者リストに、実際にその業務を担う人がおらず、その上司しかいない</li>
+    </ul>
+  </section>
+
+  <section style="margin:32px 0 14px;">
+    <span style="display:inline-block;width:8px;height:8px;background:#0066CC;border-radius:2px;vertical-align:middle;margin-right:9px;"></span><span style="font-size:17px;font-weight:700;color:#0A2540;vertical-align:middle;">最初にやるべきこと：「誰が何に責任を負っているか」の一覧を作る</span>
+  </section>
+
+  <p style="margin:0 0 18px;">現場入りした最初の週にやる。主要な関係者ひとりひとりについて、次の4項目を埋めていく。</p>
+
+  <p style="margin:0 0 18px;padding:14px 16px;background:#F5F5F7;font-size:15px;line-height:1.9;color:#0A2540;">その人の職務上のゴールは何か　／　今年何で評価されるか　／　これがうまくいったら何を得るか　／　これでトラブルが起きたら誰の責任になるか</p>
+
+  <p style="margin:0 0 18px;">この考え方の元ネタは、シドニー・デッカーが唱えた<strong style="color:#0A2540;">局所合理性</strong>だ——人の行動は、その人が置かれたゴール・プレッシャー・情報・リソースという文脈に戻して初めて説明がつく、という考え方である。</p>
+
+  <p style="margin:0 0 18px;">強調したいのはタイミングだ。<strong style="color:#0A2540;">プロジェクトの立ち上げ時にこの一覧を作っておくのと、レビューで行き詰まってから後追いで補うのとでは、コストが桁違いに変わる。</strong></p>
+
+  <p style="margin:0 0 18px;">この一覧は、後の段階でもう一度引っ張り出すことになる。</p>
+
+  <p style="margin:0 0 18px;color:#6E6E73;font-size:15px;">（「一覧を作る」という言い方をすると、チームが形式主義に流れがちになる。これは物理的な紙の表である必要はない。実際、私が知っている優れたプロダクト人材は、頭の中に常にこの一覧を持っている——本人がそのことに気づいていないことすらある）</p>
+
+  <section style="margin:32px 0 14px;">
+    <span style="display:inline-block;width:8px;height:8px;background:#0066CC;border-radius:2px;vertical-align:middle;margin-right:9px;"></span><span style="font-size:17px;font-weight:700;color:#0A2540;vertical-align:middle;">二つ目：今回の納品に紐づく「時計」を確認する</span>
+  </section>
+
+  <p style="margin:0 0 18px;">三つの日付をはっきりさせる。誰がいつ何を見たいのか。予算のサイクルはいつまでか。この要件を持ち込んだ責任者自身の評価タイミングはいつか。</p>
+
+  <p style="margin:0 0 18px;">最後の一つが特に重要だ。AIプロジェクトの最大の隠れリスクの一つは<strong style="color:#0A2540;">発起人の異動</strong>である——その人が抜けると、プロジェクトを引き受ける人がいなくなり、どれだけ良いものを作っても宙に浮いてしまう。</p>
+
+  <section style="margin:26px 0;padding:18px 20px;background:#F1FAF4;border-left:3px solid #16A34A;">
+    <p style="margin:0 0 12px;font-size:13px;font-weight:700;color:#15803D;letter-spacing:1.5px;">合格の条件・三つすべて満たして次へ</p>
+    <ul style="margin:0;padding-left:20px;">
+      <li style="margin:0 0 8px;font-size:15px;line-height:1.8;color:#1D1D1F;">「___の___という指標が___の時点で追及されるから、今この話が出てきている」と一言で言える</li>
+      <li style="margin:0 0 8px;font-size:15px;line-height:1.8;color:#1D1D1F;">その上司だけでなく、<strong style="color:#0A2540;">実際に毎日この業務をしている現場の人</strong>に少なくとも1人は会っている</li>
+      <li style="margin:0;font-size:15px;line-height:1.8;color:#1D1D1F;">このプロジェクトが失敗したとき、それが誰の責任になるかを知っている</li>
+    </ul>
+  </section>
+
+  <section style="margin:38px 0;height:1px;background:#E8E8ED;"></section>
+
+  <!-- ========== 阶段 定问题 ========== -->
+  <section style="margin:44px 0 22px;padding:14px 16px;background:#F5F7FA;border-left:4px solid #0066CC;">
+    <p style="margin:0 0 6px;font-size:12px;font-weight:700;color:#0066CC;letter-spacing:2px;">段階・問いの確定</p>
+    <span style="font-size:20px;font-weight:700;line-height:1.5;color:#0A2540;">顧客は「必要だ」と言うのに、作り終えたら誰も使わない</span>
+  </section>
+
+  <p style="margin:0 0 18px;">おそらくこれが最もよくある死に方だ。</p>
+
+  <p style="margin:0 0 18px;"><strong style="color:#0A2540;">この段階で本当に解くべき問題は、「みんなが欲しいと言っている」を、「誰かが実際に代償を払った、起きた、測定可能な事実」に変換することだ。</strong></p>
+
+  <section style="margin:22px 0;padding:16px 18px;background:#FFF7F0;border-left:3px solid #EA580C;">
+    <p style="margin:0 0 10px;font-size:13px;font-weight:700;color:#C2410C;letter-spacing:1.5px;">失敗するとこう見える</p>
+    <ul style="margin:0;padding-left:20px;">
+      <li style="margin:0 0 8px;font-size:15px;line-height:1.8;color:#3F3F46;">要件定義書が「効率化」「スマート化」「人件費削減」といった言葉で埋め尽くされている</li>
+      <li style="margin:0 0 8px;font-size:15px;line-height:1.8;color:#3F3F46;">要件の出どころが「〇〇部長の指示」でしかない</li>
+      <li style="margin:0;font-size:15px;line-height:1.8;color:#3F3F46;">顧客が機能リストを自分で作ってきて、それをそのまま丸呑みしている</li>
+    </ul>
+  </section>
+
+  <p style="margin:0 0 18px;">最後の一つは<strong style="color:#0A2540;">御用聞き型プロダクトマネージャー</strong>と呼ばれることが多い——注文された物をただ記録するだけで、自分の判断がない状態だ。これは「プロダクトの死のループ」に直結する。</p>
+
+  <p style="margin:0 0 18px;padding:14px 16px;background:#F5F5F7;font-size:15px;line-height:1.9;color:#0A2540;font-weight:600;">誰も使わない　→　ユーザーに欲しい機能を聞きに行く　→　作る　→　それでも誰も使わない</p>
+
+  <section style="margin:32px 0 14px;">
+    <span style="display:inline-block;width:8px;height:8px;background:#0066CC;border-radius:2px;vertical-align:middle;margin-right:9px;"></span><span style="font-size:17px;font-weight:700;color:#0A2540;vertical-align:middle;">「Xは必要ですか」という問いをすべて書き換える</span>
+  </section>
+
+  <p style="margin:0 0 18px;">ルールは三つ。自分のアイデアではなく相手の日常を話してもらう。未来への意見ではなく、過去に実際に起きた具体的な出来事を聞く。しゃべるより聞く。</p>
+
+  <p style="margin:0 0 18px;">やることは一言でまとめられる。「Xは必要ですか」を「<strong style="color:#0A2540;">直近でその作業をしたのはいつですか。最初から順を追って見せてください</strong>」に置き換える。</p>
+
+  <p style="margin:0 0 18px;">AIの現場では、次の一言を<strong style="color:#0A2540;">お世辞</strong>として扱わなければならない。決して要件だと思ってはいけない。</p>
+
+  <section style="margin:26px 0;padding:18px 20px;background:#EAF3FD;border-left:3px solid #0066CC;">
+    <p style="margin:0;font-size:16px;line-height:1.8;color:#0A2540;font-weight:600;">「うちも今年こそ業務を全部AI化したい！」</p>
+  </section>
+
+  <p style="margin:0 0 18px;">この一言が持つ情報量は、「そのアイデア、いいですね」と同じくらいのものでしかない。</p>
+
+  <p style="margin:0 0 18px;">聞いたあとに続けるべき質問はこうだ。今それは誰がやっているのか。週に何時間かかっているのか。前回失敗したときの代償はどれくらいだったか。そのときどうやってミスに気づいたのか。ミスの後始末は誰がしたのか。</p>
+
+  <section style="margin:32px 0 14px;">
+    <span style="display:inline-block;width:8px;height:8px;background:#0066CC;border-radius:2px;vertical-align:middle;margin-right:9px;"></span><span style="font-size:17px;font-weight:700;color:#0A2540;vertical-align:middle;">候補となる課題ごとに、三つの数字を測る</span>
+  </section>
+
+  <table style="width:100%;border-collapse:collapse;margin:22px 0;font-size:14px;table-layout:fixed;">
+    <tr>
+      <th style="width:24%;padding:10px 10px;background:#0066CC;color:#FFFFFF;font-weight:600;text-align:left;border:1px solid #0066CC;line-height:1.6;">測る数字</th>
+      <th style="width:38%;padding:10px 10px;background:#0066CC;color:#FFFFFF;font-weight:600;text-align:left;border:1px solid #0066CC;line-height:1.6;">聞き方</th>
+      <th style="padding:10px 10px;background:#0066CC;color:#FFFFFF;font-weight:600;text-align:left;border:1px solid #0066CC;line-height:1.6;">この数字がないと</th>
+    </tr>
+    <tr>
+      <td style="padding:10px;border:1px solid #D2D2D7;color:#0A2540;font-weight:600;line-height:1.7;vertical-align:top;">頻度</td>
+      <td style="padding:10px;border:1px solid #D2D2D7;color:#1D1D1F;line-height:1.7;vertical-align:top;">「これは月に何回起きますか」</td>
+      <td style="padding:10px;border:1px solid #D2D2D7;color:#1D1D1F;line-height:1.7;vertical-align:top;">本物の課題かもしれないが、価値が薄い</td>
+    </tr>
+    <tr>
+      <td style="padding:10px;border:1px solid #D2D2D7;background:#FAFAFC;color:#0A2540;font-weight:600;line-height:1.7;vertical-align:top;">1回あたりの代償</td>
+      <td style="padding:10px;border:1px solid #D2D2D7;background:#FAFAFC;color:#1D1D1F;line-height:1.7;vertical-align:top;">「1回あたり何人時／いくらかかりますか。ミスした場合は？」</td>
+      <td style="padding:10px;border:1px solid #D2D2D7;background:#FAFAFC;color:#1D1D1F;line-height:1.7;vertical-align:top;">ROIが計算できず、後で稟議が通らない</td>
+    </tr>
+    <tr>
+      <td style="padding:10px;border:1px solid #D2D2D7;color:#0A2540;font-weight:600;line-height:1.7;vertical-align:top;">現状の代替手段</td>
+      <td style="padding:10px;border:1px solid #D2D2D7;color:#1D1D1F;line-height:1.7;vertical-align:top;">「今はどうやって回避していますか」</td>
+      <td style="padding:10px;border:1px solid #D2D2D7;color:#C2410C;font-weight:700;line-height:1.7;vertical-align:top;">最も重要な一つ</td>
+    </tr>
+  </table>
+
+  <p style="margin:0 0 18px;">三つ目は特に掘り下げる価値がある。</p>
+
+  <p style="margin:0 0 18px;">答えが「我慢してやり過ごしている」であれば——痛みが足りず、やるべき案件ではない。</p>
+
+  <p style="margin:0 0 18px;">答えが「担当者が自分でExcelマクロを組んでいる」であれば——<strong style="color:#0A2540;">誰かが自力で手を動かすほど痛い、というのは良いシグナルだ。</strong></p>
+
+  <p style="margin:0 0 18px;">本物の痛みは、必ずもがいた痕跡を残す。その痕跡を探すほうが、インタビューを10回重ねるよりよほど役に立つ。</p>
+
+  <section style="margin:32px 0 14px;">
+    <span style="display:inline-block;width:8px;height:8px;background:#0066CC;border-radius:2px;vertical-align:middle;margin-right:9px;"></span><span style="font-size:17px;font-weight:700;color:#0A2540;vertical-align:middle;">好意的な反応ではなく、コミットメントを取る</span>
+  </section>
+
+  <p style="margin:0 0 18px;">ある会話が前進したかどうかは、たった一つの基準で判断できる。相手が三種の<strong style="color:#0A2540;">コミットメント通貨</strong>のいずれかを実際に支払ったかどうかだ。</p>
+
+  <ul style="margin:0 0 18px;padding-left:22px;">
+    <li style="margin:0 0 8px;line-height:1.8;"><strong style="color:#0A2540;">時間</strong>：次はもっと長い時間を確保する、本当の担当者を同席させる、社内の生データを見せてくれる</li>
+    <li style="margin:0 0 8px;line-height:1.8;"><strong style="color:#0A2540;">評判リスク</strong>：自分の上司や他部署に紹介してくれる</li>
+    <li style="margin:0;line-height:1.8;"><strong style="color:#0A2540;">お金</strong>：前払い、意向表明書、稟議・購買プロセスに乗せる</li>
+  </ul>
+
+  <p style="margin:0 0 18px;">雰囲気が良く、話も弾んだのに、上のどれも起きなかった会議——<strong style="color:#0A2540;">それは前進ゼロと記録する。</strong></p>
+
+  <p style="margin:0 0 18px;">やや冷たく聞こえるかもしれない。だが自分が経験したプロジェクトを振り返ってほしい。最終的に頓挫したものほど、「すごく手応えの良かった会議」を何度も重ねていなかっただろうか。</p>
+
+  <section style="margin:32px 0 14px;">
+    <span style="display:inline-block;width:8px;height:8px;background:#0066CC;border-radius:2px;vertical-align:middle;margin-right:9px;"></span><span style="font-size:17px;font-weight:700;color:#0A2540;vertical-align:middle;">目標をアウトプットからアウトカムへ書き換える</span>
+  </section>
+
+  <p style="margin:0 0 18px;">ここは、チームという単位で見たときにいちばん転びやすいポイントだ。全員がとても頑張っていて、全員が自分は大きく貢献したと感じていて、チームとして山ほどの仕事をこなしているのに、それがすべてアウトプットにとどまり、アウトカムにつながっていないということが起きる。</p>
+
+  <table style="width:100%;border-collapse:collapse;margin:22px 0;font-size:14px;table-layout:fixed;">
+    <tr>
+      <th style="width:38%;padding:10px;background:#EA580C;color:#FFFFFF;font-weight:600;text-align:left;border:1px solid #EA580C;line-height:1.6;">書いてはいけない（アウトプット）</th>
+      <th style="padding:10px;background:#16A34A;color:#FFFFFF;font-weight:600;text-align:left;border:1px solid #16A34A;line-height:1.6;">書くべき（アウトカム）</th>
+    </tr>
+    <tr>
+      <td style="padding:10px;border:1px solid #D2D2D7;color:#1D1D1F;line-height:1.7;vertical-align:top;">AIチケット自動分類機能をリリースした</td>
+      <td style="padding:10px;border:1px solid #D2D2D7;color:#1D1D1F;line-height:1.7;vertical-align:top;">現場が1件あたりの対応にかける中央値時間を14分から9分未満に短縮した</td>
+    </tr>
+    <tr>
+      <td style="padding:10px;border:1px solid #D2D2D7;background:#FAFAFC;color:#1D1D1F;line-height:1.7;vertical-align:top;">8つの業務フローをカバーした</td>
+      <td style="padding:10px;border:1px solid #D2D2D7;background:#FAFAFC;color:#1D1D1F;line-height:1.7;vertical-align:top;">この3種のチケットの手戻り率を22%から10%未満に下げた</td>
+    </tr>
+    <tr>
+      <td style="padding:10px;border:1px solid #D2D2D7;color:#1D1D1F;line-height:1.7;vertical-align:top;">1体のAgentを納品した</td>
+      <td style="padding:10px;border:1px solid #D2D2D7;color:#1D1D1F;line-height:1.7;vertical-align:top;">夜間帯に人の介入なしで完結するチケットの割合が40%に達した</td>
+    </tr>
+  </table>
+
+  <p style="margin:0 0 18px;">判断基準はシンプルだ。<strong style="color:#0A2540;">この一文が語っているのは「自分たちが何をしたか」なのか、それとも「相手の行動や業務の状態が何に変わったか」なのか。</strong></p>
+
+  <section style="margin:38px 0;height:1px;background:#E8E8ED;"></section>
+
+  <!-- ========== 阶段 探路 ========== -->
+  <section style="margin:44px 0 22px;padding:14px 16px;background:#F5F7FA;border-left:4px solid #0066CC;">
+    <p style="margin:0 0 6px;font-size:12px;font-weight:700;color:#0066CC;letter-spacing:2px;">段階・道探し</p>
+    <span style="font-size:20px;font-weight:700;line-height:1.5;color:#0A2540;">デモは動く。だが、それが本物かはまだわからない</span>
+  </section>
+
+  <p style="margin:0 0 18px;"><strong style="color:#0A2540;">この段階で本当に解くべき問題は、最小のコストで「不確実性」を潰すことであって、「機能」を作り込むことではない。</strong></p>
+
+  <p style="margin:0 0 18px;">AIプロジェクトの不確実性には三種類あり、それぞれ別の対処が必要だ。</p>
+
+  <section style="margin:22px 0;padding:16px 18px;background:#F5F5F7;">
+    <p style="margin:0 0 10px;font-size:15px;line-height:1.8;color:#1D1D1F;"><strong style="color:#0066CC;">① 能力の不確実性</strong>　そもそもモデルがこのタスクを正しくこなせるのか</p>
+    <p style="margin:0 0 10px;font-size:15px;line-height:1.8;color:#1D1D1F;"><strong style="color:#0066CC;">② データの不確実性</strong>　入手できるデータは量として十分か、汚れていないか、コンプライアンス上問題ないか</p>
+    <p style="margin:0;font-size:15px;line-height:1.8;color:#1D1D1F;"><strong style="color:#0066CC;">③ 受容の不確実性</strong>　仮に正しく動いたとしても、現場の人間が使ってくれるか</p>
+  </section>
+
+  <section style="margin:22px 0;padding:16px 18px;background:#FFF7F0;border-left:3px solid #EA580C;">
+    <p style="margin:0 0 10px;font-size:13px;font-weight:700;color:#C2410C;letter-spacing:1.5px;">失敗するとこう見える</p>
+    <ul style="margin:0;padding-left:20px;">
+      <li style="margin:0 0 8px;font-size:15px;line-height:1.8;color:#3F3F46;">デモは見事に決まるが、<strong style="color:#0A2540;">毎回使っている例が同じ、あらかじめ選び抜かれたケースばかり</strong></li>
+      <li style="margin:0 0 8px;font-size:15px;line-height:1.8;color:#3F3F46;">チームが6方向を並行して進め、どれも60%までしか進んでいない</li>
+      <li style="margin:0;font-size:15px;line-height:1.8;color:#3F3F46;">「このデモの精度はどれくらいか」に誰も答えられない——<strong style="color:#0A2540;">評価用データセットがそもそも存在しないから</strong></li>
+    </ul>
+  </section>
+
+  <section style="margin:32px 0 14px;">
+    <span style="display:inline-block;width:8px;height:8px;background:#0066CC;border-radius:2px;vertical-align:middle;margin-right:9px;"></span><span style="font-size:17px;font-weight:700;color:#0A2540;vertical-align:middle;">最初のプロンプトを書く前に、まず評価用データセットを作る</span>
+  </section>
+
+  <p style="margin:0 0 18px;">これは『AI Engineering』でいちばん強く主張されている一点だ。<strong style="color:#0A2540;">AIアプリケーションを本番に乗せる最大の壁は評価であって、モデルの性能ではない。</strong></p>
+
+  <p style="margin:0 0 18px;">この一文を初めて読んだとき、そのまま2008年のことを思い出した。</p>
+
+  <p style="margin:0 0 18px;">最小限使える評価用データセットはこう作る。半日から2日で終わらせる。大工事にしないこと。</p>
+
+  <ul style="margin:0 0 18px;padding-left:22px;">
+    <li style="margin:0 0 8px;line-height:1.8;">実際の過去データから<strong style="color:#0A2540;">50〜100件</strong>抽出する。内訳は、頻出の通常ケース、既知のエッジケース、過去にトラブルになったケースの3種</li>
+    <li style="margin:0 0 8px;line-height:1.8;">各件に「何をもって正解とするか」をラベル付けする——<strong style="color:#0A2540;">これは業務側にやってもらう必要があり、自分が代わりにやってはいけない</strong></li>
+    <li style="margin:0;line-height:1.8;">まず<strong style="color:#0A2540;">評価ガイドライン</strong>を書く。「良い」の基準を、誰が採点しても同じ点数になるような文章に落とし込む</li>
+  </ul>
+
+  <p style="margin:0 0 18px;">最後の項目は正体を見破る鏡になる。<strong style="color:#0A2540;">評価ガイドラインが書けないなら、要件がそもそも固まっていないということなので、前の段階に戻ること。</strong></p>
+
+  <p style="margin:0 0 18px;">ここで最大の難所は、<strong style="color:#0A2540;">「自分」がその領域の専門家であるかどうか</strong>という点だ。評価用データが本当にないなら、今はAIでモック生成もできる。だが各入力に対する<strong style="color:#0A2540;">満点の出力</strong>とは何なのか。これには専門家としての実力か、業界の専門家を巻き込む腕が要る。</p>
+
+  <section style="margin:32px 0 14px;">
+    <span style="display:inline-block;width:8px;height:8px;background:#0066CC;border-radius:2px;vertical-align:middle;margin-right:9px;"></span><span style="font-size:17px;font-weight:700;color:#0A2540;vertical-align:middle;">現場の人に1週間、実際の業務の中で使ってもらう</span>
+  </section>
+
+  <p style="margin:0 0 18px;">デモではなく、<strong style="color:#0A2540;">自分の仕事の中で</strong>使ってもらう。受容の不確実性はこれでしか潰せない。</p>
+
+  <p style="margin:0 0 18px;">観察すべきは彼らが何を言うかではなく、使い終わったあとにもう一度手作業で確認し直しているかどうか（していれば、信頼していないということだ）。彼らはどのステップを飛ばしているか。</p>
+
+  <p style="margin:0 0 18px;">「彼らがどのステップを飛ばしているか」という情報は、満足度アンケートより価値が高い。</p>
+
+  <p style="margin:0 0 18px;">ずっと以前から、百度のプロダクトマネージャーの仕事のサイクルはこうだった。</p>
+
+  <p style="margin:0 0 18px;padding:14px 16px;background:#F5F5F7;font-size:15px;line-height:1.9;color:#0A2540;font-weight:600;">課題を見つける　→　課題を調べる　→　課題を解決する　→　解決を検証する</p>
+
+  <p style="margin:0 0 18px;">この各ステップの多くの場面で、プロダクトマネージャーが<strong style="color:#0A2540;">「スーパーユーザー」</strong>として発揮する判断力が非常に重要になる。これがAI時代でいう taste (センス) にも通じると思っている。</p>
+
+  <p style="margin:0 0 18px;color:#6E6E73;font-size:15px;">（余談だが、だからこそ、チームのプロダクトやエンジニアが自分たちのプロダクトを日常的に使っていないと分かると、私はかなり苛立つ）</p>
+
+  <section style="margin:38px 0;height:1px;background:#E8E8ED;"></section>
+
+  <!-- ========== 阶段 投产 ========== -->
+  <section style="margin:44px 0 22px;padding:14px 16px;background:#F5F7FA;border-left:4px solid #0066CC;">
+    <p style="margin:0 0 6px;font-size:12px;font-weight:700;color:#0066CC;letter-spacing:2px;">段階・本番投入</p>
+    <span style="font-size:20px;font-weight:700;line-height:1.5;color:#0A2540;">「見せられる」から「頼られる」へ</span>
+  </section>
+
+  <p style="margin:0 0 18px;">「頼られる」と聞くと、多くの人はすぐに「バグがないこと！問題を起こさないこと！」といった話を思い浮かべるだろう。</p>
+
+  <p style="margin:0 0 18px;">だが本当に「見せられる」と「頼られる」の違いはどこにあるのか。私は「完璧であること」ではなく、次のことだと思っている。</p>
+
+  <section style="margin:26px 0;padding:18px 20px;background:#EAF3FD;border-left:3px solid #0066CC;">
+    <p style="margin:0;font-size:16px;line-height:1.8;color:#0A2540;font-weight:600;">頼られるシステムとは、間違えたときの振る舞いが予測できるシステムのことだ。</p>
+  </section>
+
+  <p style="margin:0 0 18px;">「自分がティーショットを打つと100%右に大きく曲がる」——もし本当にそうなら、それはそれで「頼れるゴルフの腕前」と呼んでいいと思う。</p>
+
+  <section style="margin:22px 0;padding:16px 18px;background:#FFF7F0;border-left:3px solid #EA580C;">
+    <p style="margin:0 0 10px;font-size:13px;font-weight:700;color:#C2410C;letter-spacing:1.5px;">失敗するとこう見える</p>
+    <ul style="margin:0;padding-left:20px;">
+      <li style="margin:0 0 8px;font-size:15px;line-height:1.8;color:#3F3F46;">リリース1週間前になって初めて「モデルが間違えたらどうするか」を考え始める</li>
+      <li style="margin:0 0 8px;font-size:15px;line-height:1.8;color:#3F3F46;">公開ベンチマークのスコアを根拠に顧客へ効果を約束する</li>
+      <li style="margin:0;font-size:15px;line-height:1.8;color:#3F3F46;">ロールバック手順がない。あっても、誰も一度も訓練していない</li>
+    </ul>
+  </section>
+
+  <p style="margin:0 0 18px;">つまり、前段の「評価」と合わせて考えると、自分たちの「再現性」を安定してコントロールできていて、かつ問題が中核的な価値の提供を妨げない範囲に収まっているなら、安心して共創パートナーである顧客に提供してよい。</p>
+
+  <p style="margin:0 0 18px;">もちろん、ビジュアルやUI/UXの設計によって、アプリケーションのレイヤーでユーザーの期待や起こりうる操作をコントロールすることも大事だ。だがそれもすべて、自分たちが構築したシステムの品質を十分に理解していることが前提になる。</p>
+
+  <section style="margin:32px 0 14px;">
+    <span style="display:inline-block;width:8px;height:8px;background:#0066CC;border-radius:2px;vertical-align:middle;margin-right:9px;"></span><span style="font-size:17px;font-weight:700;color:#0A2540;vertical-align:middle;">確率的な出力を前提としたプロダクト設計をする</span>
+  </section>
+
+  <p style="margin:0 0 18px;">基盤モデルの出力は確率的で、同じ入力でも同じ出力が保証されない。これは欠陥ではなく、性質だ。だがそれは次の3つを意味する。</p>
+
+  <ul style="margin:0 0 18px;padding-left:22px;">
+    <li style="margin:0 0 8px;line-height:1.8;">「必ず」とは約束せず、「このタイプの入力に対する挙動の幅」を約束する</li>
+    <li style="margin:0 0 8px;line-height:1.8;">リスクの高い操作には必ず<strong style="color:#0A2540;">人間の確認を介在させる</strong>。そのうえで「人が確認する」ステップを摩擦の少ない形（フォームを再入力させるのではなく、ワンクリックで確認できる形）に設計する</li>
+    <li style="margin:0;line-height:1.8;">自動で行われた変更はすべてワンクリックで元に戻せて、かつ記録が残るようにする</li>
+  </ul>
+
+  <p style="margin:0 0 18px;">最後の項目は特に重要だ。これがそのまま、現場入りの段階で埋め込まれていたあの問題を解決してくれる——<strong style="color:#0A2540;">「非協力的」に見えたあの関係者が本当に欲しかったのは、この巻き戻せるバージョンと、この記録だったりする。</strong></p>
+
+  <section style="margin:32px 0 14px;">
+    <span style="display:inline-block;width:8px;height:8px;background:#0066CC;border-radius:2px;vertical-align:middle;margin-right:9px;"></span><span style="font-size:17px;font-weight:700;color:#0A2540;vertical-align:middle;">本番投入の前に、「この協働がいつ終わるか」を先に書いておく</span>
+  </section>
+
+  <p style="margin:0 0 18px;">『チームトポロジー』の言葉を借りれば、FDEが現場に常駐する形は本来<strong style="color:#0A2540;">コラボレーション(協働)モード</strong>にあたる——2つのチームが密着して一緒に働く形だ。同書はこの協働モードについてはっきり注意を促している。<strong style="color:#0A2540;">コストが高く、境界が曖昧になりやすいので、必ず期限を切らなければならない。</strong></p>
+
+  <p style="margin:0 0 18px;">だから本番投入の前に、書面ではっきりさせておく。この協働はいつまでか、終わった後はどのモードに切り替えるのか、相手側が自走するのか、それともこちらがサービス提供型に切り替えるのか。</p>
+
+  <p style="margin:0 0 18px;">これを書いておかないと、最後の段階まで来て初めて「誰も引き継いでいない」ことに気づく羽目になる。</p>
+
+  <section style="margin:38px 0;height:1px;background:#E8E8ED;"></section>
+
+  <!-- ========== 阶段 运行 ========== -->
+  <section style="margin:44px 0 22px;padding:14px 16px;background:#F5F7FA;border-left:4px solid #0066CC;">
+    <p style="margin:0 0 6px;font-size:12px;font-weight:700;color:#0066CC;letter-spacing:2px;">段階・運用</p>
+    <span style="font-size:20px;font-weight:700;line-height:1.5;color:#0A2540;">フィードバックを本当にシステムへ戻す</span>
+  </section>
+
+  <p style="margin:0 0 18px;">リリースはゴールではなく、<strong style="color:#0A2540;">フィードバックループが動き始めるスタート地点</strong>だ。</p>
+
+  <p style="margin:0 0 18px;">この段階でよくつまずく問題は2つ。<strong style="color:#0A2540;">本当に役に立っているのかどう知るか</strong>、そして<strong style="color:#0A2540;">トラブルが起きたときどう調べるか</strong>。</p>
+
+  <section style="margin:22px 0;padding:16px 18px;background:#FFF7F0;border-left:3px solid #EA580C;">
+    <p style="margin:0 0 10px;font-size:13px;font-weight:700;color:#C2410C;letter-spacing:1.5px;">失敗するとこう見える</p>
+    <ul style="margin:0;padding-left:20px;">
+      <li style="margin:0 0 8px;font-size:15px;line-height:1.8;color:#3F3F46;">リリースから3ヶ月経っても誰も使い勝手を説明できず、「反応は悪くないです」としか言えない</li>
+      <li style="margin:0 0 8px;font-size:15px;line-height:1.8;color:#3F3F46;">トラブルが起きても、振り返りの結論が「モデルのハルシネーション」や「誰それが手順を守らなかった」で終わる</li>
+      <li style="margin:0;font-size:15px;line-height:1.8;color:#3F3F46;">ユーザーフィードバックがグッドボタン一つだけで、しかも誰も見ていない</li>
+    </ul>
+  </section>
+
+  <p style="margin:0 0 18px;">2番目については付け加えておきたい。<strong style="color:#0A2540;">「モデルのハルシネーション」も「誰それが手順を守らなかった」も、どちらも結論ではなく、思考停止の合図だ。</strong></p>
+
+  <section style="margin:32px 0 14px;">
+    <span style="display:inline-block;width:8px;height:8px;background:#0066CC;border-radius:2px;vertical-align:middle;margin-right:9px;"></span><span style="font-size:17px;font-weight:700;color:#0A2540;vertical-align:middle;">本当の宝の山は暗黙のシグナルにある</span>
+  </section>
+
+  <p style="margin:0 0 18px;">明示的なフィードバック（グッド・バッド評価）は数が少なく偏りもある。本当に価値があるのは次のようなものだ。</p>
+
+  <ul style="margin:0 0 18px;padding-left:22px;">
+    <li style="margin:0 0 8px;line-height:1.8;">ユーザーが聞き方を変えて再質問したか（最初の回答が不十分だったサイン）</li>
+    <li style="margin:0 0 8px;line-height:1.8;">ユーザーが出力をコピーしたか（役に立った証拠）</li>
+    <li style="margin:0 0 8px;line-height:1.8;">ユーザーが出力を手動で修正したか（<strong style="color:#0A2540;">修正の差分そのものが貴重なラベル付きデータになる</strong>）</li>
+    <li style="margin:0 0 8px;line-height:1.8;">ユーザーが会話を途中で放棄したか</li>
+    <li style="margin:0;line-height:1.8;">人による確認ステップの<strong style="color:#0A2540;">却下率</strong></li>
+  </ul>
+
+  <p style="margin:0 0 18px;">設計原則はただ一つ。<strong style="color:#0A2540;">最良のフィードバックとは、業務フローの中にもともと存在していた動作である。</strong></p>
+
+  <p style="margin:0 0 18px;">これはまた2008年前後の時代に戻っていく話でもある。あの頃はユーザーやプロダクトを分析するとき、行動セッションをサンプリングして1件ずつ読み込む必要があった。</p>
+
+  <section style="margin:32px 0 14px;">
+    <span style="display:inline-block;width:8px;height:8px;background:#EA580C;border-radius:2px;vertical-align:middle;margin-right:9px;"></span><span style="font-size:17px;font-weight:700;color:#0A2540;vertical-align:middle;">FDEというポジションが抱える構造的な罠</span>
+  </section>
+
+  <p style="margin:0 0 18px;">これは単独で取り上げておきたい。（実は「カスタマーサクセス」が陥る罠とも全く同じ構造だ）</p>
+
+  <section style="margin:22px 0;padding:18px 20px;background:#FFF7F0;border:1px solid #FBD5B5;">
+    <p style="margin:0;font-size:15px;line-height:2;color:#9A3412;font-weight:600;">現場での仕事がうまくいくほど<br>→ 顧客はあなたなしでは回らなくなる<br>→ 顧客自身の対応力はますます衰える<br>→ 衰えるほどあなたが必要になる</p>
+  </section>
+
+  <p style="margin:0 0 18px;">これが<strong style="color:#0A2540;">負担の押し付け合い</strong>ループだ。</p>
+
+  <section style="margin:26px 0;padding:18px 20px;background:#EAF3FD;border-left:3px solid #0066CC;">
+    <p style="margin:0;font-size:16px;line-height:1.8;color:#0A2540;font-weight:600;">短期の売上には効くが、長期的には致命的だ。自分たちがスケールできなくなるだけでなく、ある日顧客は突然「自分たちには何も残っていない」と気づき、この関係そのものを恨み始める。</p>
+  </section>
+
+  <p style="margin:0 0 18px;">解決策は一つしかない。本番投入の段階で終了日をあらかじめ書いておき、毎回の納品のたびに自分に明示的に問いかけること。</p>
+
+  <p style="margin:0 0 18px;padding:14px 16px;background:#F5F5F7;font-size:16px;line-height:1.9;color:#0A2540;font-weight:700;">今回自分は、相手の代わりにやっているのか、それとも相手ができるようにしているのか。</p>
+
+  <section style="margin:32px 0 14px;">
+    <span style="display:inline-block;width:8px;height:8px;background:#0066CC;border-radius:2px;vertical-align:middle;margin-right:9px;"></span><span style="font-size:17px;font-weight:700;color:#0A2540;vertical-align:middle;">引き継ぐものはたった5つ。80ページの資料ではない</span>
+  </section>
+
+  <section style="margin:22px 0;padding:18px 20px;background:#F1FAF4;border-left:3px solid #16A34A;">
+    <p style="margin:0 0 12px;font-size:15px;line-height:1.8;color:#1D1D1F;"><strong style="color:#15803D;">1.</strong>　<strong style="color:#0A2540;">評価用データセット＋評価ガイドライン</strong>（最も重要な一つ。これがなければ、後任は何一つ怖くて変更できない）</p>
+    <p style="margin:0 0 12px;font-size:15px;line-height:1.8;color:#1D1D1F;"><strong style="color:#15803D;">2.</strong>　<strong style="color:#0A2540;">「何を変えると何に影響するか」の一覧表</strong>（プロンプトを変えるとどの指標に響くか、検索方式を変えるとどの指標に響くか）</p>
+    <p style="margin:0 0 12px;font-size:15px;line-height:1.8;color:#1D1D1F;"><strong style="color:#15803D;">3.</strong>　<strong style="color:#0A2540;">直近5件のインシデントの振り返り記録</strong>（当時のゴール・プレッシャー・情報・リソースを含む）</p>
+    <p style="margin:0 0 12px;font-size:15px;line-height:1.8;color:#1D1D1F;"><strong style="color:#15803D;">4.</strong>　<strong style="color:#0A2540;">ロールバック手順書＋一度の訓練記録</strong></p>
+    <p style="margin:0;font-size:15px;line-height:1.8;color:#1D1D1F;"><strong style="color:#15803D;">5.</strong>　<strong style="color:#0A2540;">コスト内訳の見方</strong>（誰が費用を使っていて、どう見るか）</p>
+  </section>
+
+  <p style="margin:0 0 18px;">最後の合格条件が気に入っている。極めて具体的だからだ。</p>
+
+  <p style="margin:0 0 18px;padding:14px 16px;background:#F5F5F7;font-size:16px;line-height:1.9;color:#0A2540;font-weight:700;">一つの日付を言えるかどうか——その日を境に、日常的な問い合わせはもう自分のところに来なくなる。</p>
+
+  <section style="margin:38px 0;height:1px;background:#E8E8ED;"></section>
+
+  <!-- ========== 三条纪律 ========== -->
+  <section style="margin:44px 0 22px;padding:14px 16px;background:#F5F7FA;border-left:4px solid #0066CC;">
+    <span style="font-size:20px;font-weight:700;line-height:1.5;color:#0A2540;">全過程を貫く三つの原則</span>
+  </section>
+
+  <p style="margin:0 0 18px;">この文章から3つだけ持ち帰るなら、これを持ち帰ってほしい。</p>
+
+  <section style="margin:20px 0;padding:18px 20px;background:#0A2540;">
+    <p style="margin:0 0 8px;font-size:12px;font-weight:700;color:#7FB3EA;letter-spacing:2px;">原則一</p>
+    <p style="margin:0 0 10px;font-size:16px;font-weight:700;line-height:1.7;color:#FFFFFF;">アウトプットとアウトカムを区別し、それを各段階で毎回やり直す。</p>
+    <p style="margin:0;font-size:14px;line-height:1.85;color:#A9BDD4;">アウトプットとアウトカムの取り違えは一度きりでは終わらず、どの段階でも繰り返し起きる。リリース後は特に起きやすい。アウトプットは数字にしやすく、報告しやすく、すぐ手柄として見せられるからだ。</p>
+  </section>
+
+  <section style="margin:20px 0;padding:18px 20px;background:#0A2540;">
+    <p style="margin:0 0 8px;font-size:12px;font-weight:700;color:#7FB3EA;letter-spacing:2px;">原則二</p>
+    <p style="margin:0 0 10px;font-size:16px;font-weight:700;line-height:1.7;color:#FFFFFF;">「人の問題」は、まず「条件の問題」として調べ直す。</p>
+    <p style="margin:0;font-size:14px;line-height:1.85;color:#A9BDD4;">顧客側の人であれ、自分たちのメンバーであれ、モデルであれ同じだ。「彼が協力しない」「彼には能力がない」「モデルのハルシネーション」は、実は同種の言葉であり、どれも思考停止の合図にすぎない。ゴール・プレッシャー・情報・リソースという条件を調べる。</p>
+  </section>
+
+  <section style="margin:20px 0;padding:18px 20px;background:#0A2540;">
+    <p style="margin:0 0 8px;font-size:12px;font-weight:700;color:#7FB3EA;letter-spacing:2px;">原則三</p>
+    <p style="margin:0 0 10px;font-size:16px;font-weight:700;line-height:1.7;color:#FFFFFF;">何かを直すたびに、「これはなぜ再発するのか」を自問する。</p>
+    <p style="margin:0;font-size:14px;line-height:1.85;color:#A9BDD4;">答えられなければ、それはまた戻ってくる。</p>
+  </section>
+
+  <section style="margin:38px 0;height:1px;background:#E8E8ED;"></section>
+
+  <!-- ========== 读书路径 ========== -->
+  <section style="margin:44px 0 22px;padding:14px 16px;background:#F5F7FA;border-left:4px solid #0066CC;">
+    <span style="font-size:20px;font-weight:700;line-height:1.5;color:#0A2540;">今まさに詰まっているなら、どの本から読むべきか</span>
+  </section>
+
+  <p style="margin:0 0 18px;">最初の1冊から順に読む必要はない。今どこで詰まっているかで選んでほしい。</p>
+
+  <table style="width:100%;border-collapse:collapse;margin:22px 0;font-size:14px;table-layout:fixed;">
+    <tr>
+      <th style="width:46%;padding:10px;background:#0066CC;color:#FFFFFF;font-weight:600;text-align:left;border:1px solid #0066CC;line-height:1.6;">今の状況</th>
+      <th style="padding:10px;background:#0066CC;color:#FFFFFF;font-weight:600;text-align:left;border:1px solid #0066CC;line-height:1.6;">まず読む</th>
+    </tr>
+    <tr>
+      <td style="padding:10px;border:1px solid #D2D2D7;color:#1D1D1F;line-height:1.7;vertical-align:top;">デモは動くのに、本番投入の説明がつかない</td>
+      <td style="padding:10px;border:1px solid #D2D2D7;color:#0A2540;font-weight:600;line-height:1.7;vertical-align:top;">AI Engineering</td>
+    </tr>
+    <tr>
+      <td style="padding:10px;border:1px solid #D2D2D7;background:#FAFAFC;color:#1D1D1F;line-height:1.7;vertical-align:top;">顧客は必要だと言うのに、作ったら誰も使わない</td>
+      <td style="padding:10px;border:1px solid #D2D2D7;background:#FAFAFC;color:#0A2540;font-weight:600;line-height:1.7;vertical-align:top;">The Mom Test → Escaping the Build Trap</td>
+    </tr>
+    <tr>
+      <td style="padding:10px;border:1px solid #D2D2D7;color:#1D1D1F;line-height:1.7;vertical-align:top;">報告資料はきれいだが、価値を説明できない</td>
+      <td style="padding:10px;border:1px solid #D2D2D7;color:#0A2540;font-weight:600;line-height:1.7;vertical-align:top;">Escaping the Build Trap</td>
+    </tr>
+    <tr>
+      <td style="padding:10px;border:1px solid #D2D2D7;background:#FAFAFC;color:#1D1D1F;line-height:1.7;vertical-align:top;">レビューがいつも「あの人が協力的でない」で止まる</td>
+      <td style="padding:10px;border:1px solid #D2D2D7;background:#FAFAFC;color:#0A2540;font-weight:600;line-height:1.7;vertical-align:top;">The Field Guide to Understanding "Human Error"</td>
+    </tr>
+    <tr>
+      <td style="padding:10px;border:1px solid #D2D2D7;color:#1D1D1F;line-height:1.7;vertical-align:top;">同じ種類の問題が直しても直しても戻ってくる</td>
+      <td style="padding:10px;border:1px solid #D2D2D7;color:#0A2540;font-weight:600;line-height:1.7;vertical-align:top;">Thinking in Systems</td>
+    </tr>
+    <tr>
+      <td style="padding:10px;border:1px solid #D2D2D7;background:#FAFAFC;color:#1D1D1F;line-height:1.7;vertical-align:top;">方向性は正しいのに、誰も引き継いでくれない</td>
+      <td style="padding:10px;border:1px solid #D2D2D7;background:#FAFAFC;color:#0A2540;font-weight:600;line-height:1.7;vertical-align:top;">Team Topologies</td>
+    </tr>
+  </table>
+
+  <p style="margin:0 0 18px;">後半の3冊（デッカー、メドウズ、チームトポロジー）は、「組織がどう技術を引き受けるか」に関心が向いてから読んでも構わない。ただし<strong style="color:#0A2540;">トラブルが起きてから読むのでは遅い</strong>。</p>
+
+  <section style="margin:38px 0;height:1px;background:#E8E8ED;"></section>
+
+  <!-- ========== 最后 ========== -->
+  <section style="margin:44px 0 22px;padding:14px 16px;background:#F5F7FA;border-left:4px solid #0066CC;">
+    <span style="font-size:20px;font-weight:700;line-height:1.5;color:#0A2540;">最後に</span>
+  </section>
+
+  <p style="margin:0 0 18px;">冒頭の話に戻る。</p>
+
+  <p style="margin:0 0 18px;">2008年にやっていた評価の仕事は、本質的にはこの問いに答えるためのものだった。<strong style="color:#0A2540;">出力が不確実なシステムにおいて、「良い」をどう定義し、どう測定し、その「良い」をどう継続的に良くしていくか。</strong></p>
+
+  <p style="margin:0 0 18px;">その後の十数年、プロダクトマネージャーという職種は基本的にこの問いに答える必要がなかった——機能は確定的で、押せば反応があり、うまくできたかどうかは一目瞭然だったからだ。</p>
+
+  <p style="margin:0 0 18px;">今、この問いが戻ってきた。しかも当時より難易度が上がっている。あの頃は検索の並び順という一つの結果を評価すればよかったが、今評価しなければならないのは、自由なテキストの文章であり、一連のツール呼び出しであり、複数ステップにわたるAgent全体の振る舞いだ。</p>
+
+  <p style="margin:0 0 18px;">だが方法論は変わっていない。<strong style="color:#0A2540;">まず何をもって正解とするかを定義し、次に測定可能な集合を作り、そして一度に一つの変数しか動かさない。</strong></p>
+
+  <p style="margin:0 0 18px;">だから、多くのポイントはAIによって特別になったわけではないと言いたい。本当に新しく必要になったのは、AIそのものへの理解と、それを乗りこなす力だけだ——どこで信頼できないのか、信頼できないときにプロダクトの形でどう受け止めるのか。</p>
+
+  <p style="margin:0 0 18px;">それ以外は、すべて昔ながらの職人技だ。</p>
+
+  <p style="margin:0 0 18px;">もしあなたが今まさにAIプロダクトマネージャー／FDEになろうとしているなら、あるいはそういうチームを率いているなら——上で挙げた各段階の「合格条件」を書き写して、プロジェクトのボードに貼っておいてほしい。</p>
+
+  <p style="margin:0 0 18px;">形式を守るためではない。全員が盛り上がっているミーティングの中で、誰かがあの興ざめだが致命的な一言を言えるようにするためだ。</p>
+
+  <section style="margin:28px 0;padding:22px 20px;background:#0066CC;">
+    <p style="margin:0;font-size:19px;font-weight:700;line-height:1.7;color:#FFFFFF;text-align:center;letter-spacing:0.5px;">「私たちは今、本当に合格しているのか？」</p>
+  </section>
+
+  <section style="margin:38px 0 24px;height:1px;background:#E8E8ED;"></section>
+
+  <!-- ========== 参考书籍 ========== -->
+  <section style="margin:0 0 14px;">
+    <span style="font-size:13px;font-weight:700;color:#6E6E73;letter-spacing:2px;">参考文献</span>
+  </section>
+
+  <p style="margin:0;font-size:14px;line-height:1.9;color:#6E6E73;">『AI Engineering』(Chip Huyen)　・　『The Mom Test』(Rob Fitzpatrick)　・　『Escaping the Build Trap』(Melissa Perri)　・　『The Field Guide to Understanding "Human Error"』(Sidney Dekker)　・　『Thinking in Systems』(Donella Meadows)　・　『Team Topologies』(Skelton &amp; Pais)</p>
+
+</section>
+<!-- ===== ▲ 本文はここまで ▲ ===== -->
+
+</body>
+</html>
