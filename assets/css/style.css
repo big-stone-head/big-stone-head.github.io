@@ -1,10 +1,11 @@
 /* ==========================================================================
-   BIGROCK
-   暖贝壳白 + 品牌酸橙绿 + 巨型排版反差
+   景岩 / Leo — 个人品牌
+   和纸暖白 + 矿物赤铁 + 巨型排版反差
    浅色为默认；暗色跟随系统或手动切换（html[data-theme]）
 
-   品牌色取自 logo 资产：酸橙绿 #C8F050 / 深墨 #101C1F。
-   浅色模式＝暖白底上以绿点缀；暗色模式＝品牌色反转（深墨底 + 绿强调），
+   品牌色取自「岩石与和纸」个人配色系统：赤铁 Ember #E2542A / 玄武 Basalt #14181A /
+   和纸 Washi #FBFAF7，与 PTMIND 的酸橙绿/深墨企业品牌明确区分。
+   浅色模式＝暖白底上以赤铁点缀；暗色模式＝玄武底 + 赤铁强调，
    与 favicon 的配色关系一致。
    ========================================================================== */
 
@@ -15,26 +16,26 @@
    -------------------------------------------------------------------------- */
 :root {
   /* 底与面 */
-  --bg:          #FFF7F3;   /* 暖贝壳白 */
+  --bg:          #FBFAF7;   /* 和纸 Washi */
   --surface:     #FFFFFF;
-  --surface-alt: #F7F2EC;
-  --rule:        #E9E0D8;
-  --rule-strong: #D3C7BC;
+  --surface-alt: #F3EEE6;
+  --rule:        #E4D9C9;
+  --rule-strong: #C9BBA6;   /* 砂岩 Sandstone */
 
-  /* 字 —— 品牌深墨 */
-  --ink:       #101C1F;
-  --ink-muted: #5C6A6C;
-  --ink-faint: #8E9A99;
+  /* 字 —— 玄武 */
+  --ink:       #14181A;
+  --ink-muted: #4A5459;     /* 岩灰 Slate */
+  --ink-faint: #838C8F;
 
-  /* 品牌色块（与酸橙绿同族，避免互相打架） */
-  --c-lime:    #C8F050;     /* 品牌主色 */
-  --c-sage:    #E6F4C8;
-  --c-sky:     #D6E9F0;
-  --c-sand:    #F5E4C9;
+  /* 品牌色块（矿物色系，浅色调用于卡片底/徽标背景） */
+  --c-lime:    #F4D9CD;     /* 赤铁浅调 · 主色点缀底 */
+  --c-sage:    #DCE7D8;     /* 苔绿浅调 */
+  --c-sky:     #D7E2EA;     /* 藍浅调 */
+  --c-sand:    #F4E7C7;     /* 黄土浅调 */
 
-  /* 链接与交互：酸橙绿在暖白上读不动，用其深化版 */
-  --accent:    #4C6B10;
-  --accent-ink:#37500A;
+  /* 链接与交互：赤铁在暖白上小字不达标，正文强调改用陶土 */
+  --accent:    #A8563C;     /* 陶土 Clay */
+  --accent-ink:#7E3F2B;
 
   --font-ui: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont,
              "PingFang SC", "Hiragino Sans", "Hiragino Kaku Gothic ProN",
@@ -46,29 +47,29 @@
   --r-sm: 8px;
   --r-md: 16px;
   --r-lg: 24px;
-  --shadow: 0 1px 2px rgba(51,46,46,.04), 0 8px 24px -12px rgba(51,46,46,.10);
-  --shadow-lift: 0 2px 4px rgba(51,46,46,.05), 0 18px 40px -18px rgba(51,46,46,.18);
+  --shadow: 0 1px 2px rgba(20,24,26,.04), 0 8px 24px -12px rgba(20,24,26,.10);
+  --shadow-lift: 0 2px 4px rgba(20,24,26,.05), 0 18px 40px -18px rgba(20,24,26,.18);
 }
 
-/* Tokens — Dark（品牌色反转：深墨底 + 酸橙绿强调，同 favicon 的关系）
+/* Tokens — Dark（玄武底 + 赤铁强调，同 favicon 的关系）
 
    刻意不挂 prefers-color-scheme：浅色是这个站的默认样貌，
    深色只在读者自己按下切换按钮时才生效（选择记在 localStorage）。 */
 :root[data-theme="dark"] {
-  --bg:          #101C1F;
-  --surface:     #16262A;
-  --surface-alt: #1C3034;
-  --rule:        #23383D;
-  --rule-strong: #365055;
-  --ink:         #E9F1EF;
-  --ink-muted:   #A3B3B2;
-  --ink-faint:   #71817F;
-  --c-lime:    #4E6B14;
-  --c-sage:    #35491C;
-  --c-sky:     #1E3D48;
-  --c-sand:    #4A3B1E;
-  --accent:    #C8F050;
-  --accent-ink:#DAF87E;
+  --bg:          #14181A;   /* 玄武 Basalt */
+  --surface:     #1B2124;
+  --surface-alt: #212A2D;
+  --rule:        #2B3437;
+  --rule-strong: #4A5459;
+  --ink:         #C9BBA6;   /* 砂岩 Sandstone */
+  --ink-muted:   #A9B7BD;   /* 霧 Mist */
+  --ink-faint:   #77848A;
+  --c-lime:    #3D2117;     /* 赤铁深调 */
+  --c-sage:    #22301E;     /* 苔绿深调 */
+  --c-sky:     #142530;     /* 藍深调 */
+  --c-sand:    #3A2C13;     /* 黄土深调 */
+  --accent:    #E2542A;     /* 赤铁 Ember */
+  --accent-ink:#F2775A;
   --shadow:      0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.6);
   --shadow-lift: 0 2px 4px rgba(0,0,0,.35), 0 18px 40px -18px rgba(0,0,0,.7);
 }
@@ -225,8 +226,8 @@ a:hover { color: var(--accent-ink); }
   width: .5rem;
   height: .5rem;
   border-radius: 50%;
-  background: #C8F050;
-  box-shadow: 0 0 0 4px color-mix(in srgb, #C8F050 32%, transparent);
+  background: #E2542A;
+  box-shadow: 0 0 0 4px color-mix(in srgb, #E2542A 32%, transparent);
 }
 
 .hero h1 {
@@ -244,15 +245,15 @@ a:hover { color: var(--accent-ink); }
   z-index: 0;
   margin-right: .12em;   /* 高亮块右缘与后一个汉字之间留呼吸 */
 }
-/* 高亮块固定用品牌配色（亮绿底 + 深墨字，同 favicon），不随主题反转 */
-.hero h1 .mark { color: #101C1F; }
+/* 高亮块固定用品牌配色（赤铁底 + 深墨字，同 favicon），不随主题反转 */
+.hero h1 .mark { color: #14181A; }
 /* 马克笔式高亮：CJK 字面比拉丁靠上，故块要抬高一点才压得住字腰 */
 .hero h1 .mark::after {
   content: "";
   position: absolute;
   inset: auto -.12em .14em -.12em;
   height: .46em;
-  background: #C8F050;
+  background: #E2542A;
   border-radius: 2px;
   z-index: -1;
 }
@@ -311,14 +312,14 @@ a:hover { color: var(--accent-ink); }
   border-radius: var(--r-md);
   box-shadow: var(--shadow);
 }
-/* 用品牌 monogram 当作者头像位——底色固定，两套主题里都是这一块绿 */
+/* 用品牌 monogram 当作者头像位——底色固定，两套主题里都是这一块赤铁 */
 .about-avatar {
   flex-shrink: 0;
   width: 52px;
   height: 52px;
   border-radius: 14px;
-  background: #C8F050;
-  color: #101C1F;
+  background: #E2542A;
+  color: #FBFAF7;
   display: grid;
   place-items: center;
 }
