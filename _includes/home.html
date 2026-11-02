@@ -1,0 +1,50 @@
+{%- comment -%}
+  语言首页：/zh/ 与 /ja/ 共用这一份结构，文案按 page.lang 切换。
+  根域名 / 只负责按浏览器语言跳到这里（见 index.html 与 default 布局 head 里的跳转脚本）。
+  导语与作者简介含链接和强调，直接写在这里，不放 YAML。
+{%- endcomment -%}
+{%- assign L = page.lang | default: 'zh' -%}
+
+<section class="hero">
+  {%- if L == 'ja' %}
+  <h1>半分ちょっとの<span class="mark">考え</span></h1>
+  <p class="hero-lede">
+    ここに置くのは、考えている途中の過程で、模範解答ではありません。ビジネスの観察、プロダクトの思考、文化への気づき、そしてまだ考え切れていないけれど転がしてみる価値のある<strong>書きかけ</strong>。本当の思考は「よくわからない」から始まる——そう思う方は、この半分ちょっとの考えをのぞいてみてください。
+  </p>
+  {%- else %}
+  <h1>多半个<span class="mark">想法</span></h1>
+  <p class="hero-lede">
+    分享思考的过程，不是标准答案。商业观察、产品思考、文化洞见，以及那些还没想透但值得玩味的<strong>半成品</strong>。如果你相信真正的思考始于“我不太确定”，欢迎来看这些多半个想法。
+  </p>
+  {%- endif %}
+  <nav class="hero-tags" aria-label="{% if L == 'ja' %}カテゴリ{% else %}栏目{% endif %}">
+    {%- for t in site.data.topics %}
+    <a class="chip" href="#c={{ t[0] }}"><i class="dot t-{{ t[0] }}"></i>{{ t[1][L] }}</a>
+    {%- endfor %}
+  </nav>
+</section>
+
+<section class="about">
+  <div class="about-avatar">{% include monogram.html %}</div>
+  <div class="about-body">
+    {%- if L == 'ja' %}
+    <h2>著者について — {{ site.author_name }}</h2>
+    <p>Baidu、Microsoft、ByteDance、Alibaba でプロダクトと海外事業に携わり、2016 年と 2020 年にそれぞれ日本で起業。現在は <a href="https://www.ptmind.com" target="_blank" rel="noopener">Ptmind</a> に在籍しています。ここでは、AI が企業の現場に実際に根づいていく過程、日本市場での具体的な進め方、そしてプロダクトと組織の方法論を記録しています。書いているのはすべて自分が実際にぶつかったことで、概念論はしません。</p>
+    {%- else %}
+    <h2>关于作者 — {{ site.author_name }}</h2>
+    <p>在百度、微软、字节跳动、阿里巴巴做过产品与海外市场，2016 年与 2020 年分别自己在日本创业。现任职于 <a href="https://www.ptmind.com" target="_blank" rel="noopener">Ptmind</a>。这里记录 AI 在企业里真实落地的过程、日本市场的实际做法，以及产品与组织的方法论——写的都是自己踩过的，不谈概念。</p>
+    {%- endif %}
+  </div>
+</section>
+
+{% include entry-list.html lang=L lead=true filter=true %}
+
+<div class="browse">
+  <a class="w" href="{{ '/world-history/' | relative_url }}">
+    {%- if L == 'ja' %}
+    <div>世界史スイムレーン<span>紀元前 3500 年から現在まで、30 の文明を並べて見る（中国語）</span></div>
+    {%- else %}
+    <div>世界历史泳道<span>前 3500 年至今，30 个文明并排看</span></div>
+    {%- endif %}
+  </a>
+</div>

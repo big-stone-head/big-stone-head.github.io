@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% if page.title %}{{ page.title }} · {{ site.title }}{% else %}{{ site.title }} — {{ site.description }}{% endif %}</title>
+  <title>{% if page.title %}{{ page.title }} · {{ site.title }}{% elsif page.lang == 'ja' %}{{ site.title }} — AI 導入・日本市場・プロダクトと組織{% else %}{{ site.title }} — {{ site.description }}{% endif %}</title>
   <meta name="theme-color" content="#FFF7F3">
   <link rel="icon" href="{{ '/assets/favicon.svg' | relative_url }}" type="image/svg+xml">
   <link rel="apple-touch-icon" href="{{ '/assets/favicon.svg' | relative_url }}">
@@ -14,6 +14,30 @@
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
   <link rel="alternate" type="application/atom+xml" href="{{ '/feed.xml' | relative_url }}" title="{{ site.title }}">
   {% seo %}
+  {%- if page.root_redirect %}
+  <script>
+    // 根域名按语言跳转：读者在导航里手动选过的语言优先，其次看浏览器语言，都不是中日文就去中文
+    (function () {
+      var lang = null;
+      try { lang = localStorage.getItem('lang'); } catch (e) {}
+      if (lang !== 'zh' && lang !== 'ja') {
+        var list = navigator.languages || [navigator.language || ''];
+        lang = 'zh';
+        for (var i = 0; i < list.length; i++) {
+          var l = String(list[i]).toLowerCase();
+          if (l.indexOf('ja') === 0) { lang = 'ja'; break; }
+          if (l.indexOf('zh') === 0) { lang = 'zh'; break; }
+        }
+      }
+      location.replace('{{ "/" | relative_url }}' + lang + '/' + location.hash);
+    })();
+  </script>
+  {%- endif %}
+  {%- if page.home or page.root_redirect %}
+  <link rel="alternate" hreflang="zh" href="{{ '/zh/' | absolute_url }}">
+  <link rel="alternate" hreflang="ja" href="{{ '/ja/' | absolute_url }}">
+  <link rel="alternate" hreflang="x-default" href="{{ '/' | absolute_url }}">
+  {%- endif %}
   <script>
     // 在样式生效前定妥主题，避免刷新时闪屏
     (function () {
@@ -30,10 +54,12 @@
   <a class="skip-link" href="#main">跳到正文</a>
 
   <header class="site-header">
-    <a href="{{ '/' | relative_url }}" class="brand" aria-label="{{ site.title }} 首页">{% include brand.html %}</a>
+    {%- assign home_lang = page.lang | default: 'zh' -%}
+    {%- capture home_url -%}/{{ home_lang }}/{%- endcapture %}
+    <a href="{{ home_url | relative_url }}" class="brand" aria-label="{{ site.title }} 首页">{% include brand.html %}</a>
     <nav class="site-nav">
-      <a href="{{ '/zh/' | relative_url }}"{% if page.lang == 'zh' and page.layout != 'post' %} aria-current="page"{% endif %}>中文</a>
-      <a href="{{ '/ja/' | relative_url }}"{% if page.lang == 'ja' and page.layout != 'post' %} aria-current="page"{% endif %}>日本語</a>
+      <a href="{{ '/zh/' | relative_url }}" data-lang="zh"{% if page.lang == 'zh' and page.layout != 'post' %} aria-current="page"{% endif %}>中文</a>
+      <a href="{{ '/ja/' | relative_url }}" data-lang="ja"{% if page.lang == 'ja' and page.layout != 'post' %} aria-current="page"{% endif %}>日本語</a>
       <button class="theme-toggle" type="button" id="theme-toggle" aria-label="切换深色 / 浅色主题" title="切换深色 / 浅色主题">
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
           <circle cx="12" cy="12" r="4.2"/>
@@ -60,6 +86,12 @@
   </footer>
 
   <script>
+    // 读者在导航里点了语言，就记下来，下次从根域名进来直接去这个语言
+    document.querySelectorAll('.site-nav a[data-lang]').forEach(function (a) {
+      a.addEventListener('click', function () {
+        try { localStorage.setItem('lang', a.dataset.lang); } catch (e) {}
+      });
+    });
     (function () {
       var btn = document.getElementById('theme-toggle');
       if (!btn) return;

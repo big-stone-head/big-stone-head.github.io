@@ -37,7 +37,7 @@
 {%- if lim > 0 -%}{%- assign rows = rows | slice: 0, lim -%}{%- endif -%}
 
 {%- if include.filter -%}
-<div class="topic-filter" role="group" aria-label="{% if ulang == 'ja' %}カテゴリで絞り込む{% else %}按栏目筛选{% endif %}">
+<div class="topic-filter" id="topics" role="group" aria-label="{% if ulang == 'ja' %}カテゴリで絞り込む{% else %}按栏目筛选{% endif %}">
   <button type="button" data-topic="" aria-pressed="true">{% if ulang == 'ja' %}すべて{% else %}全部{% endif %}</button>
   {%- for t in site.data.topics %}
   <button type="button" data-topic="{{ t[0] }}" aria-pressed="false"><i class="dot t-{{ t[0] }}"></i>{{ t[1][ulang] }}</button>
@@ -48,7 +48,7 @@
 {%- comment -%} 头条：最新一篇，大字衬线标题 {%- endcomment -%}
 {%- if include.lead and rows.size > 0 -%}
   {%- assign f = rows[0] | split: '~|~' -%}
-  <article class="lead">
+  <article class="lead" data-topic="{{ f[4] }}">
     <p class="kicker">
       <span class="kicker-latest">最新</span>
       {%- assign tk = f[4] -%}{%- assign tl = site.data.topics[tk][ulang] -%}
@@ -119,7 +119,7 @@
 <script>
   (function () {
     var buttons = document.querySelectorAll('.topic-filter button');
-    var entries = document.querySelectorAll('.entry[data-topic]');
+    var entries = document.querySelectorAll('.entry[data-topic], .lead[data-topic]');
     var groups = document.querySelectorAll('.year-group');
     function apply(topic) {
       buttons.forEach(function (b) {
@@ -144,7 +144,12 @@
         apply(t);
       });
     });
-    window.addEventListener('hashchange', function () { apply(fromHash()); });
+    // 页首的栏目入口改的是 #c=…，这里接住并把筛选条滚进视野
+    window.addEventListener('hashchange', function () {
+      apply(fromHash());
+      var bar = document.getElementById('topics');
+      if (bar) bar.scrollIntoView({ block: 'start' });
+    });
     apply(fromHash());
   })();
 </script>

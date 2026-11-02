@@ -1,40 +1,13 @@
 ---
 layout: default
+lang: zh
+root_redirect: true
 ---
-<section class="hero">
-  <h1>多半个<span class="mark">想法</span></h1>
-  <p class="hero-lede">
-    分享思考的过程，不是标准答案。商业观察、产品思考、文化洞见，以及那些还没想透但值得玩味的<strong>半成品</strong>。如果你相信真正的思考始于“我不太确定”，欢迎来看这些多半个想法。
-  </p>
-  <nav class="hero-tags" aria-label="栏目">
-    {%- for t in site.data.topics %}
-    <a class="chip" href="{{ '/zh/' | relative_url }}#c={{ t[0] }}"><i class="dot t-{{ t[0] }}"></i>{{ t[1].zh }}</a>
-    {%- endfor %}
-  </nav>
+{%- comment -%}
+  根域名只做跳转：default 布局 head 里的脚本按「读者上次手动选的语言 → 浏览器语言」
+  跳到 /zh/ 或 /ja/。下面这块只在脚本被禁用时看得到。
+{%- endcomment -%}
+<section class="page-head">
+  <h1>{{ site.title }}</h1>
+  <p><a href="{{ '/zh/' | relative_url }}">中文</a> · <a href="{{ '/ja/' | relative_url }}">日本語</a></p>
 </section>
-
-<section class="about">
-  <div class="about-avatar">{% include monogram.html %}</div>
-  <div class="about-body">
-    <h2>关于作者 — {{ site.author_name }}</h2>
-    <p>在百度、微软、字节跳动、阿里巴巴做过产品与海外市场，2016 年与 2020 年分别自己在日本创业。现任职于 <a href="https://www.ptmind.com" target="_blank" rel="noopener">Ptmind</a>。这里记录 AI 在企业里真实落地的过程、日本市场的实际做法，以及产品与组织的方法论——写的都是自己踩过的，不谈概念。</p>
-  </div>
-</section>
-
-{% include entry-list.html limit=9 lead=true %}
-
-<div class="browse">
-  <a class="z" href="{{ '/zh/' | relative_url }}">
-    {%- assign zh_n = site.posts | where: 'lang', 'zh' | size -%}
-    {%- assign zh_a = site.data.articles | where: 'lang', 'zh' | size -%}
-    <div>中文文章<span>全部 {{ zh_n | plus: zh_a }} 篇</span></div>
-  </a>
-  <a class="j" href="{{ '/ja/' | relative_url }}">
-    {%- assign ja_n = site.posts | where: 'lang', 'ja' | size -%}
-    {%- assign ja_a = site.data.articles | where: 'lang', 'ja' | size -%}
-    <div>日本語記事<span>全 {{ ja_n | plus: ja_a }} 本</span></div>
-  </a>
-  <a class="w" href="{{ '/world-history/' | relative_url }}">
-    <div>世界历史泳道<span>前 3500 年至今，30 个文明并排看</span></div>
-  </a>
-</div>
