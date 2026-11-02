@@ -523,6 +523,7 @@ a:hover { color: var(--accent-ink); }
 .browse a:hover::after { transform: translateX(4px); }
 .browse a.z:hover { background: var(--c-sky); }
 .browse a.j:hover { background: var(--c-sage); }
+.browse a.w:hover { background: var(--c-sand); }
 .browse a > div { display: grid; gap: .15rem; }
 
 /* --------------------------------------------------------------------------

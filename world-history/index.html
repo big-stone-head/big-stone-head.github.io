@@ -1,0 +1,632 @@
+---
+layout: null
+---
+{% raw %}<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="前3500年至今 30 个国家与地区的历史泳道与地球仪：中国置顶作参照，看任意一年的全世界、历代疆域与文明之间的传播。">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font-size:14px;font-family:system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>世界历史泳道</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;800&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<style>
+/* 布局：一屏应用。顶栏（标题＋读数＋工具），下面整块是 canvas 泳道图；中国泳道固定在时间轴下方作参照；右侧抽屉看详情 */
+:root{
+  --bg:#f4f6f5; --surface:#ffffff; --sunk:#e9edeb; --line:#d3dad7; --fg:#1b2420; --muted:#5d6b65; --faint:#9aa7a1;
+  --accent:#1f6f6b; --accent-soft:#d6ebe8; --pin:#eef6f4;
+  --d-politics:#2f6aa3; --d-economy:#c27d0e; --d-money:#5f8f1f; --d-tech:#14918d; --d-culture:#8250c4; --d-war:#c42f4b; --d-society:#9a5f40;
+  --t-spread:#14918d; --t-conquest:#c42f4b; --t-trade:#c27d0e; --t-migration:#9a5f40; --t-money:#5f8f1f; --t-diplomacy:#2f6aa3;
+  --pol-l:84; --pol-s:30; --era:#dfe3e1; --ocean:#d7e6ec; --land:#ebe9e1; --grat:#c3d5dc; --border:rgb(30 40 36/.35);
+  --serif:"Noto Serif SC","Songti SC","STSong",serif;
+  --sans:"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ocean:#0e1c23; --land:#252e2a; --grat:#1b2b33; --border:rgb(0 0 0/.55); --bg:#121816; --surface:#1a2220; --sunk:#202a27; --line:#2f3b37; --fg:#e4ebe8; --muted:#9aaba4; --faint:#5f6e68;
+  --accent:#5cc2b9; --accent-soft:#1d3a37; --pin:#16211f;
+  --d-politics:#6aa4e0; --d-economy:#e3a63c; --d-money:#93c255; --d-tech:#43c4bf; --d-culture:#b18cf0; --d-war:#ef6b83; --d-society:#cf9372;
+  --t-spread:#43c4bf; --t-conquest:#ef6b83; --t-trade:#e3a63c; --t-migration:#cf9372; --t-money:#93c255; --t-diplomacy:#6aa4e0;
+  --pol-l:27; --pol-s:24; --era:#26302d; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --ocean:#0e1c23; --land:#252e2a; --grat:#1b2b33; --border:rgb(0 0 0/.55); --bg:#121816; --surface:#1a2220; --sunk:#202a27; --line:#2f3b37; --fg:#e4ebe8; --muted:#9aaba4; --faint:#5f6e68;
+  --accent:#5cc2b9; --accent-soft:#1d3a37; --pin:#16211f;
+  --d-politics:#6aa4e0; --d-economy:#e3a63c; --d-money:#93c255; --d-tech:#43c4bf; --d-culture:#b18cf0; --d-war:#ef6b83; --d-society:#cf9372;
+  --t-spread:#43c4bf; --t-conquest:#ef6b83; --t-trade:#e3a63c; --t-migration:#cf9372; --t-money:#93c255; --t-diplomacy:#6aa4e0;
+  --pol-l:27; --pol-s:24; --era:#26302d; color-scheme:dark}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);display:flex;flex-direction:column;overflow:hidden}
+header{background:var(--surface);border-bottom:1px solid var(--line);padding-block:10px 8px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:8px}
+.top{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;min-width:0}
+.tabs{display:inline-flex;border:1px solid var(--line);border-radius:8px;padding:2px;background:var(--sunk);gap:2px}
+.tabs button{border:0;background:none;padding:3px 12px;border-radius:6px;cursor:pointer;font-size:13px;color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--fg);font-weight:600;box-shadow:0 1px 2px rgb(0 0 0/.12)}
+#globe{position:absolute;inset:0}
+#gl{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab;display:block}
+.gbar{position:absolute;left:0;right:0;bottom:0;display:flex;gap:10px;align-items:center;padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));background:var(--surface);border-top:1px solid var(--line);font-size:12.5px}
+.gbar input[type=range]{flex:1;min-width:0;accent-color:var(--accent)}
+#gyl{font-family:var(--serif);font-weight:800;font-size:16px;min-width:76px;font-variant-numeric:tabular-nums}
+.gnote{position:absolute;top:10px;left:max(16px,env(safe-area-inset-left,0px));font-size:11.5px;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:5px 8px;max-width:min(360px,70%);line-height:1.5}
+.gnote a{color:var(--accent)}
+h1{font-family:var(--serif);font-weight:800;font-size:20px;margin:0;letter-spacing:.04em;white-space:nowrap}
+#readout{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:0;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#readout b{color:var(--fg);font-weight:600}
+#readout .cn{color:var(--accent);font-weight:600}
+.tools{display:flex;gap:6px 14px;flex-wrap:wrap;align-items:center;font-size:12.5px}
+.grp{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+.grp>span.lbl{color:var(--faint);letter-spacing:.08em;margin-right:2px}
+button,select,input{font:inherit;color:var(--fg)}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:3px 9px 3px 7px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;line-height:1.3}
+.chip i{width:8px;height:8px;border-radius:50%;background:var(--c);display:inline-block}
+.chip[aria-pressed="false"]{opacity:.42}
+.chip[aria-pressed="false"] i{background:transparent;border:1.5px solid var(--c);width:5px;height:5px}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:3px 9px;cursor:pointer}
+.btn[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+select{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:3px 6px;max-width:150px}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.search{position:relative}
+#q{border:1px solid var(--line);background:var(--bg);border-radius:6px;padding:4px 8px;width:170px}
+#results{position:absolute;top:calc(100% + 4px);left:0;width:min(360px,80vw);max-height:60vh;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:0 8px 28px rgb(0 0 0/.18);z-index:30}
+#results button{display:block;width:100%;text-align:left;border:0;background:none;padding:7px 10px;cursor:pointer;border-bottom:1px solid var(--line)}
+#results button:hover,#results button:focus-visible{background:var(--accent-soft)}
+#results small{color:var(--muted);margin-left:6px}
+main{flex:1;position:relative;min-height:0}
+#cv{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab;display:block}
+#cv.drag{cursor:grabbing}
+#tip{position:fixed;pointer-events:none;background:var(--fg);color:var(--bg);font-size:12px;padding:5px 8px;border-radius:5px;max-width:280px;z-index:40;line-height:1.45}
+#loading{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-size:14px}
+aside{position:absolute;top:0;right:0;bottom:0;width:min(400px,100%);background:var(--surface);border-left:1px solid var(--line);box-shadow:-10px 0 30px rgb(0 0 0/.08);overflow:auto;z-index:20;
+  padding-block:16px 28px;padding-left:20px;padding-right:max(20px,env(safe-area-inset-right,0px))}
+aside .close{position:sticky;top:0;float:right;border:1px solid var(--line);background:var(--surface);border-radius:6px;width:30px;height:30px;cursor:pointer;font-size:16px;line-height:1}
+.kicker{font-size:12px;color:var(--muted);letter-spacing:.06em;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.dimtag{display:inline-flex;align-items:center;gap:4px;color:var(--c);font-weight:600}
+.dimtag::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c)}
+aside h2{font-family:var(--serif);font-size:22px;line-height:1.3;margin:6px 0 10px;text-wrap:balance}
+aside h3{font-size:12px;color:var(--faint);letter-spacing:.1em;margin:20px 0 6px;font-weight:600}
+aside p{line-height:1.75;margin:0 0 10px;font-size:14px}
+.lead{font-size:15px;font-weight:500}
+.databox{background:var(--sunk);border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.6;font-variant-numeric:tabular-nums}
+.src{font-size:12px;color:var(--muted);line-height:1.6}
+.note{font-size:12.5px;color:var(--muted);border-left:2px solid var(--line);padding-left:8px;line-height:1.6}
+.list{display:grid;gap:2px}
+.item{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:baseline;border:0;background:none;text-align:left;padding:5px 6px;border-radius:5px;cursor:pointer;font-size:13px;line-height:1.5}
+.item:hover,.item:focus-visible{background:var(--sunk)}
+.item .y{color:var(--muted);font-variant-numeric:tabular-nums;font-size:12px;white-space:nowrap}
+.item .t{min-width:0}
+.item .t em{font-style:normal;color:var(--muted)}
+.slice-lane{border-top:1px solid var(--line);padding-top:8px;margin-top:8px}
+.slice-lane .ln{font-weight:600;font-size:13px}
+.slice-lane .pol{color:var(--accent);font-size:13px;margin-left:6px}
+.slice-lane .st{color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
+.swatch{display:inline-block;width:14px;height:3px;border-radius:2px;background:var(--c);vertical-align:middle;margin-right:4px}
+body.globe-on aside{bottom:57px}
+footer{font-size:11.5px;color:var(--faint);padding-block:4px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));border-top:1px solid var(--line);background:var(--surface);display:flex;gap:14px;flex-wrap:wrap}
+footer span{white-space:nowrap}
+@media (max-width:640px){.tools{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin} .grp{flex-wrap:nowrap;flex:none} .search{flex:none} #results{position:fixed;top:120px;left:16px} #q{width:120px} h1{font-size:17px} .tools{font-size:12px} .hide-sm{display:none}
+  aside{top:auto;height:62%;width:100%;border-left:0;border-top:1px solid var(--line);border-radius:12px 12px 0 0;padding-bottom:max(28px,env(safe-area-inset-bottom,0px))}}
+</style>
+</head>
+<body>
+
+
+<header>
+  <div class="top">
+    <h1>世界历史泳道</h1>
+    <div class="tabs" role="tablist"><button id="tabLane" role="tab" aria-selected="true">泳道</button><button id="tabGlobe" role="tab" aria-selected="false">地球仪</button></div>
+    <div id="readout">移动鼠标查看某一年；点时间轴看「这一年的世界」</div>
+  </div>
+  <div class="tools">
+    <div class="grp" id="dims" role="group" aria-label="维度"><span class="lbl">维度</span></div>
+    <div class="grp"><span class="lbl">图层</span>
+      <button class="btn" id="bLinks" aria-pressed="true" title="跨地区影响的弧线">影响</button>
+      <button class="btn" id="bRoutes" aria-pressed="false" title="贸易路线与交流网络">路线</button>
+      <select id="sStats" aria-label="数据曲线"><option value="">数据曲线：关</option><option value="pop">人口（对数）</option><option value="gdppc">人均 GDP（对数）</option></select>
+      <select id="sTrace" aria-label="传播追踪"><option value="">追踪一样东西…</option></select>
+    </div>
+    <div class="grp"><span class="lbl">视图</span>
+      <select id="sEra" aria-label="跳到时代">
+        <option value="">跳到时代…</option>
+        <option value="-3600,2030">全览</option>
+        <option value="-3600,-1000">早期文明</option>
+        <option value="-900,-150">轴心时代</option>
+        <option value="-350,650">古典帝国</option>
+        <option value="500,1500">中古</option>
+        <option value="1200,1400">蒙古时代</option>
+        <option value="1450,1800">大航海与近代早期</option>
+        <option value="1780,1914">革命与工业化</option>
+        <option value="1900,1950">两次世界大战</option>
+        <option value="1945,2026">冷战与当代</option>
+      </select>
+      <select id="sScale" aria-label="时间刻度"><option value="hist">历史比例</option><option value="lin">等比例</option></select>
+      <button class="btn" id="zIn" aria-label="放大">＋</button><button class="btn" id="zOut" aria-label="缩小">－</button>
+      <button class="btn hide-sm" id="bCollapse">收起全部地区</button>
+    </div>
+    <div class="search"><input id="q" type="search" placeholder="搜事件、政权…" autocomplete="off" aria-label="搜索"><div id="results" hidden></div></div>
+  </div>
+</header>
+<main id="stage">
+  <canvas id="cv" tabindex="0" aria-label="世界历史泳道图"></canvas>
+  <div id="loading">正在载入史料…</div>
+  <div id="globe" hidden><canvas id="gl" aria-label="历史地球仪"></canvas>
+    <div class="gnote"><span id="gSnap"></span><br>拖动旋转 · 滚轮或双指缩放 · 点疆域或事件看详情。疆域为近似，来自 <a href="https://github.com/aourednik/historical-basemaps" target="_blank" rel="noopener">historical-basemaps</a>（GPL-3.0）。为避免显示「未来」的疆域，总是取不晚于当前年份的最近切片。</div>
+    <div class="gbar"><span id="gyl">—</span><button class="btn" id="gPrev" title="上一个疆域切片">◀</button><input id="gy" type="range" min="0" max="1000" step="0.5" aria-label="年份"><button class="btn" id="gNext" title="下一个疆域切片">▶</button><button class="btn" id="gPlay">▶ 播放</button></div></div>
+  <aside id="panel" hidden></aside>
+</main>
+<footer id="foot"><span>拖动平移 · 滚轮上下翻 · Ctrl/⌘＋滚轮、双击或双指缩放 · 越放大越详细，影响弧线放大后出现 · 点事件看与它相关的影响 · 点空白处看那一年的世界</span><span id="stat"></span></footer>
+<div id="tip" hidden></div>
+
+<script>
+(()=>{
+"use strict";
+const $=s=>document.querySelector(s);
+const cv=$("#cv"), ctx=cv.getContext("2d"), stage=$("#stage"), panel=$("#panel"), tip=$("#tip");
+let D=null, T={}, W=0, H=0, dpr=1, LW=132;
+const AXIS_H=34;
+const S={k:1,u0:0,scroll:0,scale:"hist",dims:new Set(),links:true,routes:false,stats:"",trace:"",collapsed:new Set(),sel:null,slice:null,hoverX:null,flash:null,flashUntil:0};
+
+/* ---------- 时间刻度：历史比例下越古越压缩 ---------- */
+const BP=[-3600,-1000,-500,500,1500,1800,2030];
+const WH=[0.04,0.07,0.1,0.12,0.3,0.6], WL=[1,1,1,1,1,1];
+let WS=WH, CUM=[];
+function setScale(m){S.scale=m;WS=m==="hist"?WH:WL;CUM=[0];for(let i=0;i<WS.length;i++)CUM.push(CUM[i]+(BP[i+1]-BP[i])*WS[i]);}
+function U(y){if(y<=BP[0])return (y-BP[0])*WS[0];for(let i=0;i<WS.length;i++)if(y<=BP[i+1])return CUM[i]+(y-BP[i])*WS[i];return CUM[WS.length]+(y-BP[BP.length-1])*WS[WS.length-1];}
+function YU(u){if(u<=0)return BP[0]+u/WS[0];for(let i=0;i<WS.length;i++)if(u<=CUM[i+1])return BP[i]+(u-CUM[i])/WS[i];return BP[BP.length-1]+(u-CUM[WS.length])/WS[WS.length-1];}
+function wAt(y){for(let i=0;i<WS.length;i++)if(y<BP[i+1])return WS[i];return WS[WS.length-1];}
+const X=y=>LW+(U(y)-S.u0)*S.k;
+const yearAt=x=>YU((x-LW)/S.k+S.u0);
+const dens=y=>S.k*wAt(y);
+const UMAX=()=>CUM[WS.length];
+function fit(a,b){const vw=W-LW;S.k=vw/(U(b)-U(a));S.u0=U(a);clampView();}
+function kBounds(){const vw=W-LW;return [vw/(UMAX()*1.02),60/Math.min(...WS)*(S.scale==="hist"?0.6:1)];}
+function clampView(){const [kmin,kmax]=kBounds();S.k=Math.min(kmax,Math.max(kmin,S.k));const vwU=(W-LW)/S.k;S.u0=Math.min(UMAX()-vwU*0.5,Math.max(-vwU*0.5,S.u0));}
+function zoomAt(x,f){const uc=S.u0+(x-LW)/S.k;S.k*=f;clampView();S.u0=uc-(x-LW)/S.k;clampView();draw();}
+
+/* ---------- 文字工具 ---------- */
+const fy=(y,a)=>(a?"约":"")+(y<0?`前${-y}年`:`${y}年`);
+const fr=(a,b,ap)=>b==null||b===a?fy(a,ap):`${fy(a,ap)}—${b<0?`前${-b}年`:`${b}年`}`;
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const MC=new Map();
+function tw(t,font){const key=font+"|"+t;let w=MC.get(key);if(w==null){ctx.font=font;w=ctx.measureText(t).width;MC.set(key,w);}return w;}
+const SANS='"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif';
+const F=(s,b)=>`${b?"600 ":""}${s}px ${SANS}`;
+
+/* ---------- 主题 ---------- */
+function readTheme(){const cs=getComputedStyle(document.documentElement);const g=n=>cs.getPropertyValue(n).trim();
+  T={bg:g("--bg"),surface:g("--surface"),sunk:g("--sunk"),line:g("--line"),fg:g("--fg"),muted:g("--muted"),faint:g("--faint"),accent:g("--accent"),accentSoft:g("--accent-soft"),pin:g("--pin"),era:g("--era"),polL:+g("--pol-l"),polS:+g("--pol-s"),dark:g("color-scheme")==="dark"||+g("--pol-l")<50};
+  T.dim={};for(const d of ["politics","economy","money","tech","culture","war","society"])T.dim[d]=g("--d-"+d);
+  T.type={};for(const t of ["spread","conquest","trade","migration","money","diplomacy"])T.type[t]=g("--t-"+t);
+  if(D)colorPolities();}
+const DIMNAME={politics:"政治与制度",economy:"经济与贸易",money:"货币与金融",tech:"技术与科学",culture:"文化宗教思想",war:"战争与军事",society:"人口与社会"};
+const TYPENAME={spread:"传播",conquest:"征服与战争",trade:"贸易",migration:"迁移",money:"资金流动",diplomacy:"外交"};
+const ROUTEC=["#b5651d","#2f6aa3","#8250c4","#14918d","#c42f4b","#5f8f1f","#9a5f40","#c27d0e"];
+
+/* ---------- 数据准备 ---------- */
+let SN={}, LANE={}, ORDER=[], REGION_OF={}, POL=[], EV=[], LK=[], TR=[], RT=[], ST={}, STR={}, LANEDATA={};
+function prep(){
+  for(const r of D.regions)for(const l of r.lanes){LANE[l.id]=l;REGION_OF[l.id]=r.id;}
+  POL=D.polities;EV=D.events;LK=D.links;TR=D.traces||[];RT=(D.routes||[]).map((r,i)=>({...r,color:ROUTEC[i%ROUTEC.length]}));
+  ST=(D.stats&&D.stats.values)||{};SN=(D.stats&&D.stats.notes)||{};
+  for(const id in LANE)LANEDATA[id]={era:[],band:[],ev:[],rows:1,routes:[]};
+  for(const p of POL){const L=LANEDATA[p.lane];if(!L)continue;(p.level===1?L.era:L.band).push(p);}
+  for(const id in LANEDATA){const L=LANEDATA[id];L.band.sort((a,b)=>a.level-b.level||a.start-b.start);const ends=[];
+    for(const p of L.band){let r=ends.findIndex(e=>e<=p.start);if(r<0){r=ends.length;if(r>=4)r=3;}ends[r]=Math.max(ends[r]??-1e9,p.end);p.row=r;}
+    L.rows=Math.max(1,Math.min(4,ends.length));L.era.sort((a,b)=>a.start-b.start);}
+  for(const e of EV)LANEDATA[e.lane]?.ev.push(e);
+  for(const id in LANEDATA)LANEDATA[id].ev.sort((a,b)=>a.level-b.level||a.year-b.year);
+  RT.forEach((r,i)=>(r.lanes||[]).forEach(l=>LANEDATA[l]?.routes.push(r)));
+  for(const id in LANEDATA)LANEDATA[id].routes.forEach((r,i)=>r["slot_"+id]=i);
+  // 统计：对数刻度
+  for(const s of ["pop","gdppc"]){let lo=Infinity,hi=-Infinity;for(const id in ST)for(const [y,v] of (ST[id][s]||[]))if(v>0){lo=Math.min(lo,Math.log(v));hi=Math.max(hi,Math.log(v));}STR[s]=[lo,hi];}
+  colorPolities();
+}
+function colorPolities(){const ids=Object.keys(LANE);
+  for(const id of ids){const L=LANEDATA[id];if(!L)continue;const base=(ids.indexOf(id)*47)%360;
+    L.era.forEach((p,i)=>p.fill=p.kind==="era"?T.era:`hsl(${(base+i*23)%360} ${T.polS*0.7}% ${T.dark?T.polL-5:T.polL+4}%)`);
+    L.band.forEach((p,i)=>p.fill=p.kind==="era"?T.era:`hsl(${(base+i*61)%360} ${p.kind==="colonial"?T.polS*0.4:T.polS}% ${T.polL+(i%2?0:(T.dark?4:-5))}%)`);}}
+function interp(arr,y){if(!arr||!arr.length||y<arr[0][0]||y>arr[arr.length-1][0])return null;
+  for(let i=0;i<arr.length-1;i++){const [y0,v0]=arr[i],[y1,v1]=arr[i+1];if(y>=y0&&y<=y1){if(!(v0>0&&v1>0))return null;const t=(y-y0)/(y1-y0||1);return Math.exp(Math.log(v0)+(Math.log(v1)-Math.log(v0))*t);}}
+  return arr[arr.length-1][1];}
+const fnum=(v,s)=>s==="pop"?(v>=100?Math.round(v):v>=10?v.toFixed(1):v.toFixed(2))+" 百万人":Math.round(v).toLocaleString()+" 国际元";
+
+/* ---------- 布局 ---------- */
+const laneH=id=>17+LANEDATA[id].rows*15+1+44;
+const PIN="china";
+let ROWS=[], TOTAL=0, PIN_H=0;
+function layout(){ROWS=[];let y=0;PIN_H=laneH(PIN)+2;
+  for(const r of D.regions){ROWS.push({t:"region",r,y,h:22});y+=22;
+    if(S.collapsed.has(r.id)){ROWS.push({t:"rlane",r,y,h:36});y+=36;}
+    else for(const l of r.lanes){if(l.id===PIN)continue;const h=laneH(l.id);ROWS.push({t:"lane",id:l.id,y,h});y+=h;}}
+  TOTAL=y;S.scroll=Math.max(0,Math.min(S.scroll,TOTAL-(H-AXIS_H-PIN_H)+20));}
+const top0=()=>AXIS_H+PIN_H;
+function laneCenter(id){if(id===PIN)return AXIS_H+PIN_H/2;
+  for(const r of ROWS){if(r.t==="lane"&&r.id===id)return top0()+r.y-S.scroll+r.h/2;if(r.t==="rlane"&&r.r.id===REGION_OF[id])return top0()+r.y-S.scroll+r.h/2;}return null;}
+function laneTop(id){if(id===PIN)return AXIS_H;for(const r of ROWS)if(r.t==="lane"&&r.id===id)return top0()+r.y-S.scroll;return null;}
+
+/* ---------- 绘制 ---------- */
+let HITS=[], raf=0;
+function draw(){if(typeof G!=="undefined"&&G.on){gdraw();return;}if(!raf)raf=requestAnimationFrame(render);}
+function ticks(){const out=[];const a=yearAt(LW),b=yearAt(W);const steps=[1,2,5,10,20,25,50,100,200,250,500,1000];
+  const pick=y=>steps.find(s=>s*dens(y)>=86)||1000;let lastX=-1e9;let s=pick(a);let t=Math.ceil(a/s)*s;let guard=0;
+  while(t<=b&&guard++<400){if(t!==0&&X(t)-lastX>=58){out.push({y:t,x:X(t),major:t%(s*5)===0});lastX=X(t);}const ns=pick(t);s=ns;t=Math.floor(t/s)*s+s;}
+  return out;}
+function render(){raf=0;if(!D)return;HITS=[];
+  ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle=T.bg;ctx.fillRect(0,0,W,H);
+  const tk=ticks();const dim=S.trace?0.28:1;
+  // 滚动区
+  ctx.save();ctx.beginPath();ctx.rect(0,top0(),W,H-top0());ctx.clip();
+  grid(tk,top0(),H);
+  ctx.globalAlpha=dim;
+  for(const r of ROWS){const y=top0()+r.y-S.scroll;if(y>H||y+r.h<top0())continue;
+    if(r.t==="region"){ctx.fillStyle=T.sunk;ctx.fillRect(LW,y,W-LW,r.h);continue;}
+    if(r.t==="rlane"){drawCollapsed(r.r,y,r.h);continue;}
+    drawLane(r.id,y,r.h,false);}
+  ctx.globalAlpha=1;ctx.restore();
+  // 置顶中国
+  ctx.save();ctx.beginPath();ctx.rect(0,AXIS_H,W,PIN_H);ctx.clip();ctx.fillStyle=T.pin;ctx.fillRect(0,AXIS_H,W,PIN_H);grid(tk,AXIS_H,AXIS_H+PIN_H);
+  ctx.globalAlpha=dim;drawLane(PIN,AXIS_H,PIN_H-2,true);ctx.globalAlpha=1;ctx.restore();
+  ctx.fillStyle=T.accent;ctx.fillRect(LW,AXIS_H+PIN_H-2,W-LW,2);
+  // 覆盖层
+  ctx.save();ctx.beginPath();ctx.rect(LW,AXIS_H,W-LW,H-AXIS_H);ctx.clip();
+  if(S.links)drawLinks();
+  if(S.trace)drawTrace();
+  if(S.slice!=null){const x=X(S.slice);ctx.strokeStyle=T.accent;ctx.lineWidth=2;ctx.setLineDash([]);ctx.beginPath();ctx.moveTo(x,AXIS_H);ctx.lineTo(x,H);ctx.stroke();}
+  if(S.hoverX!=null&&S.hoverX>LW){ctx.strokeStyle=T.faint;ctx.lineWidth=1;ctx.setLineDash([3,4]);ctx.beginPath();ctx.moveTo(S.hoverX+.5,AXIS_H);ctx.lineTo(S.hoverX+.5,H);ctx.stroke();ctx.setLineDash([]);}
+  ctx.restore();
+  labels();axis(tk);
+  if(S.flash&&performance.now()<S.flashUntil)draw();}
+function grid(tk,y0,y1){ctx.lineWidth=1;for(const t of tk){ctx.strokeStyle=t.major?T.line:T.sunk;ctx.beginPath();ctx.moveTo(Math.round(t.x)+.5,y0);ctx.lineTo(Math.round(t.x)+.5,y1);ctx.stroke();}}
+function axis(tk){ctx.fillStyle=T.surface;ctx.fillRect(0,0,W,AXIS_H);ctx.fillStyle=T.line;ctx.fillRect(0,AXIS_H-1,W,1);
+  ctx.save();ctx.beginPath();ctx.rect(LW,0,W-LW,AXIS_H);ctx.clip();
+  ctx.font=F(11.5);ctx.textBaseline="middle";ctx.textAlign="center";
+  for(const t of tk){ctx.fillStyle=t.major?T.fg:T.muted;ctx.fillText(t.y<0?`前${-t.y}`:`${t.y}`,t.x,AXIS_H/2+1);ctx.fillStyle=T.line;ctx.fillRect(Math.round(t.x),AXIS_H-5,1,4);}
+  if(S.scale==="hist")for(let i=1;i<BP.length-1;i++){const x=X(BP[i]);if(x>LW&&x<W){ctx.fillStyle=T.accent;ctx.globalAlpha=.5;ctx.fillRect(x-.5,AXIS_H-3,1,3);ctx.globalAlpha=1;}}
+  if(S.hoverX!=null&&S.hoverX>LW){const y=Math.round(yearAt(S.hoverX));const s=y<=0?`前${1-y}年`:`${y}年`;ctx.font=F(12,1);const w=tw(s,F(12,1))+12;
+    ctx.fillStyle=T.fg;ctx.fillRect(S.hoverX-w/2,5,w,AXIS_H-10);ctx.fillStyle=T.bg;ctx.fillText(s,S.hoverX,AXIS_H/2+1);}
+  ctx.restore();
+  ctx.fillStyle=T.surface;ctx.fillRect(0,0,LW,AXIS_H);ctx.font=F(11);ctx.fillStyle=T.faint;ctx.textAlign="left";ctx.fillText(S.scale==="hist"?(W<640?"历史比例":"历史比例 · 越古越压缩"):"等比例",10,AXIS_H/2+1);}
+function labels(){ctx.fillStyle=T.surface;ctx.fillRect(0,AXIS_H,LW,H-AXIS_H);ctx.fillStyle=T.line;ctx.fillRect(LW-1,AXIS_H,1,H-AXIS_H);
+  ctx.textAlign="left";ctx.textBaseline="middle";
+  // 中国
+  ctx.fillStyle=T.pin;ctx.fillRect(0,AXIS_H,LW-1,PIN_H);ctx.fillStyle=T.accent;ctx.fillRect(0,AXIS_H,3,PIN_H);
+  ctx.font=`800 16px ${getComputedStyle(document.documentElement).getPropertyValue("--serif")}`;ctx.fillStyle=T.fg;ctx.fillText("中国",12,AXIS_H+PIN_H/2-7);
+  ctx.font=F(11);ctx.fillStyle=T.accent;ctx.fillText("参照泳道",12,AXIS_H+PIN_H/2+12);
+  ctx.save();ctx.beginPath();ctx.rect(0,top0(),LW,H-top0());ctx.clip();
+  for(const r of ROWS){const y=top0()+r.y-S.scroll;if(y>H||y+r.h<top0())continue;
+    if(r.t==="region"){ctx.fillStyle=T.sunk;ctx.fillRect(0,y,LW-1,r.h);ctx.font=F(12,1);ctx.fillStyle=T.muted;
+      ctx.fillText((S.collapsed.has(r.r.id)?"▸ ":"▾ ")+r.r.name,8,y+r.h/2+1);HITS.push({x0:0,y0:y,x1:LW,y1:y+r.h,k:"region",ref:r.r});continue;}
+    if(r.t==="rlane"){ctx.font=F(11);ctx.fillStyle=T.faint;ctx.fillText(`${r.r.lanes.filter(l=>l.id!==PIN).length} 条泳道已收起`,12,y+r.h/2);HITS.push({x0:0,y0:y,x1:LW,y1:y+r.h,k:"region",ref:r.r});continue;}
+    const l=LANE[r.id];ctx.font=F(13,1);ctx.fillStyle=T.fg;wrapLabel(l.name,12,y+r.h/2,LW-18);
+    ctx.fillStyle=T.line;ctx.fillRect(0,y+r.h-1,LW,1);}
+  ctx.restore();}
+function wrapLabel(s,x,yc,maxw){const f=F(13,1);if(tw(s,f)<=maxw){ctx.fillText(s,x,yc);return;}
+  let a="",i=0;for(;i<s.length;i++){if(tw(a+s[i],f)>maxw)break;a+=s[i];}ctx.fillText(a,x,yc-8);ctx.fillText(s.slice(i),x,yc+9);}
+const lvOK=(lv,d)=>lv===1||(lv===2&&d>=0.45)||(lv===3&&d>=2.2);
+function drawLane(id,y,h,pinned){const L=LANEDATA[id];const x0=LW,x1=W;
+  ctx.fillStyle=T.line;if(!pinned)ctx.fillRect(LW,y+h-1,W-LW,1);
+  // 时代条
+  ctx.textBaseline="middle";
+  for(const p of L.era){const a=Math.max(x0,X(p.start)),b=Math.min(x1,X(p.end));if(b<=a)continue;
+    ctx.fillStyle=p.fill;ctx.fillRect(a,y+3,b-a-1,12);polLabel(p,a,b,y+3,12,10.5);HITS.push({x0:a,y0:y+3,x1:b,y1:y+15,k:"pol",ref:p});}
+  for(const p of L.band){if(p.level===3&&dens((p.start+p.end)/2)<0.5)continue;const a=Math.max(x0,X(p.start)),b=Math.min(x1,X(p.end));if(b<=a)continue;
+    const yy=y+17+p.row*15;ctx.fillStyle=p.fill;ctx.fillRect(a,yy,Math.max(1,b-a-1),13);
+    if(p.kind==="colonial"){ctx.strokeStyle=T.faint;ctx.setLineDash([3,3]);ctx.strokeRect(a+.5,yy+.5,b-a-2,12);ctx.setLineDash([]);}
+    polLabel(p,a,b,yy,13,11.5);HITS.push({x0:a,y0:yy,x1:b,y1:yy+13,k:"pol",ref:p});}
+  const T0=y+17+L.rows*15+1;
+  if(S.stats)drawStat(id,T0,40);
+  // 路线条
+  if(S.routes)for(const r of L.routes){const a=Math.max(x0,X(r.start)),b=Math.min(x1,X(r.end));if(b<=a)continue;const yy=y+h-4-(r["slot_"+id]%6)*4;
+    ctx.fillStyle=r.color;ctx.globalAlpha*=.75;ctx.fillRect(a,yy,b-a,3);ctx.globalAlpha=S.trace?.28:1;HITS.push({x0:a,y0:yy-2,x1:b,y1:yy+5,k:"route",ref:r});}
+  // 事件
+  const occ=[[],[]];const vis=[];
+  for(const e of L.ev){if(!S.dims.has(e.dim))continue;const d=dens(e.year);if(!lvOK(e.level,d))continue;const x=X(e.year);if(x<x0-200||x>x1+4)continue;vis.push(e);}
+  const fl=S.flash;if(fl)vis.sort((a,b)=>(b===fl)-(a===fl));
+  for(const e of vis){const x=X(e.year);
+    if(e.end!=null&&e.end>e.year){const xe=Math.min(x1,X(e.end));if(xe-x>3){ctx.fillStyle=T.dim[e.dim];ctx.globalAlpha*=.28;ctx.fillRect(Math.max(x0,x),T0+36,xe-Math.max(x0,x),3);ctx.globalAlpha=S.trace?.28:1;}}
+    const f=F(e.level===3?11.5:12.5,e.level===1);const w=tw(e.title,f)+12;let row=-1;
+    for(let r=0;r<2;r++){if(x<x0-2)break;if(occ[r].every(([a,b])=>x+w+6<a||x-4>b)){row=r;break;}}
+    const sel=S.sel&&S.sel.k==="event"&&S.sel.ref===e;
+    if(row<0){if(x>=x0){ctx.fillStyle=T.dim[e.dim];ctx.beginPath();ctx.arc(x,T0+37.5,2,0,7);ctx.fill();HITS.push({x0:x-4,y0:T0+33,x1:x+4,y1:T0+42,k:"event",ref:e});}continue;}
+    occ[row].push([x-4,x+w]);const cy=T0+8+row*15;
+    ctx.fillStyle=T.dim[e.dim];ctx.beginPath();ctx.arc(x,cy,e.level===1?4.5:3.5,0,7);ctx.fill();
+    if(e.level===1){ctx.strokeStyle=T.bg;ctx.lineWidth=1.5;ctx.stroke();}
+    if(sel||e===fl){ctx.strokeStyle=T.fg;ctx.lineWidth=2;ctx.beginPath();ctx.arc(x,cy,7,0,7);ctx.stroke();}
+    ctx.font=f;ctx.fillStyle=e.level===3?T.muted:T.fg;ctx.textAlign="left";ctx.fillText(e.title,x+7,cy+.5);
+    HITS.push({x0:x-5,y0:cy-7,x1:x+w,y1:cy+7,k:"event",ref:e});}}
+function polLabel(p,a,b,y,h,size){const f=F(size,p.level<=2);const t=p.name;const w=tw(t,f);if(b-a<w+8)return;
+  ctx.font=f;ctx.fillStyle=T.fg;ctx.globalAlpha*=.85;ctx.textAlign="left";const cx=Math.max(a+4,Math.min((a+b)/2-w/2,b-w-4));ctx.fillText(t,Math.max(LW+4,cx),y+h/2+.5);ctx.globalAlpha=S.trace?.28:1;}
+function drawCollapsed(r,y,h){ctx.fillStyle=T.line;ctx.fillRect(LW,y+h-1,W-LW,1);const occ=[];
+  for(const l of r.lanes){if(l.id===PIN)continue;for(const e of LANEDATA[l.id].ev){if(e.level!==1||!S.dims.has(e.dim))continue;const x=X(e.year);if(x<LW||x>W)continue;
+    const t=`${LANE[l.id].name}·${e.title}`;const f=F(11.5);const w=tw(t,f)+10;
+    ctx.fillStyle=T.dim[e.dim];ctx.beginPath();ctx.arc(x,y+h/2,3.5,0,7);ctx.fill();
+    if(occ.every(([a,b])=>x+w<a||x-4>b)){occ.push([x-4,x+w]);ctx.font=f;ctx.fillStyle=T.muted;ctx.textAlign="left";ctx.fillText(t,x+6,y+h/2+.5);HITS.push({x0:x-4,y0:y+4,x1:x+w,y1:y+h-4,k:"event",ref:e});}
+    else HITS.push({x0:x-4,y0:y+h/2-5,x1:x+4,y1:y+h/2+5,k:"event",ref:e});}}}
+function drawStat(id,y,h){const arr=ST[id]?.[S.stats];if(!arr||!arr.length)return;const [lo,hi]=STR[S.stats];if(!(hi>lo))return;
+  ctx.beginPath();let started=false,first=0,last=0;
+  for(let x=LW;x<=W;x+=3){const v=interp(arr,yearAt(x));if(v==null){continue;}const yy=y+h-((Math.log(v)-lo)/(hi-lo))*(h-4);if(!started){ctx.moveTo(x,y+h);started=true;first=x;}ctx.lineTo(x,yy);last=x;}
+  if(!started)return;ctx.lineTo(last,y+h);ctx.closePath();const ga=ctx.globalAlpha;ctx.fillStyle=T.accent;ctx.globalAlpha=ga*.13;ctx.fill();ctx.globalAlpha=ga*.55;ctx.strokeStyle=T.accent;ctx.lineWidth=1;ctx.stroke();ctx.globalAlpha=ga;}
+function curve(xa,ya,yb,col,alpha,w){const bulge=Math.min(70,12+Math.abs(yb-ya)*.18);const cx=xa+bulge,cy=(ya+yb)/2;
+  ctx.globalAlpha=alpha;ctx.strokeStyle=col;ctx.lineWidth=w;ctx.beginPath();ctx.moveTo(xa,ya);ctx.quadraticCurveTo(cx,cy,xa,yb);ctx.stroke();
+  const ang=Math.atan2(yb-cy,xa-cx);ctx.fillStyle=col;ctx.beginPath();ctx.moveTo(xa,yb);ctx.lineTo(xa-7*Math.cos(ang-.45),yb-7*Math.sin(ang-.45));ctx.lineTo(xa-7*Math.cos(ang+.45),yb-7*Math.sin(ang+.45));ctx.fill();ctx.globalAlpha=1;
+  return [cx,cy];}
+function relatedLinks(lane,year,win){return LK.filter(k=>(k.from===lane||k.to===lane)&&Math.abs(k.year-year)<=win);}
+function drawLinks(){const sel=S.sel&&S.sel.k==="event"?S.sel.ref:null;const hl=S.sel&&S.sel.k==="link"?S.sel.ref:null;
+  const rel=sel?new Set(relatedLinks(sel.lane,sel.year,60)):null;
+  for(const k of LK){const x=X(k.year);if(x<LW||x>W)continue;if(k.dim&&!S.dims.has(k.dim))continue;
+    const on=(rel&&rel.has(k))||hl===k;if(!on&&dens(k.year)<1.6)continue;
+    const ya=laneCenter(k.from),yb=laneCenter(k.to);if(ya==null||yb==null||Math.abs(ya-yb)<4)continue;
+    const a=on?.95:(sel||hl?.07:.38);const [cx,cy]=curve(x,ya,yb,T.type[k.type]||T.muted,a,on?2.2:1.2);
+    for(let t=.15;t<.9;t+=.15){const px=(1-t)*(1-t)*x+2*(1-t)*t*cx+t*t*x,py=(1-t)*(1-t)*ya+2*(1-t)*t*cy+t*t*yb;HITS.push({x0:px-5,y0:py-5,x1:px+5,y1:py+5,k:"link",ref:k,z:1});}}}
+function drawTrace(){const tr=TR.find(t=>t.id===S.trace);if(!tr)return;const pts=tr.steps.map((s,i)=>({s,i,x:X(s.year),y:laneCenter(s.lane)})).filter(p=>p.y!=null);
+  const col=T.dim[tr.dim]||T.accent;ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.stroke();
+  for(const p of pts){ctx.fillStyle=col;ctx.beginPath();ctx.arc(p.x,p.y,10,0,7);ctx.fill();ctx.fillStyle=T.bg;ctx.font=F(11,1);ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(p.i+1,p.x,p.y+.5);
+    const t=`${fy(p.s.year,p.s.approx)} ${LANE[p.s.lane]?.name||""}`;ctx.font=F(11.5,1);const w=tw(t,F(11.5,1))+10;ctx.fillStyle=T.surface;ctx.globalAlpha=.92;ctx.fillRect(p.x+13,p.y-9,w,18);ctx.globalAlpha=1;ctx.fillStyle=T.fg;ctx.textAlign="left";ctx.fillText(t,p.x+18,p.y+.5);
+    HITS.push({x0:p.x-10,y0:p.y-10,x1:p.x+13+w,y1:p.y+10,k:"step",ref:p.s,i:p.i,z:2});}}
+
+/* ---------- 交互 ---------- */
+function hitAt(x,y){let best=null;for(let i=HITS.length-1;i>=0;i--){const h=HITS[i];if(x>=h.x0&&x<=h.x1&&y>=h.y0&&y<=h.y1){if(!best||(h.z||0)>(best.z||0)||(h.k==="event"&&best.k==="pol"))best=h;}}return best;}
+function polAt(lane,y){const rank=l=>l===2?0:l===1?1:2;let r=null;for(const p of POL)if(p.lane===lane&&p.start<=y&&p.end>=y&&p.kind!=="colonial"&&(!r||rank(p.level)<rank(r.level)||(rank(p.level)===rank(r.level)&&p.start>r.start)))r=p;return r;}
+function polsAt(lane,y){return POL.filter(p=>p.lane===lane&&p.start<=y&&p.end>=y).sort((a,b)=>a.level-b.level);}
+function laneAtY(y){if(y>=AXIS_H&&y<AXIS_H+PIN_H)return PIN;for(const r of ROWS){const t=top0()+r.y-S.scroll;if(y>=t&&y<t+r.h&&r.t==="lane")return r.id;}return null;}
+function readout(x,y){if(x<=LW){return;}const yr=Math.round(yearAt(x));const ry=yr<=0?yr-1:yr;const cn=polAt(PIN,ry);const ln=laneAtY(y);
+  let s=`<b>${ry<0?`前${-ry}年`:`${ry}年`}</b> · 此时中国：<span class="cn">${esc(cn?cn.name:"—")}</span>`;
+  if(ln&&ln!==PIN){const p=polAt(ln,ry);s+=` · ${esc(LANE[ln].name)}：<b>${esc(p?p.name:"—")}</b>`;}
+  if(S.stats&&ln){const v=interp(ST[ln]?.[S.stats],ry);if(v)s+=` · ${S.stats==="pop"?"人口":"人均 GDP"} ≈ ${fnum(v,S.stats)}`;}
+  $("#readout").innerHTML=s;}
+function showTip(h,cx,cy){if(!h||matchMedia("(hover:none)").matches){tip.hidden=true;return;}let s="";const r=h.ref;
+  if(h.k==="event")s=`<b>${esc(r.title)}</b><br>${fr(r.year,r.end,r.approx)} · ${esc(LANE[r.lane].name)}<br>${esc(r.summary)}`;
+  else if(h.k==="pol")s=`<b>${esc(r.name)}</b>　${fr(r.start,r.end,r.approx)}${r.summary?"<br>"+esc(r.summary):""}`;
+  else if(h.k==="route")s=`<b>${esc(r.name)}</b>　${fr(r.start,r.end,r.approx)}`;
+  else if(h.k==="link")s=`<b>${esc(r.title)}</b><br>${esc(LANE[r.from].name)} → ${esc(LANE[r.to].name)} · ${fy(r.year,r.approx)} · ${TYPENAME[r.type]||""}`;
+  else if(h.k==="step")s=`<b>${h.i+1}. ${esc(LANE[r.lane]?.name)}</b> ${fy(r.year,r.approx)}<br>${esc(r.note)}`;
+  else{tip.hidden=true;return;}
+  tip.innerHTML=s;tip.hidden=false;const tw2=tip.offsetWidth,th=tip.offsetHeight;tip.style.left=Math.min(innerWidth-tw2-8,cx+14)+"px";tip.style.top=(cy+16+th>innerHeight?cy-th-10:cy+16)+"px";}
+function rel(ev){const b=cv.getBoundingClientRect();return [ev.clientX-b.left,ev.clientY-b.top];}
+const ptrs=new Map();let drag=null,pinch=null,moved=false;
+cv.addEventListener("pointerdown",e=>{cv.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,rel(e));moved=false;
+  if(ptrs.size===1){const [x,y]=rel(e);drag={x,y,u0:S.u0,sc:S.scroll};}
+  else if(ptrs.size===2){const p=[...ptrs.values()];pinch={d:Math.abs(p[0][0]-p[1][0])||1,k:S.k,mx:(p[0][0]+p[1][0])/2};drag=null;}});
+cv.addEventListener("pointermove",e=>{const [x,y]=rel(e);
+  if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,[x,y]);
+  if(pinch&&ptrs.size===2){const p=[...ptrs.values()];const d=Math.abs(p[0][0]-p[1][0])||1;const uc=S.u0+(pinch.mx-LW)/S.k;S.k=pinch.k*d/pinch.d;clampView();S.u0=uc-(pinch.mx-LW)/S.k;clampView();moved=true;draw();return;}
+  if(drag){const dx=x-drag.x,dy=y-drag.y;if(Math.abs(dx)+Math.abs(dy)>4){moved=true;cv.classList.add("drag");}
+    if(moved){S.u0=drag.u0-dx/S.k;clampView();if(drag.y>top0()){S.scroll=drag.sc-dy;layout();}tip.hidden=true;S.hoverX=x;readout(x,y);draw();return;}}
+  if(e.pointerType==="mouse"){S.hoverX=x;readout(x,y);showTip(hitAt(x,y),e.clientX,e.clientY);cv.style.cursor=hitAt(x,y)?"pointer":"";draw();}});
+function up(e){const was=ptrs.has(e.pointerId);ptrs.delete(e.pointerId);cv.classList.remove("drag");if(ptrs.size<2)pinch=null;
+  if(was&&!moved&&ptrs.size===0&&drag){const [x,y]=rel(e);click(x,y);}if(ptrs.size===0)drag=null;}
+cv.addEventListener("pointerup",up);cv.addEventListener("pointercancel",up);
+cv.addEventListener("pointerleave",()=>{S.hoverX=null;tip.hidden=true;draw();});
+cv.addEventListener("wheel",e=>{e.preventDefault();const [x]=rel(e);
+  if(e.ctrlKey||e.metaKey){zoomAt(Math.max(LW,x),Math.exp(-e.deltaY*0.012));return;}
+  if(Math.abs(e.deltaX)>Math.abs(e.deltaY)||e.shiftKey){S.u0+=(e.shiftKey?e.deltaY:e.deltaX)/S.k;clampView();}
+  else{S.scroll+=e.deltaY;layout();}
+  tip.hidden=true;draw();},{passive:false});
+cv.addEventListener("dblclick",e=>{const [x]=rel(e);if(x>LW)zoomAt(x,2);});
+cv.addEventListener("keydown",e=>{const m={ArrowLeft:()=>{S.u0-=80/S.k;clampView();},ArrowRight:()=>{S.u0+=80/S.k;clampView();},ArrowUp:()=>{S.scroll-=60;layout();},ArrowDown:()=>{S.scroll+=60;layout();},"+":()=>zoomAt(LW+(W-LW)/2,1.5),"=":()=>zoomAt(LW+(W-LW)/2,1.5),"-":()=>zoomAt(LW+(W-LW)/2,1/1.5)}[e.key];if(m){e.preventDefault();m();draw();}});
+function click(x,y){if(y<AXIS_H&&x>LW){openSlice(Math.round(yearAt(x)));return;}
+  const h=hitAt(x,y);if(!h){if(x>LW){openSlice(Math.round(yearAt(x)));}return;}
+  if(h.k==="region"){S.collapsed.has(h.ref.id)?S.collapsed.delete(h.ref.id):S.collapsed.add(h.ref.id);layout();draw();return;}
+  if(h.k==="event")openEvent(h.ref);else if(h.k==="pol")openPolity(h.ref);else if(h.k==="route")openRoute(h.ref);else if(h.k==="link")openLink(h.ref);else if(h.k==="step")openTrace(S.trace);}
+
+/* ---------- 详情抽屉 ---------- */
+function openPanel(html){panel.innerHTML=`<button class="close" aria-label="关闭">×</button>`+html;panel.hidden=false;panel.scrollTop=0;
+  panel.querySelector(".close").onclick=closePanel;
+  panel.querySelectorAll("[data-ev]").forEach(b=>b.onclick=()=>{const e=EV.find(x=>x.id===b.dataset.ev);if(!e)return;if(G.on){setGYear(e.year);const g=G.meta.ev[e.id];if(g)rotateTo(g[1],g[0]);}else goTo(e.year,e.lane,e.level);openEvent(e);});
+  panel.querySelectorAll("[data-goglobe]").forEach(b=>b.onclick=()=>{const e=EV.find(x=>x.id===b.dataset.goglobe);if(e)goGlobe(e);});
+  panel.querySelectorAll("[data-golane]").forEach(b=>b.onclick=()=>{const e=EV.find(x=>x.id===b.dataset.golane);if(e)goLane(e);});
+  panel.querySelectorAll("[data-pol]").forEach(b=>b.onclick=()=>{const p=POL[+b.dataset.pol];if(p){goTo((p.start+p.end)/2,p.lane,0,p);openPolity(p);}});
+  panel.querySelectorAll("[data-lk]").forEach(b=>b.onclick=()=>{const k=LK[+b.dataset.lk];if(k){goTo(k.year,k.to,2);openLink(k);}});
+  panel.querySelectorAll("[data-slice]").forEach(b=>b.onclick=()=>{if(G.on)setGYear(+b.dataset.slice);openSlice(+b.dataset.slice);});
+  panel.querySelectorAll("[data-step]").forEach(b=>b.onclick=()=>{const i=+b.dataset.step;const s=TR.find(t=>t.id===S.trace).steps[i];if(G.on){setGYear(s.year);const p=G.meta.traces[S.trace]?.[i];if(p)rotateTo(p[1],p[0]);}else goTo(s.year,s.lane,2);});
+  draw();}
+function closePanel(){panel.hidden=true;S.sel=null;S.slice=null;if(typeof G!=="undefined")G.sel=null;draw();}
+const dimTag=d=>`<span class="dimtag" style="--c:var(--d-${d})">${DIMNAME[d]||d}</span>`;
+const evItem=e=>`<button class="item" data-ev="${esc(e.id)}"><span class="y">${fy(e.year,e.approx)}</span><span class="t"><span class="swatch" style="--c:var(--d-${e.dim})"></span>${esc(e.title)}</span></button>`;
+const lkItem=k=>`<button class="item" data-lk="${LK.indexOf(k)}"><span class="y">${fy(k.year,k.approx)}</span><span class="t"><span class="swatch" style="--c:var(--t-${k.type})"></span>${esc(LANE[k.from].name)} → ${esc(LANE[k.to].name)}：${esc(k.title)}</span></button>`;
+function openEvent(e){S.sel={k:"event",ref:e};S.slice=null;const cn=polAt(PIN,e.year);const own=polAt(e.lane,e.year);
+  const links=relatedLinks(e.lane,e.year,60).sort((a,b)=>Math.abs(a.year-e.year)-Math.abs(b.year-e.year)).slice(0,12);
+  const near=EV.filter(x=>x!==e&&x.level<=2&&Math.abs(x.year-e.year)<=Math.max(10,Math.round(30/Math.max(.2,dens(e.year))))&&x.lane!==e.lane).sort((a,b)=>a.level-b.level||Math.abs(a.year-e.year)-Math.abs(b.year-e.year)).slice(0,8);
+  openPanel(`<div class="kicker">${dimTag(e.dim)}<span>${esc(LANE[e.lane].name)}${own?" · "+esc(own.name):""}</span></div>
+  <h2>${esc(e.title)}</h2><div class="kicker" style="margin-bottom:12px"><span>${fr(e.year,e.end,e.approx)}</span>${e.lane!==PIN&&cn?`<span>此时中国：<b style="color:var(--accent)">${esc(cn.name)}</b></span>`:""}</div>
+  <p class="lead">${esc(e.summary)}</p>${e.detail?`<p>${esc(e.detail)}</p>`:""}
+  ${e.data?`<div class="databox">${esc(e.data)}</div>`:""}
+  ${e.note?`<h3>争议与说明</h3><p class="note">${esc(e.note)}</p>`:""}
+  ${links.length?`<h3>前后 60 年的跨地区影响</h3><div class="list">${links.map(lkItem).join("")}</div>`:""}
+  ${near.length?`<h3>同一时期的世界</h3><div class="list">${near.map(x=>`<button class="item" data-ev="${esc(x.id)}"><span class="y">${fy(x.year,x.approx)}</span><span class="t"><em>${esc(LANE[x.lane].name)}</em> ${esc(x.title)}</span></button>`).join("")}</div>`:""}
+  <h3>出处</h3><p class="src">${esc(e.source||"—")}</p>
+  <p style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" data-slice="${e.year}">看${fy(e.year)}的全世界</button>${G.on?`<button class="btn" data-golane="${esc(e.id)}">在泳道图中查看</button>`:(G.meta&&!G.meta.ev[e.id]?"":`<button class="btn" data-goglobe="${esc(e.id)}">在地球仪上看</button>`)}</p>${G.on&&G.meta.ev[e.id]?`<p class="src">地点：${esc(G.meta.ev[e.id][2])}${G.meta.ev[e.id][3]?"（区域性事件，标在区域中心）":""}</p>`:""}`);}
+function openPolity(p){S.sel={k:"pol",ref:p};const evs=EV.filter(e=>e.lane===p.lane&&e.year>=p.start&&e.year<=p.end&&e.level<=2).sort((a,b)=>a.year-b.year);
+  const cn=p.lane!==PIN?POL.filter(c=>c.lane===PIN&&c.level===2&&c.end>=p.start&&c.start<=p.end).sort((a,b)=>a.start-b.start):[];
+  openPanel(`<div class="kicker"><span>${esc(LANE[p.lane].name)}</span><span>${p.kind==="era"?"时代／考古文化":p.kind==="colonial"?"殖民统治":"政权"}</span></div>
+  <h2>${esc(p.name)}</h2><div class="kicker" style="margin-bottom:12px"><span>${fr(p.start,p.end,p.approx)}</span><span>历时约 ${p.end-p.start} 年</span></div>
+  ${p.summary?`<p class="lead">${esc(p.summary)}</p>`:""}
+  ${cn.length?`<h3>同期中国</h3><div class="list">${cn.map(c=>`<button class="item" data-pol="${POL.indexOf(c)}"><span class="y">${fr(c.start,c.end)}</span><span class="t">${esc(c.name)}</span></button>`).join("")}</div>`:""}
+  ${evs.length?`<h3>这一时期的大事</h3><div class="list">${evs.map(evItem).join("")}</div>`:""}`);}
+function openRoute(r){S.sel={k:"route",ref:r};openPanel(`<div class="kicker"><span class="dimtag" style="--c:${r.color}">贸易路线与交流网络</span></div><h2>${esc(r.name)}</h2>
+  <div class="kicker" style="margin-bottom:12px"><span>${fr(r.start,r.end,r.approx)}</span></div><p class="lead">${esc(r.summary)}</p>${r.detail?`<p>${esc(r.detail)}</p>`:""}
+  ${r.goods?`<div class="databox">${esc(r.goods)}</div>`:""}<h3>经过</h3><p>${(r.lanes||[]).map(l=>esc(LANE[l]?.name)).join(" · ")}</p><h3>出处</h3><p class="src">${esc(r.source||"—")}</p>`);}
+function openLink(k){S.sel={k:"link",ref:k};openPanel(`<div class="kicker"><span class="dimtag" style="--c:var(--t-${k.type})">${TYPENAME[k.type]||k.type}</span>${k.dim?dimTag(k.dim):""}</div>
+  <h2>${esc(k.title)}</h2><div class="kicker" style="margin-bottom:12px"><span>${esc(LANE[k.from].name)} → ${esc(LANE[k.to].name)}</span><span>${fr(k.year,k.end,k.approx)}</span></div><p class="lead">${esc(k.summary)}</p>
+  <p><button class="btn" data-slice="${k.year}">看${fy(k.year)}的全世界</button></p>`);}
+function openTrace(id){const tr=TR.find(t=>t.id===id);if(!tr)return;S.sel={k:"trace"};
+  openPanel(`<div class="kicker">${dimTag(tr.dim)}<span>传播追踪</span></div><h2>${esc(tr.name)}</h2><p class="lead">${esc(tr.summary)}</p>
+  <div class="list">${tr.steps.map((s,i)=>`<button class="item" data-step="${i}"><span class="y">${i+1}. ${fy(s.year,s.approx)}</span><span class="t"><em>${esc(LANE[s.lane]?.name)}</em> ${esc(s.note)}</span></button>`).join("")}</div>
+  <h3>出处</h3><p class="src">${esc([...new Set(tr.steps.map(s=>s.source).filter(Boolean))].join("；")||"—")}</p>`);}
+function openSlice(y){if(y===0)y=1;S.slice=y;S.sel={k:"slice"};const d=dens(y);const win=Math.max(2,Math.min(150,Math.round(36/Math.max(d,.01))));
+  const lanes=[PIN,...D.regions.flatMap(r=>r.lanes.map(l=>l.id)).filter(id=>id!==PIN)];
+  const html=lanes.map(id=>{const ps=polsAt(id,y);const evs=LANEDATA[id].ev.filter(e=>S.dims.has(e.dim)&&(Math.abs(e.year-y)<=win||(e.end&&e.year<=y&&e.end>=y))).sort((a,b)=>a.level-b.level||Math.abs(a.year-y)-Math.abs(b.year-y)).slice(0,4);
+    const pv=interp(ST[id]?.pop,y),gv=interp(ST[id]?.gdppc,y);
+    return `<div class="slice-lane"><span class="ln">${esc(LANE[id].name)}</span><span class="pol">${ps.length?ps.map(p=>esc(p.name)).join(" · "):"—"}</span>${pv?`<div class="st">人口约 ${fnum(pv,"pop")}${gv?` · 人均 GDP 约 ${fnum(gv,"gdppc")}`:""}</div>`:""}${evs.length?`<div class="list">${evs.map(evItem).join("")}</div>`:""}</div>`;}).join("");
+  openPanel(`<div class="kicker"><span>时间切片 · 前后 ${win} 年内</span></div><h2>${fy(y)}的世界</h2>${html}${SN._all?`<h3>人口与 GDP 数据口径</h3><details><summary class="src">展开各泳道口径说明</summary><p class="note">${esc(SN._all)}</p>${lanes.filter(id=>SN[id]).map(id=>`<p class="note"><b>${esc(LANE[id].name)}</b>：${esc(SN[id])}</p>`).join("")}</details>`:""}`);}
+function goTo(year,lane,level,pol){const target=level===3?3:level===2?0.8:Math.max(dens(year),0.2);
+  if(pol){const span=U(pol.end)-U(pol.start);S.k=Math.min(S.k*4,(W-LW)*.6/Math.max(span,1e-6));}else if(dens(year)<target)S.k=target/wAt(year);
+  clampView();S.u0=U(year)-(W-LW)*(panel.hidden||W<640?.5:.35)/S.k;clampView();
+  if(lane&&lane!==PIN){if(S.collapsed.has(REGION_OF[lane])){S.collapsed.delete(REGION_OF[lane]);layout();}const r=ROWS.find(r=>r.t==="lane"&&r.id===lane);if(r){const vis=H-top0();if(r.y<S.scroll||r.y+r.h>S.scroll+vis)S.scroll=r.y-vis/3;layout();}}
+  if(level){S.flash=EV.find(e=>e.lane===lane&&e.year===year)||null;S.flashUntil=performance.now()+1200;}draw();}
+
+/* ---------- 工具栏 ---------- */
+function buildToolbar(){const g=$("#dims");for(const d of D.dimensions){S.dims.add(d.id);const b=document.createElement("button");b.className="chip";b.style.setProperty("--c",`var(--d-${d.id})`);b.setAttribute("aria-pressed","true");b.innerHTML=`<i></i>${d.name}`;
+    b.onclick=e=>{if(e.altKey||e.metaKey){S.dims=new Set([d.id]);}else S.dims.has(d.id)?S.dims.delete(d.id):S.dims.add(d.id);
+      g.querySelectorAll(".chip").forEach((c,i)=>c.setAttribute("aria-pressed",S.dims.has(D.dimensions[i].id)));draw();};b.title="点击切换；按住 Alt/⌘ 点击只看这一个";g.appendChild(b);}
+  const st=$("#sTrace");for(const t of TR){const o=document.createElement("option");o.value=t.id;o.textContent=t.name;st.appendChild(o);}
+  st.onchange=()=>{S.trace=st.value;if(S.trace){const tr=TR.find(t=>t.id===S.trace);const ys=tr.steps.map(s=>s.year);const a=Math.min(...ys),b=Math.max(...ys);const pad=(U(b)-U(a))*.08+1;S.k=(W-LW)*(W<640?1:.62)/(U(b)-U(a)+2*pad);S.u0=U(a)-pad;clampView();openTrace(S.trace);}else{closePanel();}draw();};
+  if(!TR.length)st.hidden=true;
+  $("#bLinks").onclick=e=>{S.links=!S.links;e.currentTarget.setAttribute("aria-pressed",S.links);draw();};
+  $("#bRoutes").onclick=e=>{S.routes=!S.routes;e.currentTarget.setAttribute("aria-pressed",S.routes);draw();};
+  if(!RT.length)$("#bRoutes").hidden=true;
+  $("#sStats").onchange=e=>{S.stats=e.target.value;draw();};if(!Object.keys(ST).length)$("#sStats").hidden=true;
+  $("#sEra").onchange=e=>{const v=e.target.value;if(!v)return;const [a,b]=v.split(",").map(Number);fit(a,b);e.target.value="";draw();};
+  $("#sScale").onchange=e=>{const mid=yearAt(LW+(W-LW)/2),span=yearAt(W)-yearAt(LW);setScale(e.target.value);fit(Math.max(-3600,mid-span/2),Math.min(2030,mid+span/2));draw();};
+  $("#zIn").onclick=()=>zoomAt(LW+(W-LW)/2,1.6);$("#zOut").onclick=()=>zoomAt(LW+(W-LW)/2,1/1.6);
+  $("#bCollapse").onclick=e=>{const all=S.collapsed.size>0;S.collapsed=all?new Set():new Set(D.regions.map(r=>r.id).filter(id=>id!=="east-asia"));e.currentTarget.textContent=all?"收起全部地区":"展开全部地区";layout();draw();};
+  // 搜索
+  const q=$("#q"),res=$("#results");const IDX=[...EV.map(e=>({t:e.title+" "+e.summary,k:"e",e})),...POL.map((p,i)=>({t:p.name+" "+(p.summary||""),k:"p",p,i}))];
+  let tmr;q.oninput=()=>{clearTimeout(tmr);tmr=setTimeout(()=>{const s=q.value.trim();if(!s){res.hidden=true;return;}
+    const hits=IDX.filter(x=>x.t.includes(s)).sort((a,b)=>((a.k==="e"?a.e.title:a.p.name).includes(s)?0:1)-((b.k==="e"?b.e.title:b.p.name).includes(s)?0:1)||(a.k==="p"?0:a.e.level)-(b.k==="p"?0:b.e.level)).slice(0,40);
+    res.innerHTML=hits.length?hits.map(x=>x.k==="e"?`<button data-e="${esc(x.e.id)}">${esc(x.e.title)}<small>${esc(LANE[x.e.lane].name)} · ${fy(x.e.year,x.e.approx)}</small></button>`:`<button data-p="${x.i}">${esc(x.p.name)}<small>${esc(LANE[x.p.lane].name)} · ${fr(x.p.start,x.p.end)}</small></button>`).join(""):`<button disabled>没有找到「${esc(s)}」</button>`;
+    res.hidden=false;res.querySelectorAll("[data-e]").forEach(b=>b.onclick=()=>{const e=EV.find(x=>x.id===b.dataset.e);res.hidden=true;S.dims.add(e.dim);goTo(e.year,e.lane,e.level);openEvent(e);});
+    res.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>{const p=POL[+b.dataset.p];res.hidden=true;goTo((p.start+p.end)/2,p.lane,0,p);openPolity(p);});},120);};
+  q.onkeydown=e=>{if(e.key==="Escape"){res.hidden=true;q.blur();}if(e.key==="Enter"){res.querySelector("button[data-e],button[data-p]")?.click();}};
+  document.addEventListener("pointerdown",e=>{if(!e.target.closest(".search"))res.hidden=true;});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!panel.hidden)closePanel();});
+  const nL=Object.keys(LANE).length;$("#stat").textContent=`${nL} 条泳道 · ${POL.length} 个政权与时代 · ${EV.length} 个事件 · ${LK.length} 条跨地区影响 · ${TR.length} 条传播追踪 · ${RT.length} 条路线 · 数据整理于 ${D.built}`;}
+
+/* GLOBE-START */
+/* ---------- 地球仪 ---------- */
+const G={on:false,year:1279,rot:[-80,-28,0],zoom:1,meta:null,cache:new Map(),snap:null,feat:[],land:null,raf:0,play:0,sel:null,hits:[],moved:false};
+const gl=$("#gl"),gctx=gl.getContext("2d"),gwrap=$("#globe");
+let proj=null,gW=0,gH=0;
+const SPHERE={type:"Sphere"};
+function gTheme(){const cs=getComputedStyle(document.documentElement);const g=n=>cs.getPropertyValue(n).trim();T.ocean=g("--ocean");T.land=g("--land");T.grat=g("--grat");T.border=g("--border");}
+function laneHue(id){return (Object.keys(LANE).indexOf(id)*47)%360;}
+function hashS(s){let h=0;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))|0;return Math.abs(h);}
+function gFill(ft){if(ft.lane){const h=(laneHue(ft.lane)+hashS(ft.properties.NAME)%50-25+360)%360;return `hsl(${h} ${T.polS+14}% ${T.dark?T.polL+6:T.polL-8}%)`;}
+  return `hsl(${hashS(ft.properties.NAME)%360} ${T.polS*0.5}% ${T.dark?T.polL+2:T.polL-2}%)`;}
+function rewind(ft){if(d3.geoArea(ft)>2*Math.PI){const g=ft.geometry;const rv=r=>r.reverse();if(g.type==="Polygon")g.coordinates.forEach(rv);else if(g.type==="MultiPolygon")g.coordinates.forEach(p=>p.forEach(rv));}}
+function snapFor(y){const s=G.meta.snapshots;let b=s[0];for(const v of s)if(v<=y)b=v;return b;}
+async function loadSnap(){const s=snapFor(G.year);if(G.snap===s&&G.feat.length)return;G.snap=s;let f=G.cache.get(s);
+  if(!f){try{const t=await (await fetch(`geo/b${s}.json`)).json();f=topojson.feature(t,Object.values(t.objects)[0]).features;}catch(e){f=[];}
+    for(const ft of f){rewind(ft);const nm=ft.properties.NAME||"";const z=G.meta.names[nm]||{};ft.zh=z.zh||nm;ft.lane=z.lane;ft.match=z.match;ft.c=d3.geoCentroid(ft);ft.area=d3.geoArea(ft);}
+    G.cache.set(s,f);}
+  if(G.snap===s){G.feat=f;gdraw();}}
+function gResize(){const r=gwrap.getBoundingClientRect();gW=r.width;gH=r.height;gl.width=Math.round(gW*dpr);gl.height=Math.round(gH*dpr);gdraw();}
+function gdraw(){if(G.on&&!G.raf)G.raf=requestAnimationFrame(grender);}
+const center=()=>[-G.rot[0],-G.rot[1]];
+const visible=ll=>d3.geoDistance(ll,center())<Math.PI/2-0.02;
+function evWin(y){return y<-1000?250:y<0?100:y<1500?50:y<1800?25:10;}
+function gEvents(){const y=G.year,w=evWin(y);const out=[];
+  for(const e of EV){if(!S.dims.has(e.dim))continue;const c=G.meta.ev[e.id];if(!c)continue;
+    if(Math.abs(e.year-y)<=w||(e.end&&e.year<=y&&e.end>=y))out.push([e,c]);}
+  return out.sort((a,b)=>a[0].level-b[0].level);}
+function grender(){G.raf=0;if(!G.on||!G.meta)return;G.hits=[];
+  const base=Math.min(gW-((!panel.hidden&&gW>=900)?400:0),gH-56)/2*0.94;const pw=(!panel.hidden&&gW>=900)?Math.min(400,gW):0;proj=d3.geoOrthographic().translate([(gW-pw)/2,(gH-56)/2+4]).scale(base*G.zoom).rotate(G.rot).clipAngle(90).precision(0.5);
+  const path=d3.geoPath(proj,gctx);const c=gctx;c.setTransform(dpr,0,0,dpr,0,0);c.fillStyle=T.bg;c.fillRect(0,0,gW,gH);
+  c.beginPath();path(SPHERE);c.fillStyle=T.ocean;c.fill();
+  c.beginPath();path(d3.geoGraticule10());c.strokeStyle=T.grat;c.lineWidth=.6;c.stroke();
+  if(G.land){c.beginPath();path(G.land);c.fillStyle=T.land;c.fill();}
+  // 疆域
+  for(const ft of G.feat){c.beginPath();path(ft);c.fillStyle=gFill(ft);c.globalAlpha=G.sel&&G.sel.k==="geo"&&G.sel.ref!==ft?.55:.92;c.fill();c.globalAlpha=1;c.strokeStyle=T.border;c.lineWidth=.6;c.stroke();}
+  if(G.sel&&G.sel.k==="geo"){c.beginPath();path(G.sel.ref);c.strokeStyle=T.fg;c.lineWidth=2;c.stroke();}
+  // 路线
+  if(S.routes)for(const r of RT){if(r.start>G.year||r.end<G.year)continue;const pts=G.meta.routes[r.id];if(!pts||pts.length<2)continue;
+    c.beginPath();path({type:"LineString",coordinates:pts.map(p=>[p[1],p[0]])});c.strokeStyle=r.color;c.lineWidth=2.4;c.setLineDash([6,4]);c.stroke();c.setLineDash([]);
+    const m=pts[Math.floor(pts.length/2)];const ll=[m[1],m[0]];if(visible(ll)){const [x,y]=proj(ll);gLabel(r.name,x,y-8,r.color,true);}}
+  // 影响弧线
+  if(S.links){const w=evWin(G.year);for(const k of LK){if(Math.abs(k.year-G.year)>w)continue;if(k.dim&&!S.dims.has(k.dim))continue;const a=G.meta.lanes[k.from],b=G.meta.lanes[k.to];if(!a||!b)continue;
+    const A=[a[1],a[0]],B=[b[1],b[0]];c.beginPath();path({type:"LineString",coordinates:[A,B]});c.strokeStyle=T.type[k.type]||T.muted;c.globalAlpha=.75;c.lineWidth=1.6;c.stroke();c.globalAlpha=1;
+    if(visible(B)){const [x,y]=proj(B);c.fillStyle=T.type[k.type]||T.muted;c.beginPath();c.arc(x,y,3,0,7);c.fill();}
+    const mid=d3.geoInterpolate(A,B)(.5);if(visible(mid)){const [x,y]=proj(mid);G.hits.push({x,y,r:8,k:"link",ref:k});}}}
+  // 事件
+  const occ=[];const evs=gEvents();
+  for(const [e,g] of evs){const ll=[g[1],g[0]];if(!visible(ll))continue;const [x,y]=proj(ll);const r=e.level===1?5:3.5;
+    c.fillStyle=T.dim[e.dim];c.beginPath();c.arc(x,y,r,0,7);if(g[3]){c.lineWidth=2;c.strokeStyle=T.dim[e.dim];c.stroke();}else c.fill();
+    if(S.sel&&S.sel.k==="event"&&S.sel.ref===e){c.strokeStyle=T.fg;c.lineWidth=2;c.beginPath();c.arc(x,y,9,0,7);c.stroke();}
+    G.hits.push({x,y,r:r+5,k:"event",ref:e});
+    const f=F(e.level===1?12:11,e.level===1);const w=tw(e.title,f)+8;
+    if((e.level===1||G.zoom>1.8)&&occ.every(([a,b,cc,d])=>x+8>b||x+8+w<a||y-7>d||y+7<cc)){occ.push([x+6,x+8+w,y-8,y+8]);gLabel(e.title,x+8,y,T.fg,false,f);}}
+  // 疆域名
+  const labs=G.feat.filter(ft=>ft.zh&&ft.zh!=="未命名区域"&&visible(ft.c)).map(ft=>({ft,px:ft.area*(base*G.zoom)**2})).filter(o=>o.px>2600).sort((a,b)=>b.px-a.px);
+  for(const {ft} of labs){const [x,y]=proj(ft.c);const f=F(ft.lane?12:11,!!ft.lane);const w=tw(ft.zh,f);if(occ.some(([a,b,cc,d])=>!(x+w/2<a||x-w/2>b||y+8<cc||y-8>d)))continue;occ.push([x-w/2,x+w/2,y-8,y+8]);
+    c.font=f;c.textAlign="center";c.textBaseline="middle";c.lineWidth=3;c.strokeStyle=T.ocean;c.globalAlpha=.7;c.strokeText(ft.zh,x,y);c.globalAlpha=1;c.fillStyle=T.fg;c.fillText(ft.zh,x,y);}
+  // 传播追踪
+  if(S.trace){const tr=TR.find(t=>t.id===S.trace),pts=G.meta.traces[S.trace];if(tr&&pts){const col=T.dim[tr.dim]||T.accent;const ll=pts.map(p=>[p[1],p[0]]);
+    const done=tr.steps.filter(s=>s.year<=G.year).length;
+    c.beginPath();path({type:"LineString",coordinates:ll});c.strokeStyle=col;c.globalAlpha=.3;c.lineWidth=2;c.setLineDash([4,4]);c.stroke();c.setLineDash([]);c.globalAlpha=1;
+    if(done>1){c.beginPath();path({type:"LineString",coordinates:ll.slice(0,done)});c.strokeStyle=col;c.lineWidth=3;c.stroke();}
+    ll.forEach((p,i)=>{if(!visible(p))return;const [x,y]=proj(p);c.fillStyle=i<done?col:T.surface;c.strokeStyle=col;c.lineWidth=2;c.beginPath();c.arc(x,y,9,0,7);c.fill();c.stroke();
+      c.fillStyle=i<done?T.bg:col;c.font=F(10.5,1);c.textAlign="center";c.textBaseline="middle";c.fillText(i+1,x,y+.5);G.hits.push({x,y,r:10,k:"step",ref:tr.steps[i],i});
+      if(i<done)gLabel(`${pts[i][2]||""} ${fy(tr.steps[i].year,tr.steps[i].approx)}`,x+12,y,T.fg,false,F(11,1));});}}
+  c.beginPath();path(SPHERE);c.strokeStyle=T.line;c.lineWidth=1;c.stroke();
+  $("#gSnap").textContent=`疆域：${G.snap<0?`前${-G.snap}`:G.snap}年切片 · 事件：前后 ${evWin(G.year)} 年内`;}
+function gLabel(t,x,y,col,center,font){const c=gctx;c.font=font||F(11.5,1);c.textAlign=center?"center":"left";c.textBaseline="middle";c.lineWidth=3;c.strokeStyle=T.bg;c.globalAlpha=.85;c.strokeText(t,x,y);c.globalAlpha=1;c.fillStyle=col;c.fillText(t,x,y);}
+function setGYear(y,fromSlider){G.year=Math.round(y)||1;if(!fromSlider)$("#gy").value=Math.round(U(G.year)/UMAX()*1000);
+  $("#gyl").textContent=G.year<0?`前${-G.year}年`:`${G.year}年`;const cn=polAt(PIN,G.year);$("#readout").innerHTML=`<b>${G.year<0?`前${-G.year}年`:`${G.year}年`}</b> · 此时中国：<span class="cn">${esc(cn?cn.name:"—")}</span>`;
+  loadSnap();gdraw();}
+function rotateTo(lon,lat){const from=G.rot.slice(),to=[-lon,-Math.max(-60,Math.min(60,lat)),0];const it=d3.interpolate(from,to);const t0=performance.now();
+  const step=t=>{const k=Math.min(1,(t-t0)/650);G.rot=it(d3.easeCubicInOut(k));gdraw();if(k<1)requestAnimationFrame(step);};requestAnimationFrame(step);}
+function gHit(x,y){let best=null,bd=1e9;for(const h of G.hits){const d=Math.hypot(h.x-x,h.y-y);if(d<=h.r&&d<bd){bd=d;best=h;}}if(best)return best;
+  if(!proj)return null;const ll=proj.invert([x,y]);if(!ll||!visible(ll))return null;let ft=null;for(const f of G.feat)if(d3.geoContains(f,ll)&&(!ft||f.area<ft.area))ft=f;return ft?{k:"geo",ref:ft}:null;}
+function openGeo(ft){G.sel={k:"geo",ref:ft};S.sel=null;const lane=ft.lane&&LANE[ft.lane];const mp=ft.match?POL.find(p=>p.lane===ft.lane&&p.name===ft.match):null;
+  const evs=ft.lane?LANEDATA[ft.lane].ev.filter(e=>Math.abs(e.year-G.year)<=evWin(G.year)*2&&e.level<=2).sort((a,b)=>a.year-b.year).slice(0,12):[];
+  const bp={1:"大致",2:"中等",3:"较精确"}[ft.properties.BORDERPRECISION]||"未标注";
+  openPanel(`<div class="kicker"><span>${lane?esc(lane.name):"泳道外地区"}</span><span>${G.snap<0?`前${-G.snap}`:G.snap}年疆域</span></div>
+  <h2>${esc(ft.zh)}</h2><p class="src">原名：${esc(ft.properties.NAME)}${ft.properties.SUBJECTO&&ft.properties.SUBJECTO!==ft.properties.NAME?` · 从属于：${esc((G.meta.names[ft.properties.SUBJECTO]||{}).zh||ft.properties.SUBJECTO)}`:""}</p>
+  ${mp?`<h3>对应泳道中的政权</h3><div class="list"><button class="item" data-pol="${POL.indexOf(mp)}"><span class="y">${fr(mp.start,mp.end,mp.approx)}</span><span class="t">${esc(mp.name)}</span></button></div>${mp.summary?`<p>${esc(mp.summary)}</p>`:""}`:""}
+  ${evs.length?`<h3>${esc(lane.name)}在这一时期</h3><div class="list">${evs.map(evItem).join("")}</div>`:""}
+  <h3>关于这块疆域</h3><p class="note">边界精度：${bp}。疆域来自开源数据集 historical-basemaps（${G.snap<0?`前${-G.snap}`:G.snap}年切片），古代政权多无明确国界，色块只表示大致控制范围。</p>`);}
+(function gInput(){const ptr=new Map();let st=null,pin=null;
+  gl.addEventListener("pointerdown",e=>{gl.setPointerCapture(e.pointerId);const b=gl.getBoundingClientRect();ptr.set(e.pointerId,[e.clientX-b.left,e.clientY-b.top]);G.moved=false;
+    if(ptr.size===1)st={p:[e.clientX,e.clientY],rot:G.rot.slice()};else if(ptr.size===2){const p=[...ptr.values()];pin={d:Math.hypot(p[0][0]-p[1][0],p[0][1]-p[1][1])||1,z:G.zoom};st=null;}});
+  gl.addEventListener("pointermove",e=>{const b=gl.getBoundingClientRect();const x=e.clientX-b.left,y=e.clientY-b.top;if(ptr.has(e.pointerId))ptr.set(e.pointerId,[x,y]);
+    if(pin&&ptr.size===2){const p=[...ptr.values()];const d=Math.hypot(p[0][0]-p[1][0],p[0][1]-p[1][1])||1;G.zoom=Math.max(.7,Math.min(14,pin.z*d/pin.d));G.moved=true;gdraw();return;}
+    if(st){const dx=e.clientX-st.p[0],dy=e.clientY-st.p[1];if(Math.abs(dx)+Math.abs(dy)>3)G.moved=true;if(G.moved){const k=.28/G.zoom;G.rot=[st.rot[0]+dx*k,Math.max(-85,Math.min(85,st.rot[1]-dy*k)),0];tip.hidden=true;gdraw();return;}}
+    if(e.pointerType==="mouse"){const h=gHit(x,y);gl.style.cursor=h?"pointer":"grab";if(!h){tip.hidden=true;return;}let s="";const r=h.ref;
+      if(h.k==="event"){const g=G.meta.ev[r.id];s=`<b>${esc(r.title)}</b><br>${fr(r.year,r.end,r.approx)} · ${esc(g[2]||"")}<br>${esc(r.summary)}`;}
+      else if(h.k==="geo")s=`<b>${esc(r.zh)}</b>${r.lane?` · ${esc(LANE[r.lane].name)}`:""}`;
+      else if(h.k==="link")s=`<b>${esc(r.title)}</b><br>${esc(LANE[r.from].name)} → ${esc(LANE[r.to].name)} · ${fy(r.year,r.approx)}`;
+      else if(h.k==="step")s=`<b>${h.i+1}. ${esc(LANE[r.lane]?.name||"")}</b> ${fy(r.year,r.approx)}<br>${esc(r.note)}`;
+      tip.innerHTML=s;tip.hidden=false;tip.style.left=Math.min(innerWidth-tip.offsetWidth-8,e.clientX+14)+"px";tip.style.top=(e.clientY+16)+"px";}});
+  const up=e=>{const had=ptr.has(e.pointerId);ptr.delete(e.pointerId);if(ptr.size<2)pin=null;
+    if(had&&!G.moved&&ptr.size===0&&st){const b=gl.getBoundingClientRect();const h=gHit(e.clientX-b.left,e.clientY-b.top);
+      if(!h){G.sel=null;closePanel();}else if(h.k==="event"){G.sel=null;openEvent(h.ref);}else if(h.k==="geo")openGeo(h.ref);else if(h.k==="link")openLink(h.ref);else if(h.k==="step")openTrace(S.trace);gdraw();}
+    if(ptr.size===0)st=null;};
+  gl.addEventListener("pointerup",up);gl.addEventListener("pointercancel",up);gl.addEventListener("pointerleave",()=>{tip.hidden=true;});
+  gl.addEventListener("wheel",e=>{e.preventDefault();G.zoom=Math.max(.7,Math.min(14,G.zoom*Math.exp(-e.deltaY*.0022)));gdraw();},{passive:false});
+  $("#gy").addEventListener("input",e=>setGYear(YU(+e.target.value/1000*UMAX()),true));
+  $("#gPrev").onclick=()=>{const s=G.meta.snapshots;const p=[...s].reverse().find(v=>v<G.snap);if(p!=null)setGYear(p);};
+  $("#gNext").onclick=()=>{const n=G.meta.snapshots.find(v=>v>G.snap);if(n!=null)setGYear(n);};
+  $("#gPlay").onclick=e=>{if(G.play){clearInterval(G.play);G.play=0;e.currentTarget.textContent="▶ 播放";return;}e.currentTarget.textContent="⏸ 暂停";
+    G.play=setInterval(()=>{const v=+$("#gy").value+1.5;if(v>1000){clearInterval(G.play);G.play=0;$("#gPlay").textContent="▶ 播放";return;}$("#gy").value=v;setGYear(YU(v/1000*UMAX()),true);},90);};
+})();
+async function showTab(t){const g=t==="globe";G.on=g;$("#tabLane").setAttribute("aria-selected",!g);$("#tabGlobe").setAttribute("aria-selected",g);
+  cv.hidden=g;gwrap.hidden=!g;document.body.classList.toggle("globe-on",g);
+  try{if(g&&location.hash!=="#globe")history.replaceState(null,"","#globe");if(!g&&location.hash==="#globe")history.replaceState(null,"",location.pathname+location.search);}catch(e){}
+  if(g){if(!G.meta){$("#gSnap").textContent="正在载入地理数据…";try{const [m,l]=await Promise.all([fetch("geo/meta.json").then(r=>r.json()),fetch("geo/land.json").then(r=>r.json())]);G.meta=m;G.land=topojson.feature(l,l.objects.land);}catch(e){$("#gSnap").textContent="地理数据没有载入成功，请刷新重试。";return;}}
+    gTheme();gResize();const y=S.slice!=null?S.slice:(S.sel&&S.sel.k==="event"?S.sel.ref.year:Math.round(yearAt(LW+(W-LW)/2)));setGYear(y);}
+  else{if(G.play){clearInterval(G.play);G.play=0;$("#gPlay").textContent="▶ 播放";}resize();}}
+function goGlobe(e){showTab("globe").then(()=>{setGYear(e.year);const g=G.meta.ev[e.id];if(g)rotateTo(g[1],g[0]);S.sel={k:"event",ref:e};gdraw();});}
+function goLane(e){showTab("lane").then(()=>{goTo(e.year,e.lane,e.level);openEvent(e);});}
+$("#tabLane").onclick=()=>showTab("lane");$("#tabGlobe").onclick=()=>showTab("globe");
+
+/* GLOBE-END */
+/* ---------- 启动 ---------- */
+function resize(){const r=stage.getBoundingClientRect();const keepY=W?yearAt(LW+(W-LW)/2):null;W=r.width;H=r.height;dpr=window.devicePixelRatio||1;LW=W<640?86:132;
+  cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);if(D){layout();if(keepY==null)fit(-3600,2030);else clampView();}draw();}
+new ResizeObserver(()=>{if(G.on)gResize();else resize();}).observe(stage);
+const mo=new MutationObserver(()=>{readTheme();gTheme();draw();});mo.observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>{readTheme();gTheme();draw();});
+setScale("hist");readTheme();
+fetch("world-data.json").then(r=>{if(!r.ok)throw new Error(r.status);return r.json();}).then(d=>{D=d;prep();buildToolbar();$("#loading").remove();
+  const r=stage.getBoundingClientRect();W=r.width;H=r.height;LW=W<640?86:132;layout();fit(-3600,2030);resize();
+  document.fonts?.ready.then(()=>{MC.clear();draw();});if(location.hash==="#globe")showTab("globe");})
+ .catch(err=>{$("#loading").textContent="史料没有载入成功（"+err.message+"），请刷新页面重试。";});
+})();
+</script>
+
+</body>
+</html>
+{% endraw %}

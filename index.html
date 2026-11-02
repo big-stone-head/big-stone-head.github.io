@@ -35,4 +35,7 @@ layout: default
     {%- assign ja_a = site.data.articles | where: 'lang', 'ja' | size -%}
     <div>日本語記事<span>全 {{ ja_n | plus: ja_a }} 本</span></div>
   </a>
+  <a class="w" href="{{ '/world-history/' | relative_url }}">
+    <div>世界历史泳道<span>前 3500 年至今，30 个文明并排看</span></div>
+  </a>
 </div>
