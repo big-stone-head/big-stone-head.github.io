@@ -51,7 +51,8 @@
   <article class="lead">
     <p class="kicker">
       <span class="kicker-latest">最新</span>
-      {%- if f[4] != blank %}<span class="t-{{ f[4] }}">{{ site.data.topics[f[4]][ulang] }}</span>{% endif -%}
+      {%- assign tk = f[4] -%}{%- assign tl = site.data.topics[tk][ulang] -%}
+          {%- if tk != blank %}<span class="t-{{ tk }}">{{ tl }}</span>{% endif -%}
     </p>
     <h2 class="lead-title"><a href="{{ f[2] | relative_url }}">{{ f[3] }}</a></h2>
     {%- if f[5] != blank %}
@@ -98,7 +99,8 @@
       <time class="entry-date" datetime="{{ f[0] }}">{{ f[0] | date: '%m.%d' }}</time>
       <div class="entry-body">
         <p class="kicker">
-          {%- if f[4] != blank %}<span class="t-{{ f[4] }}">{{ site.data.topics[f[4]][ulang] }}</span>{% endif -%}
+          {%- assign tk = f[4] -%}{%- assign tl = site.data.topics[tk][ulang] -%}
+          {%- if tk != blank %}<span class="t-{{ tk }}">{{ tl }}</span>{% endif -%}
           {%- if flang == '' %}<span class="kicker-lang">{% if f[1] == 'ja' %}日本語{% else %}中文{% endif %}</span>{% endif -%}
         </p>
         <h3 class="entry-title"><a href="{{ f[2] | relative_url }}">{{ f[3] }}</a></h3>
