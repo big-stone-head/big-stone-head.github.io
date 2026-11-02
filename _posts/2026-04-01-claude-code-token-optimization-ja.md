@@ -3,6 +3,7 @@ layout: post
 title: "Claude Code のトークンを賢く節約する完全ガイド：原理から実践まで16の視点"
 date: 2026-04-01
 lang: ja
+topic: ai
 lang_pair: "/2026/04/01/claude-code-token-optimization/"
 description: "なぜすぐに利用上限に達してしまうのか。Context Window の仕組みからプロンプトキャッシュ、Skills、Subagent の使い分けまで、Claude Code のトークン消費を体系的に抑える16のアプローチ。"
 ---

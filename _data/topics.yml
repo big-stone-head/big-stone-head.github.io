@@ -1,0 +1,11 @@
+# 文章栏目：列表里显示成标题上方的小标签，语言页可按栏目筛选
+# 每篇文章（_posts 的 front matter 或 _data/articles.yml）用 topic 字段指向这里的键
+ai:
+  zh: AI 落地
+  ja: AI 導入
+japan:
+  zh: 日本市场
+  ja: 日本市場
+org:
+  zh: 产品与组织
+  ja: プロダクトと組織

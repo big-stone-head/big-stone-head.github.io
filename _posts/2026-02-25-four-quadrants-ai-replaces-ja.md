@@ -3,6 +3,7 @@ layout: post
 title: "AIが「人間の知能」を再値付けし始めたとき ── 自分の立ち位置を見極める四象限フレームワーク"
 date: 2026-02-25
 lang: ja
+topic: ai
 lang_pair: "/2026/02/25/four-quadrants-ai-replaces/"
 description: "未来から届いた危機シミュレーションと、自分の立ち位置を見極めるための四象限フレームワーク。"
 ---

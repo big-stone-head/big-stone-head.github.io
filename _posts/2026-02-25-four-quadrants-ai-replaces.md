@@ -3,6 +3,7 @@ layout: post
 title: "当 AI 开始\"重新定价\"人类智能：一个四象限框架，帮你看清自己站在哪里"
 date: 2026-02-25
 lang: zh
+topic: ai
 lang_pair: "/2026/02/25/four-quadrants-ai-replaces-ja/"
 description: "一份来自未来的危机推演，和一个帮你判断「自己的工作到底值不值钱」的四象限框架。"
 ---

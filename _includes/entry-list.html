@@ -1,17 +1,24 @@
 {%- comment -%}
-  统一文章列表：把两个来源合并后按日期倒序，再按年份分组成卡片。
+  统一文章列表：把两个来源合并后按日期倒序，再按年份分组。
     来源 1 = _data/articles.yml（独立排版长文，HTML 原样发布在 /articles/ 下）
     来源 2 = _posts/*.md（走 Jekyll 主题的文章）
-  两者结构不同，无法直接 concat，故先编码成 "日期~|~语言~|~链接~|~标题~|~摘要" 字符串再排序。
-  参数：lang —— 传 'zh' / 'ja' 只列该语言；不传则全列（并显示语言标签）。
+  两者结构不同，无法直接 concat，故先编码成
+  "日期~|~语言~|~链接~|~标题~|~栏目~|~摘要" 字符串再排序。
+  参数：
+    lang   —— 传 'zh' / 'ja' 只列该语言；不传则全列（并显示语言标签）
+    limit  —— 只取最新的若干篇
+    lead   —— true 时把最新一篇拎出来做头条，其余照常按年份列
+    filter —— true 时在列表上方放栏目筛选条（读写 URL 的 #c=栏目键）
+  栏目名称取 _data/topics.yml，按所在页面的语言显示。
 {%- endcomment -%}
 
 {%- assign flang = include.lang | default: '' -%}
+{%- assign ulang = page.lang | default: 'zh' -%}
 {%- assign rows = '' | split: ',' -%}
 
 {%- for a in site.data.articles -%}
   {%- if flang == '' or flang == a.lang -%}
-    {%- capture row -%}{{ a.date }}~|~{{ a.lang }}~|~{{ a.url }}~|~{{ a.title }}~|~{{ a.summary }}{%- endcapture -%}
+    {%- capture row -%}{{ a.date }}~|~{{ a.lang }}~|~{{ a.url }}~|~{{ a.title }}~|~{{ a.topic }}~|~{{ a.summary }}{%- endcapture -%}
     {%- assign one = row | split: '~~NOSPLIT~~' -%}
     {%- assign rows = rows | concat: one -%}
   {%- endif -%}
@@ -19,7 +26,7 @@
 
 {%- for p in site.posts -%}
   {%- if flang == '' or flang == p.lang -%}
-    {%- capture row -%}{{ p.date | date: '%Y-%m-%d' }}~|~{{ p.lang }}~|~{{ p.url }}~|~{{ p.title }}~|~{{ p.description }}{%- endcapture -%}
+    {%- capture row -%}{{ p.date | date: '%Y-%m-%d' }}~|~{{ p.lang }}~|~{{ p.url }}~|~{{ p.title }}~|~{{ p.topic }}~|~{{ p.description }}{%- endcapture -%}
     {%- assign one = row | split: '~~NOSPLIT~~' -%}
     {%- assign rows = rows | concat: one -%}
   {%- endif -%}
@@ -28,6 +35,35 @@
 {%- assign rows = rows | sort | reverse -%}
 {%- assign lim = include.limit | default: 0 | plus: 0 -%}
 {%- if lim > 0 -%}{%- assign rows = rows | slice: 0, lim -%}{%- endif -%}
+
+{%- if include.filter -%}
+<div class="topic-filter" role="group" aria-label="{% if ulang == 'ja' %}カテゴリで絞り込む{% else %}按栏目筛选{% endif %}">
+  <button type="button" data-topic="" aria-pressed="true">{% if ulang == 'ja' %}すべて{% else %}全部{% endif %}</button>
+  {%- for t in site.data.topics %}
+  <button type="button" data-topic="{{ t[0] }}" aria-pressed="false"><i class="dot t-{{ t[0] }}"></i>{{ t[1][ulang] }}</button>
+  {%- endfor %}
+</div>
+{%- endif -%}
+
+{%- comment -%} 头条：最新一篇，大字衬线标题 {%- endcomment -%}
+{%- if include.lead and rows.size > 0 -%}
+  {%- assign f = rows[0] | split: '~|~' -%}
+  <article class="lead">
+    <p class="kicker">
+      <span class="kicker-latest">最新</span>
+      {%- if f[4] != blank %}<span class="t-{{ f[4] }}">{{ site.data.topics[f[4]][ulang] }}</span>{% endif -%}
+    </p>
+    <h2 class="lead-title"><a href="{{ f[2] | relative_url }}">{{ f[3] }}</a></h2>
+    {%- if f[5] != blank %}
+    <p class="lead-summary">{{ f[5] }}</p>
+    {%- endif %}
+    <p class="byline">
+      <time datetime="{{ f[0] }}">{{ f[0] | date: '%Y.%m.%d' }}</time>
+      {%- if flang == '' %}<span>{% if f[1] == 'ja' %}日本語{% else %}中文{% endif %}</span>{% endif %}
+    </p>
+  </article>
+  {%- assign rows = rows | slice: 1, 9999 -%}
+{%- endif -%}
 
 {%- comment -%} 先数出每年各有几篇，供分节标题显示 {%- endcomment -%}
 {%- assign years = '' | split: ',' -%}
@@ -47,39 +83,67 @@
     {%- if f[0] contains y -%}{%- assign n = n | plus: 1 -%}{%- endif -%}
   {%- endfor -%}
 
+<section class="year-group">
   <div class="section-head">
     <h2>{{ y }}</h2>
-    <span class="count">{{ n }} 篇</span>
+    <span class="count">{{ n }} {% if ulang == 'ja' %}本{% else %}篇{% endif %}</span>
   </div>
 
   <ul class="entry-list">
-  {%- assign i = 0 -%}
   {%- for row in rows -%}
     {%- assign f = row | split: '~|~' -%}
     {%- assign ry = f[0] | slice: 0, 4 -%}
-    {%- if ry == y -%}
-    {%- assign palette = i | modulo: 4 -%}
-    <li class="entry p{{ palette }}">
-      <div class="entry-aside">
-        <div class="entry-date" aria-hidden="true">
-          <span class="d-day">{{ f[0] | date: '%d' }}</span>
-          <span class="d-mon">{{ f[0] | date: '%b' }}</span>
-        </div>
-        {%- if flang == '' %}
-        <span class="tag">{% if f[1] == 'ja' %}日本語{% else %}中文{% endif %}</span>
+    {%- if ry == y %}
+    <li class="entry" data-topic="{{ f[4] }}">
+      <time class="entry-date" datetime="{{ f[0] }}">{{ f[0] | date: '%m.%d' }}</time>
+      <div class="entry-body">
+        <p class="kicker">
+          {%- if f[4] != blank %}<span class="t-{{ f[4] }}">{{ site.data.topics[f[4]][ulang] }}</span>{% endif -%}
+          {%- if flang == '' %}<span class="kicker-lang">{% if f[1] == 'ja' %}日本語{% else %}中文{% endif %}</span>{% endif -%}
+        </p>
+        <h3 class="entry-title"><a href="{{ f[2] | relative_url }}">{{ f[3] }}</a></h3>
+        {%- if f[5] != blank %}
+        <p class="entry-summary">{{ f[5] }}</p>
         {%- endif %}
       </div>
-      <h3 class="entry-title">
-        <a href="{{ f[2] | relative_url }}">
-          <span class="sr-date">{{ f[0] }}</span>{{ f[3] }}
-        </a>
-      </h3>
-      {%- if f[4] != blank %}
-      <p class="entry-summary">{{ f[4] }}</p>
-      {%- endif %}
     </li>
-    {%- assign i = i | plus: 1 -%}
     {%- endif -%}
-  {%- endfor -%}
+  {%- endfor %}
   </ul>
+</section>
 {%- endfor -%}
+
+{%- if include.filter %}
+<script>
+  (function () {
+    var buttons = document.querySelectorAll('.topic-filter button');
+    var entries = document.querySelectorAll('.entry[data-topic]');
+    var groups = document.querySelectorAll('.year-group');
+    function apply(topic) {
+      buttons.forEach(function (b) {
+        b.setAttribute('aria-pressed', b.dataset.topic === topic ? 'true' : 'false');
+      });
+      entries.forEach(function (e) {
+        e.hidden = topic !== '' && e.dataset.topic !== topic;
+      });
+      // 一整年都被筛掉时，连年份标题一起藏起来
+      groups.forEach(function (g) {
+        g.hidden = !g.querySelector('.entry:not([hidden])');
+      });
+    }
+    function fromHash() {
+      var m = location.hash.match(/^#c=([\w-]+)$/);
+      return m ? m[1] : '';
+    }
+    buttons.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var t = b.dataset.topic;
+        history.replaceState(null, '', t ? '#c=' + t : location.pathname);
+        apply(t);
+      });
+    });
+    window.addEventListener('hashchange', function () { apply(fromHash()); });
+    apply(fromHash());
+  })();
+</script>
+{%- endif %}

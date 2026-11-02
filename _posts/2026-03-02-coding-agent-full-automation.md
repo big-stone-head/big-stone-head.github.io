@@ -3,6 +3,7 @@ layout: post
 title: "从 Vibe Coding 到左右互搏：一个人用 Coding Agent 自动化研发、调研、写作的全过程（附完整 Skills 源码）"
 date: 2026-03-02
 lang: zh
+topic: ai
 lang_pair: "/2026/03/02/coding-agent-full-automation-ja/"
 description: "不讲感悟，讲我怎么一步步走到「边看电影边让 AI 自动跑研发」这个状态。文末附完整 Skills 源码。"
 ---

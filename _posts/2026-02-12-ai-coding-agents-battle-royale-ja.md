@@ -3,6 +3,7 @@ layout: post
 title: "3つのAIコーディングアシスタントに「合同診察」させたら、それぞれの\"人格\"が見えてきた"
 date: 2026-02-12
 lang: ja
+topic: ai
 lang_pair: "/2026/02/12/ai-coding-agents-battle-royale/"
 description: "Tokenが尽きたのをきっかけに、3つのAIコーディングアシスタントに互いのコードを診てもらった記録。"
 ---

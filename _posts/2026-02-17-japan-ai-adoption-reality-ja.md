@@ -3,6 +3,7 @@ layout: post
 title: "日本のAI導入、いま本当はどこまで進んでいるのか？——データで見る現在地と、これから起きること"
 date: 2026-02-17
 lang: ja
+topic: japan
 lang_pair: "/2026/02/17/japan-ai-adoption-reality/"
 description: "ChatGPT登場から3年。日本企業のAI導入は実際どこまで進んだのか、データで現在地とこれからを読む。"
 ---

@@ -3,6 +3,7 @@ layout: post
 title: "AI協働時代の「急がば回れ」：ツールが強力になるほど、思考が重要になる理由"
 date: 2026-02-09
 lang: ja
+topic: ai
 lang_pair: "/2026/02/09/slow-is-fast-in-ai-era/"
 description: "3分でスピーチ原稿、5つのAgentで1週間分の開発量。それでもAI協働の本質は「速さ」ではない。"
 ---
