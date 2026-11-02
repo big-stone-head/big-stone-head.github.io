@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
   <link rel="alternate" type="application/atom+xml" href="{{ '/feed.xml' | relative_url }}" title="{{ site.title }}">
-  {% seo %}
+  {% seo title=false %}
   {%- if page.root_redirect %}
   <script>
     // 根域名按语言跳转：读者在导航里手动选过的语言优先，其次看浏览器语言，都不是中日文就去中文
